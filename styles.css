@@ -25,6 +25,32 @@ body {
   flex: 1 1 auto;
 }
 
+.main {
+  height: 100%;
+  width: 35%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  align-self: center;
+}
+
+.input-div {
+  width: 100%;
+  height: 30px;
+  border: 1px solid #1a2930;
+  border-radius: 2px;
+}
+
+.buttons {
+}
+
+.enter-btn {
+}
+
+.skip-btn {
+}
+
 h1 {
   margin: 0px;
 }
