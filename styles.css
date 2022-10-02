@@ -1,0 +1,34 @@
+html,
+body {
+  font-family: "Ubuntu", sans-serif;
+  margin: 0px;
+  padding: 0px;
+  background-color: whitesmoke;
+  height: 100%;
+}
+
+.section {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+
+.header {
+  text-align: center;
+  background-color: #1a2930;
+  color: white;
+  padding: 35px 40px;
+  flex: 0 1 auto;
+}
+
+.main {
+  flex: 1 1 auto;
+}
+
+h1 {
+  margin: 0px;
+}
+
+.copy-right {
+  flex: 0 1 30px;
+}
