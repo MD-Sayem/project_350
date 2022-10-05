@@ -41,7 +41,7 @@ body {
   border: 2px solid #1a2930;
   border-radius: 2px;
   padding: 8px 20px;
-  color: black;
+  color: #1a2930;
   font-weight: 600;
   font-size: large;
 }
@@ -123,7 +123,7 @@ input {
   height: 3rem;
   font-size: 1rem;
   background: rgba(0, 0, 0, 0.05);
-  color: gray;
+  color: #1a2930;
   margin-bottom: 10px;
 }
 
@@ -163,4 +163,84 @@ input {
   font-weight: 600;
   /* color: #30415d; */
   font-size: 17px;
+}
+
+/* Admin Panel Css for table */
+
+#customers {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td,
+#customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#customers tr:hover {
+  background-color: #ddd;
+}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #8eaebd;
+  color: white;
+}
+
+.admin-main {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-self: center;
+  margin-top: 56px;
+  width: 80%;
+}
+
+.admin-query-input {
+  display: flex;
+  justify-content: center;
+}
+
+.num-one,
+.num-two {
+  width: 10%;
+  height: 30px;
+  margin: 10px;
+  font-weight: 600;
+  padding: 8px 12px;
+}
+
+.admin-query {
+  margin-bottom: 54px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.enter-btn {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.enter-btn-button {
+  background-color: #a1c23e;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 24px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 12px;
+}
+
+table {
+  margin-bottom: 32px;
 }
