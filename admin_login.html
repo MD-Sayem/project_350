@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Log in</title>
+    <style media="screen">
+      .notification {
+        position: absolute;
+        bottom: 1rem;
+        right: 1rem;
+      }
+
+      .fill {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+      }
+
+      #my-bg-img {
+        flex-shrink: 0;
+        min-width: 100%;
+        min-height: 100%;
+      }
+
+      #fill_a_svg {
+        position: absolute;
+        display: block;
+        margin: auto;
+        justify-content: center;
+        align-items: center;
+      }
+
+      #main {
+        background-color: #f4f5f5;
+      }
+    </style>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <!-- <div class="col-2 px-1 position-fixed" style="background-color: #cccccc;" id="sticky-sidebar"> -->
+        <!-- <div class="nav flex-column flex-nowrap vh-100 overflow-auto text-white p-2"> -->
+        <div
+          id="sidebar"
+          class="col-8 fill"
+          style="
+            top: 0px;
+            bottom: 0px;
+            position: fixed;
+            background-image: url(./images/background2.jpg);
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            width: 2500px;
+          "
+        >
+          <!-- <div id="sidebar" class="col-8 fill" style="top: 0px; bottom: 0px; position: fixed;"> -->
+          <!-- imahe -->
+          <!-- <a href="{% url 'homepage' %}" class="stretched-link"></a>
+            <img id="fill_a_svg" src="{% static 'logo.svg' %}" height="10%" alt="" /> -->
+
+          <!-- <img id="my-bg-img" src="eheetetpse://via.placeholder.com/1920x1080.png" alt=""> -->
+        </div>
+        <!-- </div> -->
+        <!-- </div> -->
+
+        <div class="col-4 offset-8" id="main">
+          <div class="container-fluid my-4" style="height: 840px">
+            <h3>Manager Log In</h3>
+            <hr style="height: 1px; background-color: black" />
+            <!-- form -->
+            <form
+              id="signupform"
+              action="#"
+              method="post"
+              enctype="multipart/form-data"
+            >
+              <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="username"
+                  name="username"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label for="password1" class="form-label">Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="password1"
+                  name="password1"
+                />
+              </div>
+            </form>
+            <a href="admin_panel.html">
+              <button class="btn btn-primary" style="margin-top: 15px">
+                Log In
+              </button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="" async defer></script>
+  </body>
+</html>
