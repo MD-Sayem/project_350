@@ -19,15 +19,17 @@
       </div>
       <!-- log in section -->
       <div class="log-in">
-      <form class="" action="/login" method="post">
-        <h3 class="log-in-brief">Please log in to proceed</h3>
+      <form class="" action="/register" method="post">
+        <h3 class="log-in-brief">Create a new account</h3>
         <div class="log-in-box">
-          <h3>Log In</h3>
+          <p>Email</p>
+          <input name="email"type="text" placeholder="Enter email" autofocus required>
+          <!-- required -->
           <p>Username</p>
-          <input name="username" type="text" placeholder="Enter username" autofocus required>
+          <input name="username" type="text" placeholder="Enter username" required>
           <!-- required -->
           <p>Password</p>
-          <input name="password" type="password" placeholder="Enter password" />
+          <input name="password" type="password" placeholder="Enter password" required/>
           <div class="log-in-submit">
             <!-- <button
               onclick="location.href='dataEntryScreen.html';"
@@ -36,12 +38,12 @@
               Log In
             </button> -->
             <button type="submit" class="submit-btn">
-                  Log In
+                  Sign UP
             </button>
 
           </div>
             <p style="text-align:center; margin-bottom: 0px;">
-              Don't have an account?<a href="/register">Sign Up</a>
+              Don't forget the password!
             </p>
 
 
