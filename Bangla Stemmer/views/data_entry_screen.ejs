@@ -18,14 +18,16 @@
         <form class="" action="/logout" method="post">
           <button class="admin-btn" type="submit">Log out</button>
         </form>
+  </div>
 
-      </div>
+
       <div class="main">
+      <form class="" action="/done" method="post">
         <div class="data-entry-brief">
           <p>Please seperate the root using the text cursor ("|")</p>
         </div>
-        <input class="input-div" type="text"  value="আকাশের"/>
-
+        <input class="input-div" type="text"  value=""/>
+                      <%-wd.word%>
         <div class="buttons">
           <button class="submit-btn-2" title="Enter">Submit</button>
           <button class="skip-btn" title="Spacebar">Skip</button>
@@ -33,7 +35,10 @@
             No Inflection
           </button>
         </div>
+      </form>
       </div>
+
+
       <div class="copy-right">
         <p class="copy-right-p">COPYRIGHT © SUST CSE &nbsp2018-19</p>
       </div>

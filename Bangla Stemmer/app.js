@@ -79,13 +79,19 @@ app.post('/done',function(req,res){
     root = req.body.rootWord;
     inflect=word.replace(root,'');
     inflect=word.replace('ে','এ');
-    //const filter={Number : req.user.workingWith}
-    // const update{
-    //   rootWord :root,
-    //   inflection : inflect,
-    //   lock : 0,
-    //   status: 1,
-    // };
+
+    const update={
+      rootWord :root,
+      inflection : inflect,
+      lock : 0,
+      status: 1,
+    };
+    Data.findOneAndUpdate(filter, {$set:update}, {new: true}, (err, doc) => {
+      if (err) {
+          console.log("Something wrong when updating data!");
+      }
+          console.log(doc);
+      });
     //Data.findOneAndUpdate(filter, update, {new: true});
     //upadate the data on database
     // req.user.completed ++
@@ -100,12 +106,23 @@ app.get('/home',function(req,res){
   // find one from the database where status==0 and lock==0
   // set lock=1;
   if(req.isAuthenticated()){
-    res.render('data_entry_screen');}
-  //   dataTable.findOne({lock:0, status:0}, function(err, foundWord){
-  //       foundWord.lock=1;
-  //       res.render("data_entry_screen" , {wd:foundWord});
-  //     });
-  // }
+
+    let sobdo=new Data();
+    let filter={lock:0, status:0};
+      let update={lock:1}
+
+
+
+      Data.findOneAndUpdate(filter, {$set:update}, {new: true}, (err, doc) => {
+        if (err) {
+            console.log("Something wrong when updating data!");
+        }
+            req.user.workingWith=doc.serialNumber;
+            console.log(doc);
+            res.render("data_entry_screen" , {wd:doc});
+        });
+
+  }
   else{
     res.redirect('/')
   }
@@ -174,18 +191,18 @@ app.get('/my-profile',function(req,res){
   }
 });
 // reading the file
-for(let i=0; i<500000; i++){
+let book=["পূর্ণিমার","চাঁদের","দিকে","তাকালে","মনে","হয়","যেন","দুনিয়াটা","কতইনা","সুন্দর"];
+for(let i=0; i<10; i++){
   // notunSobdo = read one string form the file
-  // const data=new dataTable({
-  //   serialNumber : i+1,
-  //   word : notunSobdo
-  // });
-//  data.save();
+  let notunSobdo=book[i];
+   const data=new Data({
+    serialNumber : i+1,
+    word : notunSobdo
+  });
+  data.save();
 }
 
 app.listen(3000,function(err){
   console.log('Alhamdulillah Server Started on the port 3000');
-  // let a="অর্থে"
-  // let b=a.replace('অর্থ','')
-  // console.log(b.replace('ে','এ'));
+  console.log(new Date());
 });
