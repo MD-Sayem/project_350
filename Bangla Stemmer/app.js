@@ -106,9 +106,9 @@ app.get('/home',function(req,res){
   //       res.render("data_entry_screen" , {wd:foundWord});
   //     });
   // }
-  // else{
-  //   res.redirect('/')
-  // }
+  else{
+    res.redirect('/')
+  }
 
 });
 
@@ -155,12 +155,23 @@ app.post("/register", function(req, res){
   });
 
 });
-app.get('/logout',function(req,res){
-  //req.logout();
-  res.redirect('/');
+// app.get('/logout',function(req,res){
+//   req.logout();
+//   res.redirect('/');
+// });
+app.post('/logout', function(req, res, next) {
+  req.logout(function(err) {
+    if (err) { return next(err); }
+    res.redirect('/');
+  });
 });
 app.get('/my-profile',function(req,res){
-  res.render('profile');
+  if(req.isAuthenticated()){
+    res.render('profile',{myself:req.user});
+  }
+  else {
+    res.render('/');
+  }
 });
 // reading the file
 for(let i=0; i<500000; i++){

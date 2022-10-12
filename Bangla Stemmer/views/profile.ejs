@@ -15,17 +15,19 @@
       <div class="header headerTwo">
         <h1 class="index-head">Welcome to Bangla Stemmer</h1>
         <a href="/my-profile"><i class="fa-light fa-user"></i></a>
-        <button class="admin-btn" onclick="location.href='/logout' ;">Log out</button>
+        <form class="" action="/logout" method="post">
+          <button class="admin-btn" type="submit">Log out</button>
+        </form>
       </div>
       <div class="main">
 					<div class="">
-						<h3>Username : MD Abu Sayem</h3>
+						<h3>Username : <%=myself.username%></h3>
 					</div>
 					<div class="">
-						<h3>Email : mdsayemislam56@gmail.com</h3>
+						<h3>Email : <%=myself.email%></h3>
 					</div>
 					<div class="">
-						<h3>Total Completed : 234</h3>
+						<h3>Total Completed : <%=myself.completed%></h3>
 					</div>
       </div>
       <div class="copy-right">
