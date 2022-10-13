@@ -61,41 +61,77 @@ const dataSchema = new mongoose.Schema ({
   word: String,
   rootWord: String,
   inflection: String,
-  Status:{ type: Number, default: 0 } ,
+  status:{ type: Number, default: 0 } ,
   lock: { type: Number, default: 0 },
-  username: String
+  username: String,
+  time: Date
   //,time:timestamp
 });
 
 const Data = new mongoose.model("Data", dataSchema);
+
+let lastTenSchema =new mongoose.Schema({
+  serialNumber:Number,
+  word: String,
+  rootWord: String,
+  inflection: String,
+  usernam: String,
+  time: Date
+});
+const Last = new mongoose.model("Last", lastTenSchema);
 app.post('/done',function(req,res){
-  const filter={Number : req.user.workingWith}
+  const filter={serialNumber : req.body.num}
 
-  if(req.body.flag==0){
-    const update ={lock:0}
-    //dataTable.findOneAndUpdate(filter, update, {new: true});
-  }
-  else{
-    root = req.body.rootWord;
-    inflect=word.replace(root,'');
-    inflect=word.replace('ে','এ');
-
+  // if(req.body.flag==0){
+  //   const update ={lock:0}
+  //   //dataTable.findOneAndUpdate(filter, update, {new: true});
+  // }
+  // else{
+    let word=req.body.sobdo;
+    console.log('the word is '+word)
+    let root = req.body.rt;
+    let inflect=word.replace(root,'');
+    // console.log(req.body.rt);
+    // inflect=inflect.replace('ে','এ');
+    let sesDos;
+    let d=new Date();
     const update={
       rootWord :root,
       inflection : inflect,
       lock : 0,
       status: 1,
+      time: d
     };
     Data.findOneAndUpdate(filter, {$set:update}, {new: true}, (err, doc) => {
       if (err) {
           console.log("Something wrong when updating data!");
       }
-          console.log(doc);
+        sesDos=new Last({
+          serialNumber:doc.serialNumber,
+          word: doc.word,
+          rootWord:root,
+          inflection: doc.inflection,
+          usernam: req.user.username,
+          time: d
+        })
+        sesDos.save();
+          // console.log(doc.username);
+          // console.log(req.user.username);
       });
     //Data.findOneAndUpdate(filter, update, {new: true});
     //upadate the data on database
     // req.user.completed ++
-  }
+//  }
+        Last.count({}, function( err, count){
+        console.log( "Number of last:", count );
+        if(count>3){
+          //delete the first
+          Last.findOneAndDelete({status:1}, function (err, docs) {});
+
+        }
+
+      });
+      // console.log('total data in last is'+number);
 
   res.redirect('/home')
 });
@@ -118,7 +154,8 @@ app.get('/home',function(req,res){
             console.log("Something wrong when updating data!");
         }
             req.user.workingWith=doc.serialNumber;
-            console.log(doc);
+          //  console.log('')
+          //do  console.log(doc);
             res.render("data_entry_screen" , {wd:doc});
         });
 
@@ -199,7 +236,7 @@ for(let i=0; i<10; i++){
     serialNumber : i+1,
     word : notunSobdo
   });
-  data.save();
+  data.save(); 
 }
 
 app.listen(3000,function(err){

@@ -26,8 +26,9 @@
         <div class="data-entry-brief">
           <p>Please seperate the root using the text cursor ("|")</p>
         </div>
-        <input class="input-div" type="text"  value=""/>
-                      <%-wd.word%>
+        <input class="input-div" type="text" name='rt' value=<%-wd.word%>>
+        <input type="hidden" name="num" value=<%-wd.serialNumber%>>
+        <input type="hidden" name="sobdo" value=<%-wd.word%>>
         <div class="buttons">
           <button class="submit-btn-2" title="Enter">Submit</button>
           <button class="skip-btn" title="Spacebar">Skip</button>
