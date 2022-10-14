@@ -12,38 +12,46 @@
     <div class="section">
       <div class="header headerTwo">
         <h1 class="index-head">Admin Panel</h1>
-        <button onclick="location.href='/logout' ;" class="admin-btn">
-          Log out
-        </button>
+        <form class="" action="/logout" method="post">
+          <button type="submit" class="admin-btn">
+            Log out
+          </button>
+        </form>
+
       </div>
       <div class="admin-main">
         <div class="admin-query">
-          <p style="text-align: center">
-            Please enter the serial of the words you would like to see :
-          </p>
-          <div class="admin-query-input">
-            <input class="num-one" type="number" />
-            <p>-</p>
-            <input class="num-two" type="number" />
-          </div>
-          <div class="enter-btn">
-            <button class="enter-btn-button">Enter</button>
-          </div>
+          <form class="" action="/admin" method="post">
+            <p style="text-align: center">
+              Please enter the serial of the words you would like to see :
+            </p>
+            <div class="admin-query-input">
+              <input name="lowerLimit" class="num-one" type="number" />
+              <p>-</p>
+              <input name="upperLimit" class="num-two" type="number" />
+            </div>
+            <div class="enter-btn">
+              <button class="enter-btn-button">Enter</button>
+            </div>
+          </form>
         </div>
         <h4 style="margin-top: 0px; text-align: center">
-          Here are the last 10 stemmed words:
+          Here are the last stemmed words:
         </h4>
 
         <table id="customers">
+
+
           <tr>
             <th>Serial No.</th>
             <th>Given Word</th>
             <th>Root Word</th>
             <th>Inflection</th>
             <th>Username</th>
-            <th>TimeStamp</th>
+            <th>Time</th>
             <th>Date</th>
           </tr>
+          <!-- example
           <tr>
             <td>1</td>
             <td>বাংলাদেশের</td>
@@ -52,216 +60,21 @@
             <td>mahir_05</td>
             <td>22:25</td>
             <td>05-10-2022</td>
-          </tr>
-          <!-- example -->
-          <tr>
-            <td>1</td>
-            <td>বাংলাদেশের</td>
-            <td>বাংলাদেশে</td>
-            <td>র</td>
-            <td>mahir_05</td>
-            <td>22:25</td>
-            <td>05-10-2022</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>বাংলাদেশের</td>
-            <td>বাংলাদেশে</td>
-            <td>র</td>
-            <td>mahir_05</td>
-            <td>22:25</td>
-            <td>05-10-2022</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>বাংলাদেশের</td>
-            <td>বাংলাদেশে</td>
-            <td>র</td>
-            <td>mahir_05</td>
-            <td>22:25</td>
-            <td>05-10-2022</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>বাংলাদেশের</td>
-            <td>বাংলাদেশে</td>
-            <td>র</td>
-            <td>mahir_05</td>
-            <td>22:25</td>
-            <td>05-10-2022</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>বাংলাদেশের</td>
-            <td>বাংলাদেশে</td>
-            <td>র</td>
-            <td>mahir_05</td>
-            <td>22:25</td>
-            <td>05-10-2022</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>বাংলাদেশের</td>
-            <td>বাংলাদেশে</td>
-            <td>র</td>
-            <td>mahir_05</td>
-            <td>22:25</td>
-            <td>05-10-2022</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>বাংলাদেশের</td>
-            <td>বাংলাদেশে</td>
-            <td>র</td>
-            <td>mahir_05</td>
-            <td>22:25</td>
-            <td>05-10-2022</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>বাংলাদেশের</td>
-            <td>বাংলাদেশে</td>
-            <td>র</td>
-            <td>mahir_05</td>
-            <td>22:25</td>
-            <td>05-10-2022</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>বাংলাদেশের</td>
-            <td>বাংলাদেশে</td>
-            <td>র</td>
-            <td>mahir_05</td>
-            <td>22:25</td>
-            <td>05-10-2022</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>বাংলাদেশের</td>
-            <td>বাংলাদেশে</td>
-            <td>র</td>
-            <td>mahir_05</td>
-            <td>22:25</td>
-            <td>05-10-2022</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>বাংলাদেশের</td>
-            <td>বাংলাদেশে</td>
-            <td>র</td>
-            <td>mahir_05</td>
-            <td>22:25</td>
-            <td>05-10-2022</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>বাংলাদেশের</td>
-            <td>বাংলাদেশে</td>
-            <td>র</td>
-            <td>mahir_05</td>
-            <td>22:25</td>
-            <td>05-10-2022</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>বাংলাদেশের</td>
-            <td>বাংলাদেশে</td>
-            <td>র</td>
-            <td>mahir_05</td>
-            <td>22:25</td>
-            <td>05-10-2022</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>বাংলাদেশের</td>
-            <td>বাংলাদেশে</td>
-            <td>র</td>
-            <td>mahir_05</td>
-            <td>22:25</td>
-            <td>05-10-2022</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>বাংলাদেশের</td>
-            <td>বাংলাদেশে</td>
-            <td>র</td>
-            <td>mahir_05</td>
-            <td>22:25</td>
-            <td>05-10-2022</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>বাংলাদেশের</td>
-            <td>বাংলাদেশে</td>
-            <td>র</td>
-            <td>mahir_05</td>
-            <td>22:25</td>
-            <td>05-10-2022</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>বাংলাদেশের</td>
-            <td>বাংলাদেশে</td>
-            <td>র</td>
-            <td>mahir_05</td>
-            <td>22:25</td>
-            <td>05-10-2022</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>বাংলাদেশের</td>
-            <td>বাংলাদেশে</td>
-            <td>র</td>
-            <td>mahir_05</td>
-            <td>22:25</td>
-            <td>05-10-2022</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>বাংলাদেশের</td>
-            <td>বাংলাদেশে</td>
-            <td>র</td>
-            <td>mahir_05</td>
-            <td>22:25</td>
-            <td>05-10-2022</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>বাংলাদেশের</td>
-            <td>বাংলাদেশে</td>
-            <td>র</td>
-            <td>mahir_05</td>
-            <td>22:25</td>
-            <td>05-10-2022</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>বাংলাদেশের</td>
-            <td>বাংলাদেশে</td>
-            <td>র</td>
-            <td>mahir_05</td>
-            <td>22:25</td>
-            <td>05-10-2022</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>বাংলাদেশের</td>
-            <td>বাংলাদেশে</td>
-            <td>র</td>
-            <td>mahir_05</td>
-            <td>22:25</td>
-            <td>05-10-2022</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>বাংলাদেশের</td>
-            <td>বাংলাদেশে</td>
-            <td>র</td>
-            <td>mahir_05</td>
-            <td>22:25</td>
-            <td>05-10-2022</td>
-          </tr>
-          <!-- example -->
+          </tr> -->
+          <%let i=0%>
+          <% sobdo.reverse().forEach(function(item){ %>
+          <% let tm=parseInt(item.time.getHours())+" : "+parseInt(item.time.getMinutes())%>
+          <% let date=item.time.getDate() + "-" + (parseInt( item.time.getMonth() )+parseInt('1'))+ "-" +item.time.getFullYear()%>
+            <tr>
+                <td><%=item.serialNumber%></td>
+                <td><%=item.word%></td>
+                <td><%=item.rootWord%></td>
+                <td><%=item.inflection%></td>
+                <td><%=item.usernam%></td>
+                <td><%=tm%></td>
+                <td><%=date%></td>
+            </tr>
+          <%});%>
         </table>
       </div>
       <div class="copy-right">

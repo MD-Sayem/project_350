@@ -35,7 +35,8 @@ const userSchema = new mongoose.Schema ({
   password: String,
   username: String,
   completed: { type: Number, default: 0 },
-  workingWith: Number
+  workingWith: Number,
+  whatType: {type: String, default:"user"}
 });
 
 userSchema.plugin(passportLocalMongoose);
@@ -63,7 +64,7 @@ const dataSchema = new mongoose.Schema ({
   inflection: String,
   status:{ type: Number, default: 0 } ,
   lock: { type: Number, default: 0 },
-  username: String,
+  usernam: String,
   time: Date
   //,time:timestamp
 });
@@ -80,60 +81,80 @@ let lastTenSchema =new mongoose.Schema({
 });
 const Last = new mongoose.model("Last", lastTenSchema);
 app.post('/done',function(req,res){
-  const filter={serialNumber : req.body.num}
+  if(req.isAuthenticated()){
+    const filter={serialNumber : req.body.num}
 
-  // if(req.body.flag==0){
-  //   const update ={lock:0}
-  //   //dataTable.findOneAndUpdate(filter, update, {new: true});
-  // }
-  // else{
-    let word=req.body.sobdo;
-    console.log('the word is '+word)
-    let root = req.body.rt;
-    let inflect=word.replace(root,'');
-    // console.log(req.body.rt);
-    // inflect=inflect.replace('ে','এ');
-    let sesDos;
-    let d=new Date();
-    const update={
-      rootWord :root,
-      inflection : inflect,
-      lock : 0,
-      status: 1,
-      time: d
-    };
-    Data.findOneAndUpdate(filter, {$set:update}, {new: true}, (err, doc) => {
-      if (err) {
-          console.log("Something wrong when updating data!");
-      }
-        sesDos=new Last({
-          serialNumber:doc.serialNumber,
-          word: doc.word,
-          rootWord:root,
-          inflection: doc.inflection,
+    if(req.body.whatToDo=="skip"){
+      const update ={lock:0}
+      Data.findOneAndUpdate(filter, update, {new: true});
+
+    }
+    else {
+      let word=req.body.sobdo;
+      let root = req.body.rt;
+      let inflect=word.replace(root,'');
+      let sesDos;
+      let d=new Date();
+      let update={};
+      if(req.body.whatToDo=='complete'){
+          update={
+          rootWord :root,
+          inflection : inflect,
+          lock : 0,
+          status: 1,
           usernam: req.user.username,
           time: d
-        })
-        sesDos.save();
-          // console.log(doc.username);
-          // console.log(req.user.username);
-      });
-    //Data.findOneAndUpdate(filter, update, {new: true});
-    //upadate the data on database
-    // req.user.completed ++
-//  }
-        Last.count({}, function( err, count){
-        console.log( "Number of last:", count );
-        if(count>3){
-          //delete the first
-          Last.findOneAndDelete({status:1}, function (err, docs) {});
+        };
+      }
+      else{     //no inflection
+          console.log('the word is '+word)
+          update={
+          rootWord :word,
+          inflection : "",
+          lock : 0,
+          status: 1,
+          usernam: req.user.username,
+          time: d
+        };
 
+      }
+
+      Data.findOneAndUpdate(filter, {$set:update}, {new: true}, (err, doc) => {
+        if (err) {
+            console.log("Something wrong when updating data!");
         }
+          sesDos=new Last({
+            serialNumber:doc.serialNumber,
+            word: doc.word,
+            rootWord:root,
+            inflection: doc.inflection,
+            usernam: req.user.username,
+            time: d
+          })
+          sesDos.save();
+        });
+        let nowCompleted=req.user.completed+1;
+        User.findOneAndUpdate({username:req.user.username}, {$set:{completed:nowCompleted}}, {new: true}, (err, doc) => {});
+        //req.user.completed ++
+        console.log(req.user.completed+1);
 
-      });
-      // console.log('total data in last is'+number);
+    }
+          Last.count({}, function( err, count){
+          console.log( "Number of last:", count );
+          if(count>3){
+            //delete the first
+            Last.findOneAndDelete({status:1}, function (err, docs) {});
 
-  res.redirect('/home')
+          }
+
+        });
+        // console.log('total data in last is'+number);
+
+    res.redirect('/home')
+  }
+  else{
+    res.redirect('/')
+  }
 });
 app.get('/',function(req,res){
   res.render('index');
@@ -153,10 +174,19 @@ app.get('/home',function(req,res){
         if (err) {
             console.log("Something wrong when updating data!");
         }
-            req.user.workingWith=doc.serialNumber;
-          //  console.log('')
-          //do  console.log(doc);
-            res.render("data_entry_screen" , {wd:doc});
+        if(doc!=null){
+          req.user.workingWith=doc.serialNumber;
+          res.render("data_entry_screen" , {wd:doc});
+        }
+        else{
+          let dc=new Data({
+            serialNumber:0,
+            word:"ডেটা_শেষ_হয়ে_গেছে !"
+          });
+          dc.save();
+          res.render("data_entry_screen" , {wd:dc});
+        }
+
         });
 
   }
@@ -179,17 +209,59 @@ app.post("/login", function(req, res){
       console.log(err);
     } else {
       passport.authenticate("local")(req, res, function(){
-        res.redirect("/home");
+        if(user.username=='admin_101'||user.whatType=='admin'){
+          res.redirect('/admin');
+        }
+        else{
+              res.redirect("/home");
+        }
       });
     }
   });
 
 });
 app.get('/admin-login',function(req,res){
-  res.render('admin_login')
+  res.render('admin_login');
 });
-app.post('/admin-login',function(req,res){
-  res.render('admin')
+app.get('/admin',function(req,res){
+  if(req.isAuthenticated()&&(req.user.username=='admin_101'||req.user.whatType=='admin')){
+    Last.find({},function(err,found){
+      if(err){
+        console.log(err);
+      }
+      res.render('admin',{sobdo:found});
+    });
+  }
+  else{
+    res.redirect('/admin-login');
+  }
+
+});
+app.post('/admin',function(req,res){
+  let lo=req.body.lowerLimit;
+  let hi=req.body.upperLimit;
+  let lmt=hi-lo;
+    //   Data.find({
+    //
+    // },
+    // ['serialNumber','word','rootWord','inflection','usernam','time'], // Columns to Return
+    //
+    // {
+    //     skip:lo, // Starting Row
+    //     limit:lmt, // Ending Row
+    //     sort:{
+    //         serialNumber: 1 //Sort by Date Added
+    //     }
+    // },
+    // function(err,found){
+    // //    socket.emit('news-load', allNews); // Do something with the array of 10 objects
+    // res.render('admin',{sobdo:found});
+    // })
+    Data.find({status:1,serialNumber: { $gte: lo, $lte: hi }},function(err,results){
+      res.render('admin',{sobdo:results});
+    }).sort({ serialNumber: -1 });
+  console.log('low : '+lo+' high : '+hi);
+
 });
 app.get('/register',function(req,res){
   res.render('register');
@@ -209,10 +281,7 @@ app.post("/register", function(req, res){
   });
 
 });
-// app.get('/logout',function(req,res){
-//   req.logout();
-//   res.redirect('/');
-// });
+
 app.post('/logout', function(req, res, next) {
   req.logout(function(err) {
     if (err) { return next(err); }
@@ -236,10 +305,15 @@ for(let i=0; i<10; i++){
     serialNumber : i+1,
     word : notunSobdo
   });
-  data.save(); 
+  // data.save();
 }
 
 app.listen(3000,function(err){
   console.log('Alhamdulillah Server Started on the port 3000');
   console.log(new Date());
+  // let x=1;
+  // if(true){
+  //    x=2;
+  // }
+  // console.log(x);
 });

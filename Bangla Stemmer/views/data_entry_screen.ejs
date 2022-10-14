@@ -24,15 +24,16 @@
       <div class="main">
       <form class="" action="/done" method="post">
         <div class="data-entry-brief">
-          <p>Please seperate the root using the text cursor ("|")</p>
+          <p>Keep pressing the backspace until there remains only the root</p>
         </div>
-        <input class="input-div" type="text" name='rt' value=<%-wd.word%>>
-        <input type="hidden" name="num" value=<%-wd.serialNumber%>>
         <input type="hidden" name="sobdo" value=<%-wd.word%>>
+        <input class="input-div" autofocus type="text" name='rt' value=<%-wd.word%> onfocus="var temp_value=this.value; this.value=''; this.value=temp_value">
+        <input type="hidden" name="num" value=<%-wd.serialNumber%>>
+
         <div class="buttons">
-          <button class="submit-btn-2" title="Enter">Submit</button>
-          <button class="skip-btn" title="Spacebar">Skip</button>
-          <button class="no-inflection-btn" title="Ctrl+Enter">
+          <button name="whatToDo" value="complete" class="submit-btn-2" title="Enter">Submit</button>
+          <button name="whatToDo" value="skip" class="skip-btn" title="Spacebar">Skip</button>
+          <button name="whatToDo" value="noInflation" class="no-inflection-btn" title="Ctrl+Enter">
             No Inflection
           </button>
         </div>
