@@ -244,3 +244,13 @@ input {
 table {
   margin-bottom: 32px;
 }
+
+.profile-btn {
+  background-color: #7eb1c9;
+}
+
+.user_info {
+  font-size: 18px;
+  margin-bottom: 10px;
+  font-style: italic;
+}
