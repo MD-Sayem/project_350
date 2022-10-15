@@ -1,5 +1,6 @@
 
 require('dotenv').config();
+const product =require('./api/product');
 const fs = require('fs');
 const readline = require('readline');
 const {readFileSync, promises: fsPromises} = require('fs');
@@ -15,7 +16,9 @@ const findOrCreate= require('mongoose-findorcreate');
 
 
 const app =express();
+// app.use("/api/product",product);
 app.use(bodyParser.urlencoded({extended: true}));
+
 app.set('view engine' , 'ejs');
 app.use(express.static('public'));
 
@@ -293,7 +296,7 @@ let i=0;
       serialNumber : ++i,
       word : line
      });
-      data.save()
+  //    save the data
   });
 
 
