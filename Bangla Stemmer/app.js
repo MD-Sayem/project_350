@@ -1,6 +1,6 @@
 
 require('dotenv').config();
-const product =require('./api/product');
+// const product =require('./api/product');
 const fs = require('fs');
 const readline = require('readline');
 const {readFileSync, promises: fsPromises} = require('fs');
