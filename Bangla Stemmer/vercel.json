@@ -15,8 +15,8 @@
   ],
   "routes": [
     {
-      "src": "/(.*)",
-      "dest": "/views/index.ejs"
+      "src": "./views/(.*)",
+      "dest": "/app.js"
     }
   ]
 }
