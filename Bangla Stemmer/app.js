@@ -1,5 +1,8 @@
 
 require('dotenv').config();
+const fs = require('fs');
+const readline = require('readline');
+const {readFileSync, promises: fsPromises} = require('fs');
 const express = require('express');
 const bodyParser = require('body-parser');
 const passport = require('passport');
@@ -16,7 +19,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine' , 'ejs');
 app.use(express.static('public'));
 
-mongoose.connect(process.env.MONGO_SERVER);
+mongoose.connect(process.env.MONGO_SERVER_2);
 // mongoose.connect("mongodb://localhost:27017/userDB", {useNewUrlParser: true});
 //mongoose.set("useCreateIndex", true);
 
@@ -36,7 +39,8 @@ const userSchema = new mongoose.Schema ({
   username: String,
   completed: { type: Number, default: 0 },
   workingWith: Number,
-  whatType: {type: String, default:"user"}
+  whatType: {type: String, default:"user"},
+  createdOn: Date
 });
 
 userSchema.plugin(passportLocalMongoose);
@@ -47,16 +51,6 @@ const User = new mongoose.model("User", userSchema);
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-// passport.serializeUser(function(user, done) {
-//  done(null, user.id);
-// });
-//
-// passport.deserializeUser(function(id, done) {
-//  User.findById(id, function(err, user) {
-//    done(err, user);
-//  });
-// });
-
 const dataSchema = new mongoose.Schema ({
   serialNumber:Number,
   word: String,
@@ -66,7 +60,6 @@ const dataSchema = new mongoose.Schema ({
   lock: { type: Number, default: 0 },
   usernam: String,
   time: Date
-  //,time:timestamp
 });
 
 const Data = new mongoose.model("Data", dataSchema);
@@ -86,7 +79,7 @@ app.post('/done',function(req,res){
 
     if(req.body.whatToDo=="skip"){
       const update ={lock:0}
-      Data.findOneAndUpdate(filter, update, {new: true});
+      Data.findOneAndUpdate(filter, {$set:update}, {new: true}, (err, doc) => {});
 
     }
     else {
@@ -107,7 +100,7 @@ app.post('/done',function(req,res){
         };
       }
       else{     //no inflection
-          console.log('the word is '+word)
+      //    console.log('the word is '+word)
           update={
           rootWord :word,
           inflection : "",
@@ -136,11 +129,11 @@ app.post('/done',function(req,res){
         let nowCompleted=req.user.completed+1;
         User.findOneAndUpdate({username:req.user.username}, {$set:{completed:nowCompleted}}, {new: true}, (err, doc) => {});
         //req.user.completed ++
-        console.log(req.user.completed+1);
+    //    console.log(req.user.completed+1);
 
     }
           Last.count({}, function( err, count){
-          console.log( "Number of last:", count );
+        //  console.log( "Number of last:", count );
           if(count>3){
             //delete the first
             Last.findOneAndDelete({status:1}, function (err, docs) {});
@@ -176,7 +169,8 @@ app.get('/home',function(req,res){
         }
         if(doc!=null){
           req.user.workingWith=doc.serialNumber;
-          res.render("data_entry_screen" , {wd:doc});
+          res.render("data_entry_screen" , {wd:doc,me:req.user});
+        //  console.log(req.user);
         }
         else{
           let dc=new Data({
@@ -184,7 +178,7 @@ app.get('/home',function(req,res){
             word:"ডেটা_শেষ_হয়ে_গেছে !"
           });
           dc.save();
-          res.render("data_entry_screen" , {wd:dc});
+          res.render("data_entry_screen" , {wd:dc,me:req.user});
         }
 
         });
@@ -207,6 +201,7 @@ app.post("/login", function(req, res){
   req.login(user, function(err){
     if (err) {
       console.log(err);
+      res.redirect('/');
     } else {
       passport.authenticate("local")(req, res, function(){
         if(user.username=='admin_101'||user.whatType=='admin'){
@@ -240,27 +235,11 @@ app.get('/admin',function(req,res){
 app.post('/admin',function(req,res){
   let lo=req.body.lowerLimit;
   let hi=req.body.upperLimit;
-  let lmt=hi-lo;
-    //   Data.find({
-    //
-    // },
-    // ['serialNumber','word','rootWord','inflection','usernam','time'], // Columns to Return
-    //
-    // {
-    //     skip:lo, // Starting Row
-    //     limit:lmt, // Ending Row
-    //     sort:{
-    //         serialNumber: 1 //Sort by Date Added
-    //     }
-    // },
-    // function(err,found){
-    // //    socket.emit('news-load', allNews); // Do something with the array of 10 objects
-    // res.render('admin',{sobdo:found});
-    // })
+
     Data.find({status:1,serialNumber: { $gte: lo, $lte: hi }},function(err,results){
       res.render('admin',{sobdo:results});
     }).sort({ serialNumber: -1 });
-  console.log('low : '+lo+' high : '+hi);
+//  console.log('low : '+lo+' high : '+hi);
 
 });
 app.get('/register',function(req,res){
@@ -268,8 +247,8 @@ app.get('/register',function(req,res){
 });
 
 app.post("/register", function(req, res){
-
-  User.register({username : req.body.username, email:req.body.email}, req.body.password, function(err, user){
+  let memberSince=new Date();
+  User.register({username : req.body.username, email:req.body.email, createdOn:memberSince}, req.body.password, function(err, user){
     if (err) {
       console.log(err);
       res.redirect("/");
@@ -283,10 +262,14 @@ app.post("/register", function(req, res){
 });
 
 app.post('/logout', function(req, res, next) {
+
+  //  console.log(req.user);
   req.logout(function(err) {
     if (err) { return next(err); }
     res.redirect('/');
   });
+
+
 });
 app.get('/my-profile',function(req,res){
   if(req.isAuthenticated()){
@@ -297,23 +280,30 @@ app.get('/my-profile',function(req,res){
   }
 });
 // reading the file
-let book=["পূর্ণিমার","চাঁদের","দিকে","তাকালে","মনে","হয়","যেন","দুনিয়াটা","কতইনা","সুন্দর"];
-for(let i=0; i<10; i++){
-  // notunSobdo = read one string form the file
-  let notunSobdo=book[i];
-   const data=new Data({
-    serialNumber : i+1,
-    word : notunSobdo
-  });
-  // data.save();
-}
 
-app.listen(3000,function(err){
-  console.log('Alhamdulillah Server Started on the port 3000');
-  console.log(new Date());
-  // let x=1;
-  // if(true){
-  //    x=2;
-  // }
-  // console.log(x);
+const file = readline.createInterface({
+    input: fs.createReadStream('../datas/test.txt'),
+    output: process.stdout,
+    terminal: false
+});
+
+let i=0;
+    file.on('line', (line) => {
+      const data=new Data({
+      serialNumber : ++i,
+      word : line
+     });
+      data.save()
+  });
+
+
+  const filter={lock : 1}
+  const update ={ lock : 0}
+//  Data.findOneAndUpdate(filter, update, {new: true});
+//  Data.updateMany(filter, { $set: update });
+Data.updateMany(filter, {$set:update}, {new: true}, (err, doc) => {});
+
+app.listen(process.env.PORT||3000,function(err){
+  console.log('Alhamdulillah Server Started at '+new Date());
+
 });

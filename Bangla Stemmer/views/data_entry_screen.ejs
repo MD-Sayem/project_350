@@ -7,14 +7,18 @@
     <title>Data Entry</title>
     <link rel="stylesheet" href="styles.css" />
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
   </head>
   <body>
     <div class="section">
       <div class="header headerTwo">
         <h1 class="index-head">Welcome to Bangla Stemmer</h1>
-        <a href="/my-profile"><i class="fa-light fa-user"></i></a>
+        <button
+         onclick="location.href='/my-profile';"
+         class="admin-btn profile-btn"
+       >
+         <%=me.username%>
+       </button>
         <form class="" action="/logout" method="post">
           <button class="admin-btn" type="submit">Log out</button>
         </form>
@@ -24,7 +28,7 @@
       <div class="main">
       <form class="" action="/done" method="post">
         <div class="data-entry-brief">
-          <p>Keep pressing the backspace until there remains only the root</p>
+          <p>Please identify the root using BACKSPACE</p>
         </div>
         <input type="hidden" name="sobdo" value=<%-wd.word%>>
         <input class="input-div" autofocus type="text" name='rt' value=<%-wd.word%> onfocus="var temp_value=this.value; this.value=''; this.value=temp_value">
