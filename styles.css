@@ -129,7 +129,7 @@ input {
 
 .submit-btn-2,
 .skip-btn,
-.no-inflection-btn {
+.garbage-btn {
   background-color: #cf6766;
   color: white;
   border: none;
@@ -145,11 +145,11 @@ input {
 }
 
 .skip-btn {
-  background-color: #e36414;
+  background-color: #009aee;
 }
 
-.no-inflection-btn {
-  background-color: #009aee;
+.garbage-btn {
+  background-color: #e36414;
 }
 
 .buttons {
@@ -166,6 +166,10 @@ input {
 }
 
 /* Admin Panel Css for table */
+
+table {
+  text-align: center;
+}
 
 #customers {
   border-collapse: collapse;
@@ -253,4 +257,22 @@ table {
   font-size: 18px;
   margin-bottom: 10px;
   font-style: italic;
+}
+
+.log-out-ins {
+  margin-top: 32px;
+  font-size: 13px;
+  font-style: italic;
+  font-weight: 600;
+}
+
+.edit-btn {
+  background-color: #3388ff;
+  color: white;
+  border: none;
+  border-radius: 2px;
+  padding: 6px 22px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
 }
