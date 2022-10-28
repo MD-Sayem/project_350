@@ -3,7 +3,7 @@ body {
   font-family: "Ubuntu", sans-serif;
   margin: 0px;
   padding: 0px;
-  background-color: whitesmoke;
+  background-color: white;
   height: 100%;
 }
 
@@ -103,6 +103,22 @@ h1 {
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
+}
+
+.admin,
+.words-btn {
+  width: 100%;
+  background-color: #009aee;
+  color: white;
+  border: none;
+  border-radius: 2px;
+  padding: 10px 42px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.words-btn {
 }
 
 .submit-btn {

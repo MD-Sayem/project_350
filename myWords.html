@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Panel</title>
+    <title>My Words</title>
     <link rel="stylesheet" href="styles.css" />
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" />
     <link
@@ -17,28 +17,15 @@
   <body>
     <div class="section">
       <div class="header headerTwo">
-        <h1 class="index-head">Admin Panel</h1>
-        <button onclick="location.href='admin.html' ;" class="admin-btn">
+        <h1 class="index-head">MD Abu Sayem</h1>
+        <button onclick="location.href='userProfile.html' ;" class="admin-btn">
           Log out
         </button>
       </div>
       <div class="admin-main">
-        <div class="admin-query">
-          <p style="text-align: center">
-            Please enter the serial of the words you would like to see :
-          </p>
-          <div class="admin-query-input">
-            <input class="num-one" type="number" />
-            <p>-</p>
-            <input class="num-two" type="number" />
-          </div>
-          <div class="enter-btn">
-            <button class="enter-btn-button">Enter</button>
-          </div>
-        </div>
-        <h4 style="margin-top: 0px; text-align: center">
-          Here are the last 10 stemmed words:
-        </h4>
+        <h5 style="margin: 10px auto 42px auto; text-align: center">
+          Here is the list of words you've worked on so far :
+        </h5>
 
         <table id="customers">
           <tr>
@@ -247,7 +234,7 @@
         </table>
       </div>
       <div
-        class="modal"
+        class="modal fade"
         id="editModal"
         tabindex="-1"
         aria-labelledby="editModalLabel"
@@ -257,9 +244,12 @@
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="modalLabel">Edit Word Info</h5>
-              <a href="#" class="close" data-dismiss="modal" aria-label="close"
-                >&times;</a
-              >
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
             </div>
             <div class="modal-body">
               <form
@@ -359,16 +349,13 @@
               </form>
             </div>
             <div class="modal-footer">
-              <a href="#" class="close" data-dismiss="modal" aria-label="close"
-                ><button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-bs-dismiss="modal"
-                >
-                  Close
-                </button></a
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
               >
-
+                Close
+              </button>
               <button
                 type="button submit"
                 form="editBookForm"
