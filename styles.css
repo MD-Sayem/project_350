@@ -106,7 +106,8 @@ h1 {
 }
 
 .admin,
-.words-btn {
+.words-btn,
+.stats-btn {
   width: 100%;
   background-color: #009aee;
   color: white;
@@ -118,7 +119,9 @@ h1 {
   cursor: pointer;
 }
 
-.words-btn {
+.stats-btn {
+  margin-top: 10px;
+  background-color: #a1c23e;
 }
 
 .submit-btn {
@@ -187,26 +190,26 @@ table {
   text-align: center;
 }
 
-#customers {
+.customers {
   border-collapse: collapse;
   width: 100%;
 }
 
-#customers td,
-#customers th {
+.customers td,
+.customers th {
   border: 1px solid #ddd;
   padding: 8px;
 }
 
-#customers tr:nth-child(even) {
+.customers tr:nth-child(even) {
   background-color: #f2f2f2;
 }
 
-#customers tr:hover {
+.customers tr:hover {
   background-color: #ddd;
 }
 
-#customers th {
+.customers th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
