@@ -14,9 +14,11 @@ const session= require('express-session');
 const mongoose= require('mongoose');
 const findOrCreate= require('mongoose-findorcreate');
 const loginRouter = require('./routes/login');
+const homeRouter =require('./routes/home');
 const colors = require('colors');
 const {Parser}=require('json2csv');
-
+const {spawn}=require('child_process');
+const path = require('path');
 const app =express();
 // app.use("/api/product",product);
 app.use(bodyParser.urlencoded({extended: true}));
@@ -48,10 +50,24 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use('/home',homeRouter);
+app.use('/',loginRouter);
+
+
+
+
+function countWords(username){
+    Data.count({usernam:username}, function( err, cnt){
+      console.log(username+" has completed total "+cnt)
+    return cnt;
+});
+}
 async function makeFree(usr) {
   try{
+    let nowCompleted=0;
+    // nowCompleted=countWords(usr);
     await User.findOneAndUpdate({username:usr},
-                           {$set:{workingWith:0}},  //  {$set:{completed:nowCompleted,workingWith:0}},
+                           {$set:{workingWith:0,completed:nowCompleted}},  //  {$set:{completed:nowCompleted,workingWith:0}},
                            {new: true}, (err, doc) => {});
       return doc.save();
   }
@@ -59,36 +75,28 @@ async function makeFree(usr) {
 
   }
 }
+async function updateData(filter,update){
+  try{
+    await Data.findOneAndUpdate(filter, {$set:update}, {new: true}, (err, doc) => {
+     if (err) {
+       //  console.log(req.user.username +" fecing problem when updating data! ");
+         console.log(" facing problem while updating the word "+doc.word);
+     }
+     return doc.save();
+   });
+  }
+  catch(err){
 
-const userSchema = new mongoose.Schema ({
-  email: String,
-  password: String,
-  username: String,
-  completed: { type: Number, default: 0 },
-  workingWith: {type:Number, default:0},
-  role: {type: String, default:"user"},
-  createdOn: Date
-});
+  }
+}
 
-userSchema.plugin(passportLocalMongoose);
-userSchema.plugin(findOrCreate);
-
-const User = new mongoose.model("User", userSchema);
+const User=require('./models/user');
 
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-const dataSchema = new mongoose.Schema ({
-  serialNumber:Number,
-  word: String,
-  rootWord: String,
-  inflection: String,
-  status:{ type: Number, default: 0 } ,
-  lock: { type: Number, default: 0 },
-  usernam: String,
-  time: Date
-});
 
+const Data= require('./models/data');
 async function updateData(filter,update){
   try{
     await  Data.findOneAndUpdate(filter,{$set:update},{new: true}, (err, doc) => {});
@@ -101,7 +109,7 @@ async function updateData(filter,update){
     console.log(err);
   }
 }
-const Data = new mongoose.model("Data", dataSchema);
+
 app.post('/done',function(req,res){
   if(req.isAuthenticated()){
     let nowCompleted=req.user.completed+1;
@@ -148,118 +156,21 @@ app.post('/done',function(req,res){
         };
       }
 
-       Data.findOneAndUpdate(filter, {$set:update}, {new: true}, (err, doc) => {
-        if (err) {
-            console.log(req.user.username +" fecing problem when updating data! ");
-        }
-      });
+      updateData(filter,update);
     res.redirect('/home');
   }
   else{
     res.redirect('/')
   }
 });
-app.use('/',loginRouter);
-// app.get('/',function(req,res){
-//   res.render('index');
-// });
-app.get('/home',function(req,res){
-  // find one from the database where status==0 and lock==0
-  // set lock=1;
-  if(req.isAuthenticated()){
-    let number=req.user.workingWith;
-    console.log(req.user.username+' working with word no: '+number);
-    // console.log('previousWorkedWith : '+number);
-    if(number!=0){
-      Data.findOne({serialNumber:number},function(err,result){
-        if(err){
-          console.log(err);
-        }
-          res.render("data_entry_screen" , {wd:result,me:req.user});
-      });
-    }
-  else{ //workingWith==0
-    let sobdo=new Data();
-    let filter={lock:0, status:0};
-      let update={lock:1}
 
-
-
-      Data.findOneAndUpdate(filter, {$set:update}, {new: true}, (err, doc) => {
-        if (err) {
-            console.log(req.user.username +" had Something wrong when finding word!!");
-        }
-        if(doc!=null){
-          req.user.workingWith=doc.serialNumber;
-
-          res.render("data_entry_screen" , {wd:doc,me:req.user});
-        //  console.log('the number is '+number);
-          let no=doc.serialNumber;
-          User.findOneAndUpdate({username:req.user.username}, //give up the lock
-                             {$set:{workingWith:no}},
-                              {new: true}, (err, doc) => {
-            // console.log('nowWorkingWith the word: '+doc);
-                              });
-        //  console.log(req.user);
-        }
-        else{
-          const fltr={status : 2};   //from skipped
-          const updt ={ status : 0};  // making incomplete
-          Data.updateMany(fltr, {$set:updt}, {new: true}, (err, doc) => {});
-          res.send('<h1>ডেটা_শেষ_হয়ে_গেছে !</h1>');
-
-
-        }
-        });
-  }
-
-}
-  else{
-    res.redirect('/')
-  }
-
-});
-
-
-app.post("/login", function(req, res){
-
-  const user = new User({
-    username: req.body.username,
-    password: req.body.password
-  });
-
-  req.login(user, function(err){
-    if (err) {
-      console.log(err);
-      res.redirect('/');
-    } else {
-      passport.authenticate("local")(req, res, function(){
-        if(user.username=='admin_101'||user.role=='admin'){
-          res.redirect('/admin');
-          console.log('admin logged in');
-        }
-        else{
-              res.redirect("/home");
-              console.log(req.user.username+' login done; working '+req.user.workingWith);
-        }
-      });
-    }
-  });
-
-});
 app.get('/admin-login',function(req,res){
   res.render('admin_login');
 });
 app.get('/admin',function(req,res){
 
   if(req.isAuthenticated()&&(req.user.username=='admin_101'||req.user.role=='admin')){
-    // Last.find({},function(err,found){
-    //   if(err){
-    //     console.log(err);
-    //   }
-    //   res.render('admin',{sobdo:found});
-    // });
-  //  models.Post
+
     let usr=req.user.username;
       Data
       .find({status: 1})
@@ -330,7 +241,7 @@ app.post("/register", function(req, res){
   });
 
 });
-app.post('/addminLogout',function(req,res){
+app.post('/admin-logout',function(req,res){
   req.logout(function(err) {
     if (err) {
       return next(err);
@@ -339,23 +250,7 @@ app.post('/addminLogout',function(req,res){
   });
 });
 
-app.post('/logout', function(req, res, next) {
 
-  //  console.log(req.user);
-    const filter={serialNumber:req.user.workingWith};
-    const update={lock:0};
-    Data.findOneAndUpdate(filter, {$set:update}, {new: true}, (err, doc) => {});
-    let usr=req.user.username;
-    User.findOneAndUpdate({username:usr},{workingWith:0},{new:true},(err,doc)=>{});
-    console.log(req.user.username+" logged out and unlocked "+filter.serialNumber);
-  req.logout(function(err) {
-    if (err) {
-      return next(err);
-    }
-    res.redirect('/');
-  });
-
-});
 
 app.get('/my-profile',function(req,res){
   if(req.isAuthenticated()){
@@ -387,12 +282,6 @@ app.get('/my-profile',function(req,res){
   const updt ={ lock : 0};
 Data.updateMany(fltr, {$set:updt}, {new: true}, (err, doc) => {});
 
-const statusSchema = new mongoose.Schema ({
-  incomplete: Number,
-  complete: Number,
-  skip: Number,
-  gerbage: Number
-});
 app.post('/edit',function(req,res){
   if(req.isAuthenticated()){
       let sl=req.body.serialNo;
@@ -442,18 +331,6 @@ app.post('/edit',function(req,res){
 
 });
 
-
-
-// const Status = new mongoose.model("Status", statusSchema);
-// const stat=new Status({
-//   incomplete:0,
-//   complete: 1,
-//   skip: 2,
-//   gerbage: 3
-// });
-// stat.save();
-
-
 app.get('/get-csv',function(req,res){
 			    let usr="sam74";
 			  Data
@@ -471,20 +348,137 @@ app.get('/get-csv',function(req,res){
       //  res.send(jsonData);
         res.attachment('stemmedWords.csv');
         res.status(200).send(jsons2csvParser.parse(results));
-
-        fs.writeFile('./backups/last10.csv',info,function(err){
+        let path="https://drive.google.com/drive/folders/1CcST75bVnnAOUkFC3M-9_Rd2R_Yy7BOE?usp=sharing";
+        fs.writeFile(path+'/last10.csv',info,function(err){
         		if(err){
         			console.log(err);
         		}
         	});
 			  });
         //csv file writtern
+});
+function getNumber(username){
+	  Data.aggregate(
+	  [
+		{ "$match": { usernam: {  $eq: username } } },
+		{"$group" : {_id:"$usernam", count:{$sum:1}}},
+	  ]
+	  ).exec((err, results) => {
+		  if (err) throw err;
+	  //  res.send(results[0]);
+		return results[0][Object.keys(results[0])[1]];
+	});
+}
+
+app.get('/stat',function(req,res){
+      let u='sam74'
+
+      Data.aggregate(
+      [
+        { "$match": { usernam: {  $ne: null } } },
+        {
+          //{ $dateToString: { format: "%Y-%m-%d", date: "$date" } }
+          "$group" : {_id:"$usernam" ,joined:{  $min:"$time" },totalDays:{$min:"9 Days"},totalHours:{$min:"18.6 hrs"}, count:{$sum:1}},
+        },
+
+    //   {"$project" : {user : '$_id.username', joined : '$_id.createdOn'}}
+   //  {
+   //  $group : {
+   //     _id : { $dateToString: { format: "%Y-%m-%d", date: "$time" } }
+   //   }
+   // }
+      ]
+      ).exec((err, results) => {
+          if (err) throw err;
+    //    res.send(results);
+      res.render('stats',{st:results});
+      //  console.log(results[0][Object.keys(results[0])[1]]);
+    //  console.log(results[0].count);
+      //    console.log(results);
+      });
+    //  console.log(Group);
+      // Group.aggregate([
+      //   { "$match": { usernam: { $eq:"sam74" } } },
+      // ],function(err,results){
+      //   res.send(results);
+      // });
 
 
 
-		});
+  //  res.send('Insha-Allah I will show you the statistics');
+
+});
+app.get('/admin-stat',function(req,res){    //joining two tables data and user
+//   Data.aggregate([{
+//     $lookup: {
+//         from: "users", // collection name in db
+//         localField: "usrnam",
+//         foreignField: "username",
+//         as: "createdOn"
+//     }
+// }]).exec(function(err, results) {
+//   res.send(results);
+//     // students contain WorksnapsTimeEntries
+// });
+
+});
+app.post('/stat',function(req,res){
+  let user=req.body.user;
+  Data.aggregate(
+  [
+    { "$match": { usernam: {  $eq: user } } },
+    {
+     "$group" : {
+        _id : { $dateToString: { format: "%Y-%m-%d", date: "$time"} },
+        count: { $sum: 1 }
+      }
+    }
+  ]
+  ).exec((err, results) => {
+      if (err) throw err;
+
+      res.render('userStats',{data:results,usr:user});
+  });
 
 
+});
+
+app.post('/download',function(req,res){
+			    let usr="sam74";
+	        let dta=req.body.information;
+          console.log(req.body);
+
+
+          Data.aggregate(
+          [
+            { "$match": { usernam: {  $ne: null } } },
+            {
+              //{ $dateToString: { format: "%Y-%m-%d", date: "$date" } }
+              "$group" : {_id:"$usernam" ,joined:{  $min:"$time" },totalDays:{$min:"9 Days"},totalHours:{$min:"18.6 hrs"}, count:{$sum:1}},
+            },
+
+          ]
+          ).exec((err, results) => {
+              if (err) throw err;
+
+              const fields = ['_id','count' ,'totalDays', 'totalHours', 'joined'];
+              const jsons2csvParser=new Parser({fields});
+              const info = jsons2csvParser.parse(results);
+            //  res.send(jsonData);
+              res.attachment('user-statistics.csv');
+              res.status(200).send(jsons2csvParser.parse(results));
+              let path="https://drive.google.com/drive/folders/1CcST75bVnnAOUkFC3M-9_Rd2R_Yy7BOE?usp=sharing";
+              // fs.writeFile(path+'/last10.csv',info,function(err){
+              // 		if(err){
+              // 			console.log(err);
+              // 		}
+              // 	});
+
+
+              //csv file writtern
+          });
+
+});
 app.listen(process.env.PORT||3000,function(err){
   // Data.find({},function(err,results){
   //   for(let i=0; i<500; i++){
