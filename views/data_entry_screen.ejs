@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Entry</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" />
+
+  </head>
+  <script>
+function validateForm() {
+  let root = document.forms["rootFinding"]["rt"].value;
+  let word = document.forms["rootFinding"]["sobdo"].value;
+  if (word.includes(root)==false||root.length==0) {  //
+    alert("Invalid Root.Cut down only from the first and last.No extra characters!");
+    return false;
+  }
+  return true;
+}
+</script>
+  <body>
+    <div class="section">
+      <div class="header headerTwo">
+        <h1 class="index-head">Welcome to Bangla Stemmer</h1>
+        <div class="dataEntryTopRight">
+
+          <form class="" action="/logout" method="post">
+            <button
+            type="button"
+            onclick="location.href='/my-profile';"
+            class="admin-btn profile-btn"
+          >
+            <%=me.username%>
+          </button>
+            <button
+               class="logOut-btn admin-btn"
+               type="submit"
+            >
+                Log Out
+            </button>
+          <!-- <a href="/my-profile"> -->
+
+         <!-- </a> -->
+        </form>
+      </div>
+  </div>
+
+
+      <div class="main">
+      <form name="rootFinding" class="" action="/done" method="post" onsubmit="return validateForm()">
+        <div class="data-entry-brief">
+          <p>Please identify the root using BACKSPACE</p>
+        </div>
+        <input type="hidden" name="sobdo" value=<%-wd.word%>>
+        <input class="input-div" autofocus type="text" name='rt' value=<%-wd.word%> onfocus="var temp_value=this.value; this.value=''; this.value=temp_value">
+        <input type="hidden" name="num" value=<%-wd.serialNumber%>>
+
+        <div class="buttons">
+          <button name="whatToDo" value="complete" class="submit-btn-2" title="Enter">Submit</button>
+          <button name="whatToDo" value="skip" class="skip-btn"  title="Spacebar">Skip</button>
+          <button name="whatToDo" value="gerbage" class="garbage-btn"  title="Ctrl+Enter"> Garbage </button>
+        </div>
+      </form>
+      <p class="log-out-ins">
+          *Please log out before you exit. You can log out from your profile
+          (Top Right button).
+      </p>
+      <div class="faqSection">
+        <a href="/faq">FAQ</a>
+      </div>
+      </div>
+      <div class="copy-right">
+        <p class="copy-right-p">COPYRIGHT © SUST CSE &nbsp2018-19</p>
+      </div>
+    </div>
+  </body>
+</html>
