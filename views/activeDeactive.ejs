@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Status</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="section">
+        <div class="header headerTwo">
+          <h1 class="index-head">Admin Panel</h1>
+          <form class="" action="/admin-logout" method="post">
+            <button type="submit" class="logOut-btn admin-btn">
+              Log out
+            </button>
+          </form>
+        </div>
+        <div class="admin-main">
+          <h4 style="margin-top: 0px; text-align: center">
+            Here is a list of all the users :
+          </h4>
+
+          <table class="customers adminTable">
+            <tr>
+              <th style="text-align: center">User No.</th>
+              <th style="text-align: center">User Name</th>
+              <th style="text-align: center">Email</th>
+              <th style="text-align: center">User Status</th>
+            </tr>
+            <%let i=0%>
+            <% users.forEach(function(user){ %>
+              <%let cls=user.status+"User"%>
+            <form class="" action="/activeDeactive" method="post">
+              <tr>
+                <td><%=++i%></td>
+                <td><%=user.username%></td>
+                <td><%=user.email%></td>
+                <td>
+                  <button class="edit-btn <%-cls%>"><%=user.status%></button>
+                </td>
+              </tr>
+              <input type="hidden" name="userN" value=<%=user.username%>>
+            </form>
+        <%});%>
+            <!-- example -->
+
+          </table>
+        </div>
+      </div>
+      <div class="sidebar">
+        <p class="copy-right-p">COPYRIGHT © SUST CSE &nbsp2018-19</p>
+        <h2 class="menu">Menu</h2>
+        <ul class="ulStyle">
+      
+          <li>
+            <a href="/stat">
+              <span class="item">User Stats</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/per-day-stat">
+              <span class="item">Per Day Stat</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/data-stat">
+              <span class="item">Stat Summery</span>
+            </a>
+          </li>
+      
+        <li>
+            <a href="/register">
+              <span class="item">Assign New User</span>
+            </a>
+          </li>
+          <li class="hoverItem">
+            <a href="/activeDeactive">
+              <span class="item">Activate/Deactivate User</span>
+            </a>
+          </li>
+            <li >
+            <a href="/admin">
+              <span class="item">Identified roots</span>
+            </a>
+          </li>
+          <li>
+            <a href="/skipped-words">
+              <span class="item">Skipped Words</span>
+            </a>
+          </li>
+          <li>
+            <a href="/garbage-words">
+              <span class="item">Garbage Words</span>
+            </a>
+          </li>
+      
+        </ul>
+      </div>
+      
+
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+      integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+      integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
