@@ -15,6 +15,7 @@ const mongoose= require('mongoose');
 const findOrCreate= require('mongoose-findorcreate');
 const loginRouter = require('./routes/login');
 const homeRouter =require('./routes/home');
+// const convertFile=require('./utilities/dataEntry');
 const colors = require('colors');
 const {Parser}=require('json2csv');
 const {spawn}=require('child_process');
@@ -29,7 +30,7 @@ let SECRET="Our_little_secret"
 let MONGO_SERVER_1="mongodb+srv://admin_sayem:s1a2y3e4m5@cluster0.1drsu.mongodb.net/BanglaStemmingDB"
 let MONGO_SERVER_2="mongodb+srv://admin_sayem:s1a2y3e4m5@cluster0.1drsu.mongodb.net/testDB"
 // mongoose.connect(MONGO_SERVER_2);
-mongoose.connect(MONGO_SERVER_2)
+mongoose.connect(MONGO_SERVER_1)
 .then(()=>{
     console.log("Connected to databases!!".rainbow)
 })
@@ -262,20 +263,7 @@ app.get('/my-profile',function(req,res){
 });
 // reading the file
 
-// const file = readline.createInterface({
-//     input: fs.createReadStream('./data/a1.txt'),
-//     output: process.stdout,
-//     terminal: false
-// });
-//
-// let i=501;
-//     file.on('line', (line) => {
-//       const data=new Data({
-//       serialNumber : i++,
-//       word : line
-//      });
-//       data.save()
-//   });
+
 
 
   const fltr={lock : 1}
@@ -479,7 +467,10 @@ app.post('/download',function(req,res){
           });
 
 });
+
+
 app.listen(process.env.PORT||3000,function(err){
+
   // Data.find({},function(err,results){
   //   for(let i=0; i<500; i++){
   //       console.log(results[i].serialNumber);
