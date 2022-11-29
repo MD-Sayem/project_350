@@ -72,13 +72,19 @@ h1 {
   justify-content: space-between;
 }
 
-.log-in {
+.log-in,
+.userSignUp {
   width: 30%;
   height: 100%;
   display: flex;
   flex-flow: column;
   justify-content: center;
   align-self: center;
+}
+
+.userSignUp {
+  width: 35%;
+  padding-top: 10%;
 }
 
 .log-in .log-in-brief {
@@ -294,4 +300,169 @@ table {
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
+}
+
+.wrapper .sidebar {
+  background-color: #1a2930;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100%;
+  padding: 20px 0;
+  transition: all 0.5s ease;
+}
+
+.wrapper .sidebar .profile {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.wrapper .sidebar ul li a {
+  display: block;
+  padding: 16px 30px;
+  border-bottom: 1px solid #30415d;
+  color: rgb(241, 237, 237);
+  font-size: 16px;
+  position: relative;
+}
+
+.wrapper .section {
+  width: calc(100% - 225px);
+  margin-left: 225px;
+  transition: all 0.5s ease;
+}
+
+body.active .wrapper .sidebar {
+  left: -225px;
+}
+
+body.active .wrapper .section {
+  margin-left: 0;
+  width: 100%;
+}
+
+.ulStyle {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+.item {
+  font-weight: 600;
+  font-size: 17px;
+}
+
+.menu {
+  color: white;
+  /* text-align: center; */
+  padding-left: 30px;
+  padding-top: 15px;
+  margin-bottom: 32px;
+}
+
+.hoverItem {
+  color: white;
+  background: #335463;
+  /* border-right: 2px solid rgb(5, 68, 104); */
+}
+
+a:hover {
+  background-color: #335463;
+}
+
+.activeUser {
+  background-color: #a1c23e;
+}
+
+.inactiveUser {
+  background-color: #cf6766;
+}
+
+/* FAQ Styles */
+
+.faq-heading {
+  padding: 50px 210px;
+  text-align: center;
+  font-size: 28px;
+}
+
+.faq-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.faq-body p {
+  font-size: 18px;
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.hr-line {
+  width: 60%;
+  margin: auto;
+}
+/* Style the buttons that are used to open and close the faq-page body */
+.faq-page {
+  /* background-color: #eee; */
+  color: #444;
+  cursor: pointer;
+  padding: 30px 20px;
+  width: 60%;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+  margin: auto;
+}
+.faq-body {
+  margin: auto;
+  /* text-align: center; */
+  width: 55%;
+  padding: auto;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active,
+.faq-page:hover {
+  background-color: #f9f9f9;
+}
+
+/* Style the faq-page panel. Note: hidden by default */
+.faq-body {
+  padding: 12px 18px;
+  background-color: white;
+  display: none;
+  overflow: hidden;
+}
+
+.faq-page:after {
+  content: "\02795";
+  /* Unicode character for "plus" sign (+) */
+  font-size: 13px;
+  color: #777;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2796";
+  /* Unicode character for "minus" sign (-) */
+}
+
+.faqSection {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 600;
+  padding-top: 32px;
+  font-style: italic;
+}
+
+.faqSection a {
+  background-color: white;
+  color: #1a2930;
 }
