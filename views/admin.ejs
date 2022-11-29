@@ -63,7 +63,7 @@
 
     var newRoot=word.getAttribute("data-newroot");
     const notuun =document.getElementById("modal-edit-new-root");
-    notuun.setAttribute("value",newRoot);
+    notuun.setAttribute("value",wd);
 
 
     var previousRoot=word.getAttribute("data-root");
@@ -176,7 +176,7 @@
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="modalLabel">Edit Word Info</h5>
-              <a href="#" class="close" data-dismiss="modal" aria-label="close">
+              <a href="#" id='xbutton' class="close" data-dismiss="modal" aria-label="close">
                 <!-- &times; -->
                 <button
                type="button"
@@ -289,6 +289,7 @@
             <div class="modal-footer">
               <a href="#" class="close" data-dismiss="modal" aria-label="close">
                   <button
+                    id="close-btn"
                     type='button'
                     class="btn btn-secondary"
                     data-bs-dismiss="modal"
@@ -341,14 +342,23 @@ document.getElementById('editRoot').addEventListener('submit', function(evt){
     let lw=word.length;
     if (word.includes(newRoot)==false||newRoot[0]!=word[0]) {  //
       alert("Invalid Root. Your Root contains illegal character");
-        evt.preventDefault();
-       // return false;
+      //  evt.preventDefault();
+        return false;
     }
      else{
        // alert("Root is being updated");
-        // return true;
+         return true;
      }
 
+});//
+
+document.getElementById('close-btn').addEventListener('click', function(evt){
+  document.getElementById("editRoot").reset();
+  return true;
+});
+document.getElementById('xbutton').addEventListener('click', function(evt){
+  document.getElementById("editRoot").reset();
+  return true;
 });
 
 </script>
