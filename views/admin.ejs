@@ -17,7 +17,33 @@
   </head>
   <script >
 
+  // function validateForm() {
+  //   let word = document.forms["editRoot"]["givenWord"].value;
+  //   let root = document.forms["editRoot"]["rootWord"].value;
+  //
+  //   // let inf = document.forms["editRoot"]["inflection"].value;
+  //   // console.log(root);
+  //   // console.log(word);
+  //   // let li=inf.length;
+  //   let lw=word.length;
+  //   if (word.includes(root)==false||root[0]!=word[0]) {  //
+  //     alert("Invalid Root.Your Root contains illegal character");
+  //     return false;
+  //   }
+  //   // else if(inf.length==0 && word==root){
+  //   //   return true;
+  //   // }
+  //   // else if (word.includes(inf)==false || inf[li-1]!=word[lw-1]) {
+  //   //   alert("Invalid Inflection.Your inflection contains illegal character");
+  //   //   return false;
+  //   // }
+  //
+  //   return true;
+  // };
+
+
   function showDetails(word){
+
     //alert("inshaAllah we will correct your word soon. ");
     // let s = "Id = " + button.getAttribute('data-id') + "\r\n";
     var no = word.getAttribute("data-serialno");
@@ -31,43 +57,30 @@
     const sobdo = document.getElementById("modal-edit-given-word");
     sobdo.setAttribute("value",wd);
 
-    var rt=word.getAttribute("data-root");
-    const muul = document.getElementById("modal-edit-root-word");
-    muul.setAttribute("value",rt);
+    // var rt=word.getAttribute("data-root");
+    // const muul = document.getElementById("modal-edit-root-word");
+    // muul.setAttribute("value",rt);
 
-    var inf=word.getAttribute("data-inflection");
-    if(inf==	"type='button'"){
-      inf="";
-    }
-    const bivokti = document.getElementById("modal-edit-inflection");
-    bivokti.setAttribute("value",inf);
+    var newRoot=word.getAttribute("data-newroot");
+    const notuun =document.getElementById("modal-edit-new-root");
+    notuun.setAttribute("value",newRoot);
+
+
+    var previousRoot=word.getAttribute("data-root");
+    const puran =document.getElementById("modal-edit-previous-root");
+    puran.setAttribute("value",previousRoot);
+
+
+
+    // var inf=word.getAttribute("data-inflection");
+    // if(inf==	"type='button'"){
+    //   inf="";
+    // }
+    // const bivokti = document.getElementById("modal-edit-inflection");
+    // bivokti.setAttribute("value",inf);
 
 
   }
-
-
-
-  function validateForm() {
-    let word = document.forms["editRoot"]["givenWord"].value;
-    let root = document.forms["editRoot"]["rootWord"].value;
-    // let inf = document.forms["editRoot"]["inflection"].value;
-    // console.log(root);
-    // console.log(word);
-    // let li=inf.length;
-    let lw=word.length;
-    if (word.includes(root)==false||root[0]!=word[0]) {  //
-      alert("Invalid Root.Your Root contains illegal character");
-      return false;
-    }
-    // else if(inf.length==0 && word==root){
-    //   return true;
-    // }
-    // else if (word.includes(inf)==false || inf[li-1]!=word[lw-1]) {
-    //   alert("Invalid Inflection.Your inflection contains illegal character");
-    //   return false;
-    // }
-    return true;
-   }
 
   </script>
   <body>
@@ -136,6 +149,8 @@
                     data-word=<%=item.word%>
                     data-root=<%=item.rootWord%>
                     data-inflection=<%=item.inflection%>
+                    data-previousroot=<%=item.rootWord%>
+                    data-newroot=<%=item.word%>
                     type='button'
                     class="edit-btn"
                     data-toggle="modal"
@@ -172,11 +187,11 @@
               </a>
             </div>
             <form
-              id="editBookForm"
+              id="editRoot"
               name="editRoot"
               action="/edit"
               method="post"
-              onsubmit="return validateForm()"
+
             >
             <div class="modal-body">
 
@@ -210,8 +225,38 @@
                   />
                 </div>
                 <div class="mb-3">
+                  <label for="modal-edit-previous-root" class="form-label"
+                    >Previous Root</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="modal-edit-previous-root"
+                    name="previousRoot"
+                    value="বাংলাদেশ"
+                    readonly
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label for="modal-edit-new-root" class="form-label"
+                    >New Root (<i>cut down from the last</i>)</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="newRoot"
+                    id="modal-edit-new-root"
+                    value="বাংলাদেশের"
+
+                  />
+                  <input type="hidden" name="start" value=<%=start%>>
+                  <input type="hidden" name="end" value=<%=end%>>
+                </div>
+
+                <!-- <div class="mb-3">
                   <label for="modal-edit-root-word" class="form-label"
-                    >Root Word</label
+                    >New Root (<i>cut down from the last</i>)</label
                   >
                   <input
                     class="form-control"
@@ -221,7 +266,10 @@
                   />
                   <input type="hidden" name="start" value=<%=start%>>
                   <input type="hidden" name="end" value=<%=end%>>
-                </div>
+                </div> -->
+
+
+
                 <!-- <div class="mb-3">
                   <label for="modal-edit-inflection" class="form-label"
                     >Inflection</label
@@ -249,8 +297,9 @@
                   </button>
               </a>
               <button
-                type="button submit"
-                form="editBookForm"
+                type="submit"
+                name="formSubmit"
+                form="editRoot"
                 class="btn btn-primary"
 
               >
@@ -282,3 +331,24 @@
     ></script>
   </body>
 </html>
+<script>
+document.getElementById('editRoot').addEventListener('submit', function(evt){
+
+    // document.getElementById('donate').style.display = 'none';
+    // document.getElementById('topMessage').style.display = 'none';
+    let word = document.forms["editRoot"]["givenWord"].value;
+    let newRoot = document.forms["editRoot"]["newRoot"].value;
+    let lw=word.length;
+    if (word.includes(newRoot)==false||newRoot[0]!=word[0]) {  //
+      alert("Invalid Root. Your Root contains illegal character");
+        evt.preventDefault();
+       // return false;
+    }
+     else{
+       // alert("Root is being updated");
+        // return true;
+     }
+
+});
+
+</script>

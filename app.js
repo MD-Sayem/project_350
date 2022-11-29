@@ -30,7 +30,7 @@ let SECRET="Our_little_secret"
 let MONGO_SERVER_1="mongodb+srv://admin_sayem:s1a2y3e4m5@cluster0.1drsu.mongodb.net/BanglaStemmingDB"
 let MONGO_SERVER_2="mongodb+srv://admin_sayem:s1a2y3e4m5@cluster0.1drsu.mongodb.net/testDB"
 // mongoose.connect(MONGO_SERVER_2);
-mongoose.connect(MONGO_SERVER_1)
+mongoose.connect(MONGO_SERVER_2)
 .then(()=>{
     console.log("Connected to databases!!".rainbow)
 })
@@ -274,7 +274,7 @@ app.post('/edit',function(req,res){
   if(req.isAuthenticated()){
       let sl=req.body.serialNo;
       let word=req.body.givenWord;
-      let rt=req.body.rootWord;
+      let rt=req.body.newRoot;
       let inf= word.replace(rt,'');
       let filter={serialNumber:sl};
       let update={
