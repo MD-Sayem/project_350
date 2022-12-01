@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+  </head>
+  <script >
+// function validateForm() {
+//   let word = document.forms["editRoot"]["givenWord"].value;
+//   let root = document.forms["editRoot"]["rootWord"].value;
+//
+//   // let inf = document.forms["editRoot"]["inflection"].value;
+//   // console.log(root);
+//   // console.log(word);
+//   // let li=inf.length;
+//   let lw=word.length;
+//   if (word.includes(root)==false||root[0]!=word[0]) {  //
+//     alert("Invalid Root.Your Root contains illegal character");
+//     return false;
+//   }
+//   // else if(inf.length==0 && word==root){
+//   //   return true;
+//   // }
+//   // else if (word.includes(inf)==false || inf[li-1]!=word[lw-1]) {
+//   //   alert("Invalid Inflection.Your inflection contains illegal character");
+//   //   return false;
+//   // }
+//
+//   return true;
+// };
+function showDetails(word){
+  //alert("inshaAllah we will correct your word soon. ");
+  // let s = "Id = " + button.getAttribute('data-id') + "\r\n";
+  var no = word.getAttribute("data-serialno");
+//  alert("The serial number is : " + no);
+//  console.log('the serial number is '+no);
+//  let element = document.getElementsByName("serialNo");
+  const serial = document.getElementById("modal-edit-serial-no");
+  serial.setAttribute("value",no);
+  var wd=word.getAttribute("data-word");
+  const sobdo = document.getElementById("modal-edit-given-word");
+  sobdo.setAttribute("value",wd);
+  // var rt=word.getAttribute("data-root");
+  // const muul = document.getElementById("modal-edit-root-word");
+  // muul.setAttribute("value",rt);
+  var newRoot=word.getAttribute("data-newroot");
+  const notuun =document.getElementById("modal-edit-new-root");
+  notuun.setAttribute("value",wd);
+  var previousRoot=word.getAttribute("data-root");
+  const puran =document.getElementById("modal-edit-previous-root");
+  puran.setAttribute("value",previousRoot);
+  // var inf=word.getAttribute("data-inflection");
+  // if(inf==        "type='button'"){
+  //   inf="";
+  // }
+  // const bivokti = document.getElementById("modal-edit-inflection");
+  // bivokti.setAttribute("value",inf);
+}
+</script>
+  <body>
+    <div class="wrapper">
+      <div class="section">
+        <div class="header headerTwo">
+          <h1 class="index-head">Admin Panel</h1>
+          <button
+            onclick="location.href='userProfile.html' ;"
+            class="admin-btn"
+          >
+            Log out
+          </button>
+        </div>
+        <div class="admin-main">
+          <h5 style="margin: 10px auto 42px auto; text-align: center">
+            Here is the list of roots Identified till now :
+          </h5>
+
+          <table class="customers">
+            <tr>
+              <th style="text-align: center">Serial No.</th>
+              <th style="text-align: center">Given Word</th>
+              <th style="text-align: center">Root Word</th>
+              <th style="text-align: center">Inflection</th>
+              <th style="text-align: center">Username</th>
+              <th style="text-align: center">TimeStamp</th>
+              <th style="text-align: center">Date</th>
+              <th style="text-align: center">Edit</th>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশে</td>
+              <td>র</td>
+              <td>mahir_05</td>
+              <td>22:25</td>
+              <td>05-10-2022</td>
+              <td>
+                <button
+                  type="button"
+                  class="edit-btn"
+                  data-toggle="modal"
+                  data-target="#editModal"
+                >
+                  Edit
+                </button>
+              </td>
+            </tr>
+
+            <!-- example -->
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশে</td>
+              <td>র</td>
+              <td>mahir_05</td>
+              <td>22:25</td>
+              <td>05-10-2022</td>
+              <td>
+                <button
+                  type="button"
+                  class="edit-btn"
+                  data-toggle="modal"
+                  data-target="#editModal"
+                >
+                  Edit
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশে</td>
+              <td>র</td>
+              <td>mahir_05</td>
+              <td>22:25</td>
+              <td>05-10-2022</td>
+              <td>
+                <button
+                  type="button"
+                  class="edit-btn"
+                  data-toggle="modal"
+                  data-target="#editModal"
+                >
+                  Edit
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশে</td>
+              <td>র</td>
+              <td>mahir_05</td>
+              <td>22:25</td>
+              <td>05-10-2022</td>
+              <td>
+                <button
+                  type="button"
+                  class="edit-btn"
+                  data-toggle="modal"
+                  data-target="#editModal"
+                >
+                  Edit
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশে</td>
+              <td>র</td>
+              <td>mahir_05</td>
+              <td>22:25</td>
+              <td>05-10-2022</td>
+              <td>
+                <button
+                  type="button"
+                  class="edit-btn"
+                  data-toggle="modal"
+                  data-target="#editModal"
+                >
+                  Edit
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশে</td>
+              <td>র</td>
+              <td>mahir_05</td>
+              <td>22:25</td>
+              <td>05-10-2022</td>
+              <td>
+                <button
+                  type="button"
+                  class="edit-btn"
+                  data-toggle="modal"
+                  data-target="#editModal"
+                >
+                  Edit
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশে</td>
+              <td>র</td>
+              <td>mahir_05</td>
+              <td>22:25</td>
+              <td>05-10-2022</td>
+              <td>
+                <button
+                  type="button"
+                  class="edit-btn"
+                  data-toggle="modal"
+                  data-target="#editModal"
+                >
+                  Edit
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশে</td>
+              <td>র</td>
+              <td>mahir_05</td>
+              <td>22:25</td>
+              <td>05-10-2022</td>
+              <td>
+                <button
+                  type="button"
+                  class="edit-btn"
+                  data-toggle="modal"
+                  data-target="#editModal"
+                >
+                  Edit
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশে</td>
+              <td>র</td>
+              <td>mahir_05</td>
+              <td>22:25</td>
+              <td>05-10-2022</td>
+              <td>
+                <button
+                  type="button"
+                  class="edit-btn"
+                  data-toggle="modal"
+                  data-target="#editModal"
+                >
+                  Edit
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশে</td>
+              <td>র</td>
+              <td>mahir_05</td>
+              <td>22:25</td>
+              <td>05-10-2022</td>
+              <td>
+                <button
+                  type="button"
+                  class="edit-btn"
+                  data-toggle="modal"
+                  data-target="#editModal"
+                >
+                  Edit
+                </button>
+              </td>
+            </tr>
+            <!-- example -->
+          </table>
+        </div>
+        <div
+          class="modal"
+          id="editModal"
+          tabindex="-1"
+          aria-labelledby="editModalLabel"
+          aria-hidden="true"
+        >
+          <div
+            class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+          >
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Edit Word Info</h5>
+                <a
+                  href="#"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="close"
+                  >&times;</a
+                >
+              </div>
+              <div class="modal-body">
+                <form
+                  id="editBookForm"
+                  action="{% url 'admin-book-list-view' %}"
+                  method="post"
+                  enctype="multipart/form-data"
+                >
+                  <input type="hidden" name="post_type" value="edit" />
+                  <div class="mb-3">
+                    <label for="modal-edit-serial-no" class="form-label"
+                      >Serial No.</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="modal-edit-serial-no"
+                      name="serialNo"
+                      value="1"
+                      readonly
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="modal-edit-given-word" class="form-label"
+                      >Given Word</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="modal-edit-given-word"
+                      name="givenWord"
+                      value="বাংলাদেশের"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="modal-edit-root-word" class="form-label"
+                      >Root Word</label
+                    >
+                    <input
+                      class="form-select"
+                      name="rootWord"
+                      id="modal-edit-root-word"
+                      value="বাংলাদেশ"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="modal-edit-inflection" class="form-label"
+                      >Inflection</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="inflection"
+                      id="modal-edit-inflection"
+                      value="র"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="modal-edit-user-name" class="form-label"
+                      >User Name</label
+                    >
+                    <input
+                      placeholder="User Name"
+                      value="mahir_05"
+                      name="userName"
+                      id="modal-edit-user-name"
+                      type="text"
+                      class="form-control datepicker"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="modal-edit-time-stamp" class="form-label"
+                      >TimeStamp</label
+                    >
+                    <div class="input-group">
+                      <input
+                        type="time"
+                        class="form-control"
+                        name="timeStamp"
+                        id="modal-edit-time-stamp"
+                        value=""
+                      />
+                    </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="modal-edit-date" class="form-label">Date</label>
+                    <input
+                      type="date"
+                      class="form-control"
+                      name="date"
+                      id="modal-edit-date"
+                      value="18-Oct-2022"
+                    />
+                  </div>
+                  <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+                </form>
+              </div>
+              <div class="modal-footer">
+                <a
+                  href="#"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="close"
+                  ><button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button></a
+                >
+
+                <button
+                  type="button submit"
+                  form="editBookForm"
+                  class="btn btn-primary"
+                >
+                  Save changes
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <h2 class="menu">Menu</h2>
+        <ul class="ulStyle">
+          <li class="hoverItem">
+            <a href="admin.html">
+              <span class="item">Identified roots</span>
+            </a>
+          </li>
+          <li>
+            <a href="skippedWords.html">
+              <span class="item">Skipped Words</span>
+            </a>
+          </li>
+          <li>
+            <a href="garbageWords.html">
+              <span class="item">Garbage Words</span>
+            </a>
+          </li>
+          <li>
+            <a href="allUsers.html">
+              <span class="item">User Stats</span>
+            </a>
+          </li>
+          <li>
+            <a href="assignUser.html">
+              <span class="item">Assign New User</span>
+            </a>
+          </li>
+          <li>
+            <a href="activeDeactive.html">
+              <span class="item">Activate/Deactivate User</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+      integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+      integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
+<script>
+document.getElementById('editRoot').addEventListener('submit', function(evt){
+    // document.getElementById('donate').style.display = 'none';
+    // document.getElementById('topMessage').style.display = 'none';
+    let word = document.forms["editRoot"]["givenWord"].value;
+    let newRoot = document.forms["editRoot"]["newRoot"].value;
+    let lw=word.length;
+    if (word.includes(newRoot)==false||newRoot[0]!=word[0]) {  //
+      alert("Invalid Root. Your Root contains illegal character");
+      //  evt.preventDefault();
+        return false;
+    }
+     else{
+       // alert("Root is being updated");
+         return true;
+     }
+});//
+document.getElementById('close-btn').addEventListener('click', function(evt){
+  document.getElementById("editRoot").reset();
+  return true;
+});
+document.getElementById('xbutton').addEventListener('click', function(evt){
+  document.getElementById("editRoot").reset();
+  return true;
+});
+</script>

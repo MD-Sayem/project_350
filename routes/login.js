@@ -4,6 +4,7 @@ const router =  express.Router();
 const User=require('../models/user');
 const Data=require('../models/data')
 const homeRouter =require('./home');
+const activeDeactiveRouter=require('./activeDeactive');
 
 // router.get('/',function(req,res){
 //   res.redirect('/login');
@@ -64,4 +65,5 @@ router.post('/logout', function(req, res, next) {
 //   res.send('Wrong home page');
 // });
 router.get('/home',homeRouter);
+router.get('/activeDeactive',activeDeactiveRouter);
 module.exports=router;

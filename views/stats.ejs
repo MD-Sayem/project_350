@@ -15,6 +15,9 @@
     />
   </head>
   <body>
+    <div class="wrapper">
+
+
     <div class="section">
       <div class="header headerTwo">
         <h1 class="index-head">Admin Panel</h1>
@@ -36,7 +39,7 @@
         </form>
       </div>
       <div class="admin-main">
-        <div class="admin-query">
+        <!-- <div class="admin-query">
           <p style="text-align: center">
             Please enter the name of the user you would like to see :
           </p>
@@ -46,7 +49,7 @@
           <div class="enter-btn">
             <button class="enter-btn-button" onclick="location.href='/admin';">Enter</button>
           </div>
-        </div>
+        </div> -->
         <h4 style="margin-top: 0px; text-align: center">
           Here is a list of all the users:
         </h4>
@@ -58,7 +61,7 @@
             <th style="text-align: center">Total Words</th>
             <th style="text-align: center">Total Hours</th>
             <th style="text-align: center">Total Days</th>
-            <th style="text-align: center">Date Joined</th>
+            <th style="text-align: center">Date Started</th>
             <th style="text-align: center">User Stats</th>
           </tr>
           <% let i=0%>
@@ -91,6 +94,8 @@
           <!-- example -->
         </table>
       </div>
+      <%- include('sidebar.ejs') %>
+    </div>
       <div class="copy-right">
         <p class="copy-right-p">COPYRIGHT © SUST CSE &nbsp2018-19</p>
       </div>
