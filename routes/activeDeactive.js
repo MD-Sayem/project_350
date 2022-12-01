@@ -27,16 +27,27 @@ async function toggle(usr) {
 
 let filter={username:{$ne:"admin_101"}};
 router.get("/activeDeactive",function(req,res){
-  User.find(filter,function(err,results){
-    res.render('activeDeactive',{users:results});
-  //  console.log(results);
-  })    //.sort({ createdOn: 1 });
+  if(req.isAuthenticated() && req.user.role=='admin'){
+    User.find(filter,function(err,results){
+      res.render('activeDeactive',{users:results});
+  });
+  }
+  else{
+    res.redirect('/admin-login');
+  }
+
 });
 
 router.post("/activeDeactive",function(req,res){
-  let usr =req.body.userN;
-  toggle(usr);
-  res.redirect('/activeDeactive');
+  if(req.isAuthenticated() && req.user.role=='admin'){
+    let usr =req.body.userN;
+    toggle(usr);
+    res.redirect('/activeDeactive');
+  }
+  else{
+    res.redirect('/admin-login');
+  }
+
 });
 
 

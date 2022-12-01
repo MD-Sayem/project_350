@@ -24,7 +24,7 @@
           <%let det=myself.createdOn.getDate() + "-" + (parseInt( myself.createdOn.getMonth() )+parseInt('1'))+ "-" +myself.createdOn.getFullYear()%>
           <p class="user_info">Name :<h3 style="margin-bottom: 32px;"> <%=myself.username%></h3></p>
           <p class="user_info">Email :<h3 style="margin-bottom: 32px;" class="user_head"> <%=myself.email%></h3></p>
-          <p class="user_info">No. of words processed :<h3 style="margin-bottom: 32px;" class="user_head"> <%=myself.completed%></h3></p>
+          <p class="user_info">No. of words processed :<h3 style="margin-bottom: 32px;" class="user_head"> <%=cnt%></h3></p>
           <p class="user_info">Date joined :<h3 style="margin-bottom: 32px;" class="user_head"> <%=det%></h3></p>
           <!-- <p class="user_info"><h3 style="margin-bottom: 32px;" class="user_head"><a href="/my-words">My words</a></h3></p> -->
           <button onclick="location.href = '/my-words';" class="words-btn">My Words</button>

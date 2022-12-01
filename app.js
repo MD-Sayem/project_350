@@ -112,7 +112,7 @@ async function updateData(filter,update){
 }
 
 app.post('/done',function(req,res){
-  if(req.isAuthenticated()){
+  if(req.isAuthenticated()&&req.user.status=="active"){
     let nowCompleted=req.user.completed+1;
     let usr=req.user.username;
 
@@ -172,7 +172,7 @@ app.get('/admin-login',function(req,res){
 });
 app.get('/admin',function(req,res){
 
-  if(req.isAuthenticated()&&(req.user.username=='admin_101'||req.user.role=='admin')){
+  if(req.isAuthenticated() && req.user.role=='admin'){
 
     let usr=req.user.username;
       Data
@@ -193,7 +193,7 @@ app.get('/admin',function(req,res){
 
 
 app.get('/my-words',function(req,res){
-  if(req.isAuthenticated()){
+  if(req.isAuthenticated()&&req.user.status=="active"){
     let usr=req.user.username;
   //  console.log(usr);
       Data
@@ -201,12 +201,12 @@ app.get('/my-words',function(req,res){
       .sort({'time': -1})
       .limit(10)
       .exec(function(err, posts) {
-        res.render('admin',{sobdo:posts,who:usr,page:"lastTen"});
+        res.render('myWords',{sobdo:posts,who:usr,page:"lastTen"});
            // `posts` will be of length 20
       });
   }
   else{
-    res.redirect('/admin-login');
+    res.redirect('/');
   }
 
 });
@@ -227,7 +227,13 @@ app.post('/query',function(req,res){
 
 });
 app.get('/register',function(req,res){
-  res.render('signUp');
+  if(req.isAuthenticated() && req.user.role=='admin'){
+    res.render('signUp');
+  }
+  else{
+    res.redirect('/admin-login');
+  }
+
 });
 
 app.post("/register", function(req, res){
@@ -256,13 +262,17 @@ app.post('/admin-logout',function(req,res){
 
 
 app.get('/my-profile',function(req,res){
-  if(req.isAuthenticated()){
-    res.render('profile',{myself:req.user});
+  if(req.isAuthenticated()&&req.user.status=="active"){
+
+    Data.count({usernam:req.user.username}, function( err, count){
+      res.render('profile',{myself:req.user  , cnt:count});
+  });
   }
-  else {
-    res.render('/');
+  else{
+    res.redirect('/');
   }
 });
+
 // reading the file
 
 
@@ -273,7 +283,7 @@ app.get('/my-profile',function(req,res){
 Data.updateMany(fltr, {$set:updt}, {new: true}, (err, doc) => {});
 
 app.post('/edit',function(req,res){
-  if(req.isAuthenticated()){
+  if(req.isAuthenticated()&&req.user.status=="active"){
       let tarikh=Date.now();
       let sl=req.body.serialNo;
       let word=req.body.givenWord;

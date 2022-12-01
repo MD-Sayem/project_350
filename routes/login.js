@@ -31,7 +31,7 @@ router.post('/login', function(req, res){
     } else {
       passport.authenticate("local")(req, res, function(){
         if(user.username=='admin_101'||user.role=='admin'){
-          res.redirect('/stat');
+          res.redirect('/admin');
           console.log('admin logged in');
         }
         else{

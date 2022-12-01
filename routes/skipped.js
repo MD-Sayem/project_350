@@ -7,7 +7,7 @@ const Data=require('../models/data')
 
 router.get('/skipped-words',function(req,res){
 
-  if(req.isAuthenticated()&&(req.user.username=='admin_101'||req.user.role=='admin')){
+  if(req.isAuthenticated() && req.user.role=='admin'){
 
     let usr=req.user.username;
       Data
@@ -15,7 +15,7 @@ router.get('/skipped-words',function(req,res){
       .sort({'time': -1})
       .limit(10)
       .exec(function(err, posts) {
-        res.render('admin',{sobdo:posts,who:usr,page:"incomplete"});
+        res.render('skippedWord',{sobdo:posts,who:usr,page:"incomplete"});
            // `posts` will be of length 20
       });
   }
