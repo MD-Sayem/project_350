@@ -5,6 +5,8 @@ const User=require('../models/user');
 const Data=require('../models/data')
 const homeRouter =require('./home');
 const activeDeactiveRouter=require('./activeDeactive');
+const gerbageRouter=require('./gerbage');
+const skippedRouter=require('./skipped');
 
 // router.get('/',function(req,res){
 //   res.redirect('/login');
@@ -66,4 +68,7 @@ router.post('/logout', function(req, res, next) {
 // });
 router.get('/home',homeRouter);
 router.get('/activeDeactive',activeDeactiveRouter);
+router.post('/activeDeactive',activeDeactiveRouter);
+router.get('/garbage-words',gerbageRouter);
+router.get('/skipped-words',skippedRouter);
 module.exports=router;

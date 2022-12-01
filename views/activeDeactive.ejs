@@ -19,9 +19,11 @@
       <div class="section">
         <div class="header headerTwo">
           <h1 class="index-head">Admin Panel</h1>
-          <button onclick="location.href='admin.html' ;" class="admin-btn">
-            Log out
-          </button>
+          <form class="" action="/admin-logout" method="post">
+            <button type="submit" class="logOut-btn admin-btn">
+              Log out
+            </button>
+          </form>
         </div>
         <div class="admin-main">
           <h4 style="margin-top: 0px; text-align: center">
@@ -37,14 +39,18 @@
             </tr>
             <%let i=0%>
             <% users.forEach(function(user){ %>
-            <tr>
-              <td><%=++i%></td>
-              <td><%=user.username%></td>
-              <td><%=user.email%></td>
-              <td>
-                <button class="edit-btn activeUser">Active</button>
-              </td>
-            </tr>
+              <%let cls=user.status+"User"%>
+            <form class="" action="/activeDeactive" method="post">
+              <tr>
+                <td><%=++i%></td>
+                <td><%=user.username%></td>
+                <td><%=user.email%></td>
+                <td>
+                  <button class="edit-btn <%-cls%>"><%=user.status%></button>
+                </td>
+              </tr>
+              <input type="hidden" name="userN" value=<%=user.username%>>
+            </form>
         <%});%>
             <!-- example -->
 

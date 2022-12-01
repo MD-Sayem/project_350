@@ -133,8 +133,12 @@
             <% sobdo.reverse().forEach(function(item){ %>
             <% if(flag==0){ start=item.serialNumber; flag=1}%>
             <% end=item.serialNumber%>
+
+
             <% let tm=parseInt(item.time.getHours())+" : "+parseInt(item.time.getMinutes())%>
             <% let date=item.time.getDate() + "-" + (parseInt( item.time.getMonth() )+parseInt('1'))+ "-" +item.time.getFullYear()%>
+            
+
               <tr>
                   <td><%=item.serialNumber%></td>
                   <td><%=item.word%></td>

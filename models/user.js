@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema ({
   email: String,
   password: String,
   username: String,
+  status:{type: String, default:"active"},
   completed: { type: Number, default: 0 },
   workingWith: {type:Number, default:0},
   role: {type: String, default:"user"},

@@ -130,7 +130,8 @@ app.post('/done',function(req,res){
       let d=new Date();
       let update ={
         lock:0,
-        status:2
+        status:2,
+        time:d
       }; //skip
 
       if(req.body.whatToDo=='complete'){
@@ -154,6 +155,7 @@ app.post('/done',function(req,res){
           update={
           lock : 0,
           status: 3,
+          time:d
         };
       }
 
@@ -272,6 +274,7 @@ Data.updateMany(fltr, {$set:updt}, {new: true}, (err, doc) => {});
 
 app.post('/edit',function(req,res){
   if(req.isAuthenticated()){
+      let tarikh=Date.now();
       let sl=req.body.serialNo;
       let word=req.body.givenWord;
       let rt=req.body.newRoot;
@@ -279,7 +282,9 @@ app.post('/edit',function(req,res){
       let filter={serialNumber:sl};
       let update={
                     rootWord:rt,
-                    inflection:inf
+                    inflection:inf,
+                    time:tarikh,
+                    status:1
                   };
       if (word.includes(rt)==true && rt[0]==word[0]) {
 
