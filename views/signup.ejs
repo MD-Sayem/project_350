@@ -38,7 +38,11 @@
               <input name="email"type="text" placeholder="Enter email"  required>
               <!-- required -->
               <p>Password</p>
-              <input name="password" type="password" placeholder="Enter password" required/>
+              <input id='password1'name="password" type="password" placeholder="Enter password" required/>
+
+              <p>Confirm Password</p>
+              <input id ='password2'name="password2" type="password" placeholder="Enter password" required/>
+              <span id='message'></span>
               <div class="log-in-submit">
                 <button type="submit" class="submit-btn">
                       Assign User
@@ -108,3 +112,15 @@
     <p class="copy-right-p">COPYRIGHT © SUST CSE &nbsp2018-19</p>
   </div> -->
 </html>
+<script type="text/javascript">
+
+    $('#password1, #password2').on('keyup', function () {
+      if ($('#password1').val() == $('#password2').val()) {
+        $('#message').html('Matching').css('color', 'green');
+
+      } else
+        $('#message').html('Not Matching').css('color', 'red');
+
+    });
+
+</script>

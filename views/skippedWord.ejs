@@ -91,8 +91,18 @@
         <div class="header headerTwo">
           <%let a='My Words';if(who=='admin_101'){a='Admin Panel';}%>
           <h1 class="index-head"><%=a%></h1>
+          <form class="" action="/restoreAll" method="post">
+
+            <button
+              name='restoreAll'
+              type='submit'
+              class="admin-btn profile-btn"
+            >
+              Restore All
+            </button>
+          </form>
           <form class="" action="/logout" method="post">
-            <button type="submit" class="admin-btn">
+            <button type="submit" class="logOut-btn admin-btn">
               Log out
             </button>
           </form>

@@ -379,10 +379,26 @@ app.get('/stat',function(req,res){
       Data.aggregate(
       [
         { "$match": { usernam: {  $ne: null } } },
+        // {
+        //  "$group" : {
+        //     _id : { $dateToString: { format: "%Y-%m-%d", date: "$time"} },
+        //     totalDays: { $sum: 1 }
+        //   }
+        // },
         {
           //{ $dateToString: { format: "%Y-%m-%d", date: "$date" } }
-          "$group" : {_id:"$usernam" ,joined:{  $min:"$time" },totalDays:{$min:"9 Days"},totalHours:{$min:"18.6 hrs"}, count:{$sum:1}},
+          "$group" : {
+                _id:"$usernam" ,
+                joined:{  $min:"$time" },
+                totalDays:{$min:"9 Days"},
+                totalHours:{$min:"18.6 hrs"},
+                count:{$sum:{ $dateToString: { format: "%Y-%m-%d", date: "$date" } }},
+                totalWords:{$count:{}}
+              },
         },
+        {
+              $sort : { totalWords: -1 }
+        }
 
     //   {"$project" : {user : '$_id.username', joined : '$_id.createdOn'}}
    //  {
@@ -393,6 +409,7 @@ app.get('/stat',function(req,res){
       ]
       ).exec((err, results) => {
           if (err) throw err;
+    //      console.log(results);
     //    res.send(results);
       res.render('stats',{st:results});
       //  console.log(results[0][Object.keys(results[0])[1]]);
@@ -411,41 +428,6 @@ app.get('/stat',function(req,res){
   //  res.send('Insha-Allah I will show you the statistics');
 
 });
-app.get('/admin-stat',function(req,res){    //joining two tables data and user
-//   Data.aggregate([{
-//     $lookup: {
-//         from: "users", // collection name in db
-//         localField: "usrnam",
-//         foreignField: "username",
-//         as: "createdOn"
-//     }
-// }]).exec(function(err, results) {
-//   res.send(results);
-//     // students contain WorksnapsTimeEntries
-// });
-
-});
-app.post('/stat',function(req,res){
-  let user=req.body.user;
-  Data.aggregate(
-  [
-    { "$match": { usernam: {  $eq: user } } },
-    {
-     "$group" : {
-        _id : { $dateToString: { format: "%Y-%m-%d", date: "$time"} },
-        count: { $sum: 1 }
-      }
-    }
-  ]
-  ).exec((err, results) => {
-      if (err) throw err;
-
-      res.render('userStats',{data:results,usr:user});
-  });
-
-
-});
-
 app.post('/download',function(req,res){
 			    let usr="sam74";
 	        let dta=req.body.information;
@@ -457,14 +439,34 @@ app.post('/download',function(req,res){
             { "$match": { usernam: {  $ne: null } } },
             {
               //{ $dateToString: { format: "%Y-%m-%d", date: "$date" } }
-              "$group" : {_id:"$usernam" ,joined:{  $min:"$time" },totalDays:{$min:"9 Days"},totalHours:{$min:"18.6 hrs"}, count:{$sum:1}},
+              "$group" : {
+                    _id:"$usernam" ,
+                    username:{$min:'$usernam'},
+                    startedFrom:{  $min:{ $dateToString: { format: "%Y-%m-%d", date: "$time" } } },
+                    totalDays:{$count:{}}, //count: { $count: { } }
+                    totalHours:{$min:"_._ hrs"},
+                    totalWords:{$sum:1}},
+                    //totalWords:{$count:{}}
+            // "$group" : {_id:"$usernam" ,started:{  $min:{ $dateToString: { format: "%Y-%m-%d", date: "$time" } } },totalDays:{$min:"_ Days"},totalHours:{$min:"_._ hrs"}, count:{$sum:1}},
             },
+            {
+                  $sort : { totalWords: -1 }
+            }
+            // {
+            //  "$group" : {
+            //     _id : { $dateToString: { format: "%Y-%m-%d", date: "$time"} },
+            //     totalDays: { $sum: 1 }
+            //   }
+            // },
 
           ]
           ).exec((err, results) => {
               if (err) throw err;
 
-              const fields = ['_id','count' ,'totalDays', 'totalHours', 'joined'];
+              let jsonData= JSON.stringify(results);
+              console.log(results);
+
+              const fields = ['username','totalWords' ,'startedFrom'];
               const jsons2csvParser=new Parser({fields});
               const info = jsons2csvParser.parse(results);
             //  res.send(jsonData);
@@ -485,8 +487,102 @@ app.post('/download',function(req,res){
           });
 
 });
+app.get('/admin-stat',function(req,res){    //joining two tables data and user
+//   Data.aggregate([{
+//     $lookup: {
+//         from: "users", // collection name in db
+//         localField: "usrnam",
+//         foreignField: "username",
+//         as: "createdOn"
+//     }
+// }]).exec(function(err, results) {
+//   res.send(results);
+//     // students contain WorksnapsTimeEntries
+// });
+
+});
+app.post('/stat',function(req,res){
+  if(req.isAuthenticated()&&req.user.status=="active"){
+      let user=req.body.user;
+      Data.aggregate(
+      [
+        { "$match": { usernam: {  $eq: user } } },
+        {
+         "$group" : {
+            _id : { $dateToString: { format: "%Y-%m-%d", date: "$time"} },
+            count: { $sum: 1 },
+            cnt:{ $count:{}}
+          }
+        },
+        {
+          $sort : { _id: 1 }
+        }
+      ]
+      ).exec((err, results) => {
+          if (err) throw err;
+
+          res.render('userStats',{data:results,usr:user});
+      //    console.log(results);
+      });
+    }
+  else{
+    res.redirect('/admin-login');
+  }
+
+});
+
+app.post('/downloadFile',function(req,res){
+  let user=req.body.user;
+  Data.aggregate(
+  [
+    { "$match": { usernam: {  $eq: user } } },
+    {
+     "$group" : {
+        _id : { $dateToString: { format: "%Y-%m-%d", date: "$time"} },
+        date:{$min:{ $dateToString: { format: "%Y-%m-%d", date: "$time"} }},
+        wordCount: { $sum: 1 }
+      }
+    },
+    {
+      $sort : { _id: 1 }
+    }
+  ]
+  ).exec((err, results) => {
+      if (err) throw err;
+      // res.render('userStats',{data:results,usr:user});
+       const fields = ['date','wordCount'];
+       const jsons2csvParser_=new Parser({fields});
+       const info_ = jsons2csvParser_.parse(results);
+    // //  res.send(jsonData);
+       let time_=new Date();
+       let date_=time_.getDate() + "-" + (parseInt( time_.getMonth() )+parseInt('1'))+ "-" +time_.getFullYear()
+       let filename_=user+'_perdayStatistics_'+date_+'.csv'
+       res.attachment(filename_);
+       res.status(200).send(jsons2csvParser_.parse(results));
+
+  });
+
+
+});
+
+
 app.get('/faq',function(req,res){
   res.render('faq');
+});
+async function restoreAll(fltr,updt) {
+  try{
+      await  Data.updateMany(fltr, {$set:updt}, {new: true}, (err, doc) => {});
+        return doc.save();
+  }
+  catch(error){
+
+  }
+}
+app.post('/restoreAll',function(req,res){
+  const fltr={status : 2};   //from skipped
+  const updt ={ status : 0};  // making incomplete
+  restoreAll(fltr,updt);
+  res.redirect('/skipped-words')
 });
 
 
