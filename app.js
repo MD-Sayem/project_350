@@ -228,7 +228,7 @@ app.post('/query',function(req,res){
 });
 app.get('/register',function(req,res){
   if(req.isAuthenticated() && req.user.role=='admin'){
-    res.render('signUp');
+    res.render('signup');
   }
   else{
     res.redirect('/admin-login');
