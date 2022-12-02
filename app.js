@@ -468,7 +468,10 @@ app.post('/download',function(req,res){
               const jsons2csvParser=new Parser({fields});
               const info = jsons2csvParser.parse(results);
             //  res.send(jsonData);
-              res.attachment('user-statistics.csv');
+            let time=new Date();
+            let date=time.getDate() + "-" + (parseInt( time.getMonth() )+parseInt('1'))+ "-" +time.getFullYear()
+              let filename='userStatistics_'+date+'.csv'
+              res.attachment(filename);
               res.status(200).send(jsons2csvParser.parse(results));
               let path="https://drive.google.com/drive/folders/1CcST75bVnnAOUkFC3M-9_Rd2R_Yy7BOE?usp=sharing";
               // fs.writeFile(path+'/last10.csv',info,function(err){
@@ -481,6 +484,9 @@ app.post('/download',function(req,res){
               //csv file writtern
           });
 
+});
+app.get('/faq',function(req,res){
+  res.render('faq');
 });
 
 

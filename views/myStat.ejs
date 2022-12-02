@@ -15,7 +15,7 @@
     />
   </head>
   <body>
-  <div class="wrapper">
+
     <div class="section">
       <div class="header headerTwo">
         <h1 class="index-head"><%-usr%></h1>
@@ -25,7 +25,7 @@
 
             class="admin-btn profile-btn"
           >
-            Download Info
+            Download My Info
           </button>
         </form>
         <form class="" action="/admin-logout" method="post">
@@ -44,7 +44,7 @@
             <th style="text-align: center">Day no.</th>
             <th style="text-align: center">Date</th>
             <th style="text-align: center">No. of words</th>
-            <!-- <th style="text-align: center">No. of hours</th> -->
+            <th style="text-align: center">No. of hours</th>
             <th style="text-align: center">Per Hour</th>
             <!-- <th style="text-align: center">Words List</th> -->
           </tr>
@@ -55,7 +55,7 @@
             <td><%=++i%></td>
             <td><%-day._id%></td>
             <td><%-day.count%></td>
-            <!-- <td>1 hr 41 Mins</td> -->
+            <td> _ Hrs : _ Mins</td>
             <td>
               <input
                 class="toggleVisibilityButton"
@@ -93,49 +93,12 @@
           </tr>
           <tr>
             <td style="text-align: center">2</td>
-            <td style="text-align: center">00:00 - 00:00</td>
+            <td style="text-align: center">00:00 - 0:00</td>
             <td style="text-align: center">0 hrs 0 mins</td>
             <td style="text-align: center">0 (<i>false value</i>)</td>
           </tr>
         </table>
       </div>
-      <div class="sidebar">
-        <p class="copy-right-p">COPYRIGHT © SUST CSE &nbsp2018-19</p>
-        <h2 class="menu">Menu</h2>
-        <ul class="ulStyle">
-          <li >
-            <a href="/admin">
-              <span class="item">Identified roots</span>
-            </a>
-          </li>
-          <li>
-            <a href="/skipped-words">
-              <span class="item">Skipped Words</span>
-            </a>
-          </li>
-          <li>
-            <a href="/garbage-words">
-              <span class="item">Garbage Words</span>
-            </a>
-          </li>
-          <li class="hoverItem">
-            <a href="/stat">
-              <span class="item">User Stats</span>
-            </a>
-          </li>
-          <li>
-            <a href="/register">
-              <span class="item">Assign New User</span>
-            </a>
-          </li>
-          <li>
-            <a href="/activeDeactive">
-              <span class="item">Activate/Deactivate User</span>
-            </a>
-          </li>
-        </ul>
-        </div>
-
       <div
         class="modal fade"
         id="editModal"
@@ -271,10 +234,10 @@
         </div>
       </div>
     </div>
-      <div class="copy-right">
+      <!-- <div class="copy-right">
         <p class="copy-right-p">COPYRIGHT © SUST CSE &nbsp2018-19</p>
-      </div>
-    </div>
+      </div> -->
+
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

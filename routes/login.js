@@ -7,6 +7,7 @@ const homeRouter =require('./home');
 const activeDeactiveRouter=require('./activeDeactive');
 const gerbageRouter=require('./gerbage');
 const skippedRouter=require('./skipped');
+const myStatRouter=require('./myStat');
 
 // router.get('/',function(req,res){
 //   res.redirect('/login');
@@ -71,4 +72,5 @@ router.get('/activeDeactive',activeDeactiveRouter);
 router.post('/activeDeactive',activeDeactiveRouter);
 router.get('/garbage-words',gerbageRouter);
 router.get('/skipped-words',skippedRouter);
+router.get('/my-stat',myStatRouter);
 module.exports=router;

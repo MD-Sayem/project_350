@@ -24,15 +24,26 @@ function validateForm() {
     <div class="section">
       <div class="header headerTwo">
         <h1 class="index-head">Welcome to Bangla Stemmer</h1>
-        <button
-         onclick="location.href='/my-profile';"
-         class="admin-btn profile-btn"
-       >
-         <%=me.username%>
-       </button>
-        <!-- <form class="" action="/logout" method="post">
-          <button class="admin-btn" type="submit">Log out</button>
-        </form> -->
+        <div class="dataEntryTopRight">
+
+          <form class="" action="/logout" method="post">
+            <button
+               class="logOut-btn admin-btn"
+               type="submit"
+            >
+                Log Out
+            </button>
+          <!-- <a href="/my-profile"> -->
+            <button
+             type="button"
+             onclick="location.href='/my-profile';"
+             class="admin-btn profile-btn"
+           >
+             <%=me.username%>
+           </button>
+         <!-- </a> -->
+        </form>
+      </div>
   </div>
 
 
@@ -48,14 +59,17 @@ function validateForm() {
         <div class="buttons">
           <button name="whatToDo" value="complete" class="submit-btn-2" title="Enter">Submit</button>
           <button name="whatToDo" value="skip" class="skip-btn"  title="Spacebar">Skip</button>
-          <button name="whatToDo" value="gerbage" class="garbage-btn"  title="Ctrl+Enter">
-            Gerbage Word
-          </button>
+          <button name="whatToDo" value="gerbage" class="garbage-btn"  title="Ctrl+Enter"> Garbage </button>
         </div>
       </form>
+      <p class="log-out-ins">
+          *Please log out before you exit. You can log out from your profile
+          (Top Right button).
+      </p>
+      <div class="faqSection">
+        <a href="/faq">FAQ</a>
       </div>
-
-
+      </div>
       <div class="copy-right">
         <p class="copy-right-p">COPYRIGHT © SUST CSE &nbsp2018-19</p>
       </div>
