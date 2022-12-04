@@ -8,6 +8,7 @@ const activeDeactiveRouter=require('./activeDeactive');
 const gerbageRouter=require('./gerbage');
 const skippedRouter=require('./skipped');
 const myStatRouter=require('./myStat');
+const dataStatRouter=require('./dataStat');
 
 // router.get('/',function(req,res){
 //   res.redirect('/login');
@@ -33,11 +34,11 @@ router.post('/login', function(req, res){
       passport.authenticate("local")(req, res, function(){
         if(user.username=='admin_101'||user.role=='admin'){
           res.redirect('/admin');
-          console.log('admin logged in');
+        //  console.log('admin logged in');
         }
         else{
               res.redirect('/home');
-              console.log(req.user.username+' login done; working '+req.user.workingWith);
+            //  console.log(req.user.username+' login done; working '+req.user.workingWith);
         }
       });
     }
@@ -54,7 +55,7 @@ router.post('/logout', function(req, res, next) {
       Data.findOneAndUpdate(filter, {$set:update}, {new: true}, (err, doc) => {});
       let usr=req.user.username;
       User.findOneAndUpdate({username:usr},{workingWith:0},{new:true},(err,doc)=>{});
-      console.log(req.user.username+" logged out and unlocked "+filter.serialNumber);
+    //  console.log(req.user.username+" logged out and unlocked "+filter.serialNumber);
     }
     req.logout(function(err) {
     if (err) {
@@ -73,4 +74,5 @@ router.post('/activeDeactive',activeDeactiveRouter);
 router.get('/garbage-words',gerbageRouter);
 router.get('/skipped-words',skippedRouter);
 router.get('/my-stat',myStatRouter);
+router.get('/data-stat',dataStatRouter);
 module.exports=router;

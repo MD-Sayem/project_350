@@ -8,7 +8,7 @@ router.get('/home',function(req,res){
   // set lock=1;
  if(req.isAuthenticated()&&req.user.status=="active"){
     let number=req.user.workingWith;
-    console.log(req.user.username+' working with word no: '+number);
+//    console.log(req.user.username+' working with word no: '+number);
     // console.log('previousWorkedWith : '+number);
     if(number!=0){
       Data.findOne({serialNumber:number},function(err,result){

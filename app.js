@@ -285,6 +285,7 @@ Data.updateMany(fltr, {$set:updt}, {new: true}, (err, doc) => {});
 app.post('/edit',function(req,res){
   if(req.isAuthenticated()&&req.user.status=="active"){
       let tarikh=Date.now();
+      let manush=req.user.username;
       let sl=req.body.serialNo;
       let word=req.body.givenWord;
       let rt=req.body.newRoot;
@@ -293,6 +294,7 @@ app.post('/edit',function(req,res){
       let update={
                     rootWord:rt,
                     inflection:inf,
+                    // usernam:manush,
                     time:tarikh,
                     status:1
                   };

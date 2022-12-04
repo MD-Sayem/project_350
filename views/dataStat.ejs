@@ -21,17 +21,6 @@
     <div class="section">
       <div class="header headerTwo">
         <h1 class="index-head">Admin Panel</h1>
-
-        <form class="" action="/download" method="post">
-          <button
-            name='information'
-            value=<%-st%>
-            class="admin-btn profile-btn"
-          >
-            Download Info
-          </button>
-        </form>
-
         <form class="" action="/admin-logout" method="post">
           <button type="submit" class="logOut-btn admin-btn">
             Log out
@@ -51,46 +40,34 @@
           </div>
         </div> -->
         <h4 style="margin-top: 0px; text-align: center">
-          Here is a list of all the users:
+          Here is current status of our database
         </h4>
 
         <table class="customers adminTable">
+            <%let com=0; let incom=0; let skip=0; let gerb=0; let cnt=0%>
+            <%for(i=0; i<4; i++){%>
+            <%if(stat[i]!=null){ %>
+             <% if(stat[i]._id==0){incom=stat[i].count; cnt+=incom}%>
+             <% if(stat[i]._id==1){com=stat[i].count; cnt+=com}%>
+             <% if(stat[i]._id==2){skip=stat[i].count; cnt+=skip}%>
+             <% if(stat[i]._id==3){gerb=stat[i].count; cnt+=gerb}%>
+            <%}}%>
+            <!-- (10.8).toFixed(2);  -->
           <tr>
-            <th style="text-align: center">User No.</th>
-            <th style="text-align: center">User Name</th>
             <th style="text-align: center">Total Words</th>
-            <!-- <th style="text-align: center">Total Hours</th>
-            <th style="text-align: center">Total Days</th> -->
-            <th style="text-align: center">Date Started</th>
-            <th style="text-align: center">User Stats</th>
+            <th style="text-align: center">Completed (<%-(com/cnt*100).toFixed(2)%>%)</th>
+            <th style="text-align: center">Incompleted (<%-(incom/cnt*100).toFixed(2)%>%)</th>
+            <th style="text-align: center">Skipped (<%-(skip/cnt*100).toFixed(2)%>%)</th>
+            <th style="text-align: center">Garbage (<%-(gerb/cnt*100).toFixed(2)%>%)</th>
           </tr>
-          <% let i=0%>
-          <% st.forEach(function(user){ %>
-            <% let date=user.joined.getDate() + "-" + (parseInt( user.joined.getMonth() )+parseInt('1'))+ "-" +user.joined.getFullYear()%>
+          <tr>
+            <td><%-cnt%></td>
+            <td><%-com%></td>
+            <td><%-incom%></td>
+            <td><%-skip%></td>
+            <td><%-gerb%></td>
+          </tr>
 
-
-          <form class="" action="/stat" method="post">
-
-            <tr>
-              <td><%-++i%></td>
-              <td><%-user._id%></td>
-              <td><%-user.totalWords%></td>
-              <!-- <td><%-user.totalHours%></td>
-              <td><%-user.totalDays%></td> -->
-              <td><%-date%></td>
-              <td>
-                <button
-                    type="submit"
-                    class="edit-btn"
-                    name="user"
-                    value=<%-user._id%>
-                >
-                  Stats
-                </button>
-              </td>
-            </tr>
-            <%});%>
-          </form>
           <!-- example -->
         </table>
       </div>
@@ -113,7 +90,7 @@
               <span class="item">Garbage Words</span>
             </a>
           </li>
-          <li class="hoverItem">
+          <li>
             <a href="/stat">
               <span class="item">User Stats</span>
             </a>
@@ -128,7 +105,7 @@
               <span class="item">Activate/Deactivate User</span>
             </a>
           </li>
-          <li>
+          <li class="hoverItem">
             <a href="/data-stat">
               <span class="item">Data Statistics</span>
             </a>
