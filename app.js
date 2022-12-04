@@ -26,11 +26,11 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.set('view engine' , 'ejs');
 app.use(express.static('public'));
-let SECRET="Our_little_secret"
-let MONGO_SERVER_1="mongodb+srv://admin_sayem:s1a2y3e4m5@cluster0.1drsu.mongodb.net/BanglaStemmingDB"
-let MONGO_SERVER_2="mongodb+srv://admin_sayem:s1a2y3e4m5@cluster0.1drsu.mongodb.net/testDB"
+
+let MONGO_SERVER_1="BanglaStemmingDB";
+let MONGO_SERVER_2="testDB";
 // mongoose.connect(MONGO_SERVER_2);
-mongoose.connect(MONGO_SERVER_2)
+mongoose.connect(process.env.MONGO_SERVER_1)
 .then(()=>{
     console.log("Connected to databases!!".rainbow)
 })
@@ -43,7 +43,7 @@ mongoose.connect(MONGO_SERVER_2)
 //mongoose.set("useCreateIndex", true);
 
 app.use(session({
-  secret: SECRET,
+  secret: process.env.SECRET,
   resave: false,
   saveUninitialized: false
 }));
@@ -431,7 +431,7 @@ app.get('/stat',function(req,res){
 app.post('/download',function(req,res){
 			    let usr="sam74";
 	        let dta=req.body.information;
-          console.log(req.body);
+        //  console.log(req.body);
 
 
           Data.aggregate(
@@ -464,7 +464,7 @@ app.post('/download',function(req,res){
               if (err) throw err;
 
               let jsonData= JSON.stringify(results);
-              console.log(results);
+            //  console.log(results);
 
               const fields = ['username','totalWords' ,'startedFrom'];
               const jsons2csvParser=new Parser({fields});
