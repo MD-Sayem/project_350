@@ -32,7 +32,7 @@ let MONGO_SERVER_2="testDB";
 // mongoose.connect(MONGO_SERVER_2);
 mongoose.connect(process.env.MONGO_SERVER_1)
 .then(()=>{
-    console.log("Connected to databases!!".rainbow)
+    console.log("Connected to database "+ MONGO_SERVER_1.rainbow)
 })
 .catch(err=>{
     console.log("Sorry, cannot connect!".red)
@@ -243,9 +243,10 @@ app.post("/register", function(req, res){
       console.log(err);
       res.redirect("/");
     } else {
-      passport.authenticate("local")(req, res, function(){
-        res.redirect("/home");
-      });
+      // passport.authenticate("local")(req, res, function(){
+      //   res.redirect("/home");
+      // });
+      res.redirect('/activeDeactive');
     }
   });
 

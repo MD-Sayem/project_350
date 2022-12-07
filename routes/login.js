@@ -48,7 +48,7 @@ router.post('/login', function(req, res){
 router.post('/logout', function(req, res, next) {
 
   //  console.log(req.user);
-  //  if(req.user.workingWith!=null)
+    if(req.isAuthenticated())
     {
       const filter={serialNumber:req.user.workingWith};
       const update={lock:0};
