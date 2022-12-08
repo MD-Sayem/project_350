@@ -127,6 +127,10 @@ app.post('/done',function(req,res){
       let word=req.body.sobdo;
       let root = req.body.rt;
       let inflect=word.replace(root,'');
+      if(word[0]!=root[0]){
+        inflect=word.replace(root,'__'); //two underscore
+      }
+
       let d=new Date();
       let update ={
         lock:0,
@@ -135,7 +139,7 @@ app.post('/done',function(req,res){
       }; //skip
 
       if(req.body.whatToDo=='complete'){
-        if(word.includes(root)==true && root[0]==word[0]){ //valid
+        if(word.includes(root)==true && root.length!=0){ //valid
           update={
             rootWord :root,
             inflection : inflect,
@@ -219,10 +223,16 @@ app.post('/query',function(req,res){
   let filter={status:1,serialNumber: { $gte: lo, $lte: hi }};
   if(usr!='admin_101' && req.user.role!='admin'){
      filter={status:1,usernam:usr,serialNumber: { $gte: lo, $lte: hi }};
+     Data.find(filter,function(err,results){
+       res.render('myWords',{sobdo:results, who:usr,page:"query"});
+     }).sort({ serialNumber: -1 });
   }
+  else{
     Data.find(filter,function(err,results){
       res.render('admin',{sobdo:results, who:usr,page:"query"});
     }).sort({ serialNumber: -1 });
+  }
+
 //  console.log('low : '+lo+' high : '+hi);
 
 });
@@ -291,6 +301,9 @@ app.post('/edit',function(req,res){
       let word=req.body.givenWord;
       let rt=req.body.newRoot;
       let inf= word.replace(rt,'');
+      if(word[0]!=rt[0]){
+        inf=word.replace(rt,'__'); //two underscore
+      }
       let filter={serialNumber:sl};
       let update={
                     rootWord:rt,
@@ -299,7 +312,7 @@ app.post('/edit',function(req,res){
                     time:tarikh,
                     status:1
                   };
-      if (word.includes(rt)==true && rt[0]==word[0]) {
+      if (word.includes(rt)==true && rt.length!=0) {
 
         updateData(filter,update);
         // Data.findOneAndUpdate(filter,{$set:update},{new: true}, (err, doc) => {});
@@ -310,17 +323,23 @@ app.post('/edit',function(req,res){
       // console.log(update);
       let usr=req.user.username;
       if(req.body.pagename=='query'){
-        let lo=req.body.start;
-        let hi=req.body.end;
-        let fl={status:1,serialNumber: { $gte: lo, $lte: hi }}
-        if(req.user.username!='admin_101'&&req.user.role!='admin'){
-          fl={status:1,usernam:usr,serialNumber: { $gte: lo, $lte: hi }}
+            let lo=req.body.start;
+            let hi=req.body.end;
+            let fl={status:1,serialNumber: { $gte: lo, $lte: hi }}
+            let pg='query';
+            if(req.user.username!='admin_101'&&req.user.role!='admin'){  //user query
+              fl={status:1,usernam:usr,serialNumber: { $gte: lo, $lte: hi }}
+              Data.find(fl,function(err,results){
+                res.render('myWords',{sobdo:results,who:usr, page:pg});
+              }).sort({ serialNumber: -1 });
+            }
+            else{  //admin query
+              Data.find(fl,function(err,results){
+                res.render('admin',{sobdo:results,who:usr, page:pg});
+              }).sort({ serialNumber: -1 });
+            }
         }
-        let pg='query';
-          Data.find(fl,function(err,results){
-            res.render('admin',{sobdo:results,who:usr, page:pg});
-          }).sort({ serialNumber: -1 });
-      }
+
       else{ // lastTen
         if(req.user.role=='admin'||req.user.username=="admin_101"){
           res.redirect('/admin');
@@ -329,6 +348,8 @@ app.post('/edit',function(req,res){
           res.redirect('/my-words');
         }
       }
+
+
 
   }
   else{

@@ -350,8 +350,8 @@ document.getElementById('editRoot').addEventListener('submit', function(evt){
     let word = document.forms["editRoot"]["givenWord"].value;
     let newRoot = document.forms["editRoot"]["newRoot"].value;
     let lw=word.length;
-    if (word.includes(newRoot)==false||newRoot[0]!=word[0]) {  //
-      alert("Invalid Root. Your Root contains illegal character");
+    if (word.includes(newRoot)==false||newRoot.length==0) {  //
+      alert("Invalid Root.Cut down only from the first and last.No extra characters!");
       //  evt.preventDefault();
         return false;
     }

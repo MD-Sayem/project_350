@@ -13,8 +13,8 @@
 function validateForm() {
   let root = document.forms["rootFinding"]["rt"].value;
   let word = document.forms["rootFinding"]["sobdo"].value;
-  if (word.includes(root)==false||root[0]!=word[0]) {  //
-    alert("Invalid Root.Your Root contains illegal character");
+  if (word.includes(root)==false||root.length==0) {  //
+    alert("Invalid Root.Cut down only from the first and last.No extra characters!");
     return false;
   }
   return true;
