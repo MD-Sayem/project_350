@@ -9,6 +9,7 @@ const gerbageRouter=require('./gerbage');
 const skippedRouter=require('./skipped');
 const myStatRouter=require('./myStat');
 const dataStatRouter=require('./dataStat');
+const leaderboardRouter = require('./leaderboard');
 
 // router.get('/',function(req,res){
 //   res.redirect('/login');
@@ -33,7 +34,7 @@ router.post('/login', function(req, res){
     } else {
       passport.authenticate("local")(req, res, function(){
         if(user.username=='admin_101'||user.role=='admin'){
-          res.redirect('/admin');
+          res.redirect('/stat');
         //  console.log('admin logged in');
         }
         else{
@@ -75,4 +76,5 @@ router.get('/garbage-words',gerbageRouter);
 router.get('/skipped-words',skippedRouter);
 router.get('/my-stat',myStatRouter);
 router.get('/data-stat',dataStatRouter);
+router.get('/leaderboard',leaderboardRouter);
 module.exports=router;

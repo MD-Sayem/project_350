@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Panel</title>
+    <title>Leaderboard</title>
     <link rel="stylesheet" href="styles.css" />
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" />
     <link
@@ -15,14 +15,14 @@
     />
   </head>
   <body>
-    <div class="wrapper">
+    <!-- <div class="wrapper"> -->
 
 
     <div class="section">
       <div class="header headerTwo">
-        <h1 class="index-head">Admin Panel</h1>
+        <h1 class="index-head">Leaderboard</h1>
 
-        <form class="" action="/download" method="post">
+        <!-- <form class="" action="/download" method="post">
           <button
             name='information'
             value=<%-st%>
@@ -30,9 +30,9 @@
           >
             Download Info
           </button>
-        </form>
+        </form> -->
 
-        <form class="" action="/admin-logout" method="post">
+        <form class="" action="/logout" method="post">
           <button type="submit" class="logOut-btn admin-btn">
             Log out
           </button>
@@ -50,20 +50,20 @@
             <button class="enter-btn-button" onclick="location.href='/admin';">Enter</button>
           </div>
         </div> -->
-        <h4 style="margin-top: 0px; text-align: center">
+        <!-- <h4 style="margin-top: 0px; text-align: center">
           Here is a list of all the users:
-        </h4>
+        </h4> -->
 
         <table class="customers adminTable">
           <tr>
-            <th style="text-align: center">User No.</th>
+            <th style="text-align: center">Ranking</th>
             <th style="text-align: center">User Name</th>
             <th style="text-align: center">Total Words</th>
             <!-- <th style="text-align: center">Total Hours</th>
             <th style="text-align: center">Total Days</th> -->
             <th style="text-align: center">Date Started</th>
             <th style="text-align: center">Last Active</th>
-            <th style="text-align: center">User Stats</th>
+            <!-- <th style="text-align: center">User Stats</th> -->
           </tr>
           <% let i=0%>
           <% st.forEach(function(user){ %>
@@ -81,7 +81,7 @@
               <td><%-user.totalDays%></td> -->
               <td><%-date%></td>
               <td><%-date2%></td>
-              <td>
+              <!-- <td>
                 <button
                     type="submit"
                     class="edit-btn"
@@ -90,14 +90,14 @@
                 >
                   Stats
                 </button>
-              </td>
+              </td> -->
             </tr>
             <%});%>
           </form>
           <!-- example -->
         </table>
       </div>
-      <div class="sidebar">
+      <!-- <div class="sidebar">
         <p class="copy-right-p">COPYRIGHT © SUST CSE &nbsp2018-19</p>
         <h2 class="menu">Menu</h2>
         <ul class="ulStyle">
@@ -137,13 +137,13 @@
             </a>
           </li>
         </ul>
-        </div>
+        </div> -->
 
     </div>
       <div class="copy-right">
         <p class="copy-right-p">COPYRIGHT © SUST CSE &nbsp2018-19</p>
       </div>
-    </div>
+    <!-- </div> -->
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

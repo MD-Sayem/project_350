@@ -14,7 +14,16 @@
       <div class="header headerTwo">
         <h1 class="index-head"><%=myself.username%></h1>
         <form class="" action="/logout" method="post">
+          <button
+          type="button"
+          onclick="location.href='/leaderboard';"
+          class="admin-btn profile-btn"
+        >
+          Leaderboard
+        </button>
           <button class="admin-btn" type="submit">Log out</button>
+
+
         </form>
       </div>
       <!-- log in section -->

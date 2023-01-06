@@ -14,6 +14,24 @@
       crossorigin="anonymous"
     />
   </head>
+  <script>
+    function validateForm() {
+      let password1 = document.forms["signupForm"]["password"].value;
+      let password2 = document.forms["signupForm"]["password2"].value;
+      let username= document.forms["signupForm"]["username"].value;
+     // let word = document.forms["rootFinding"]["sobdo"].value;
+      if (password1!=password2) {  //
+        alert("Password and Confirmed Password doesn't match");
+        return false;
+      }
+      else if(username.includes(" ")){
+        alert("Space is not allowed on username");
+        return false;
+
+      }
+      return true;
+    }
+    </script>
   <body>
     <div class="wrapper">
       <div class="section">
@@ -28,20 +46,20 @@
         </div>
         <!-- log in section -->
         <div class="log-in userSignUp">
-          <form class="" action="/register" method="post">
+          <form name="signupForm"class="" action="/register" method="post" onsubmit="return validateForm()">
             <div class="log-in-box">
               <h3>New User Sign Up</h3>
               <p>Username</p>
-              <input name="username" type="text" placeholder="Enter username" autofocus required>
+              <input name="username" type="text" placeholder="Enter username  (space isn't allowed)" autofocus required>
               <!-- required -->
               <p>Email</p>
-              <input name="email"type="text" placeholder="Enter email"  required>
+              <input name="email" type="text" placeholder="Enter email"  required>
               <!-- required -->
               <p>Password</p>
-              <input id='password1'name="password" type="password" placeholder="Enter password" required/>
+              <input id='password1' name="password" type="password" placeholder="Enter password" required/>
 
               <p>Confirm Password</p>
-              <input id ='password2'name="password2" type="password" placeholder="Enter password" required/>
+              <input id ='password2' name="password2" type="password" placeholder="Enter password" required/>
               <span id='message'></span>
               <div class="log-in-submit">
                 <button type="submit" class="submit-btn">

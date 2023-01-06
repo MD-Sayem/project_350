@@ -28,19 +28,20 @@ function validateForm() {
 
           <form class="" action="/logout" method="post">
             <button
+            type="button"
+            onclick="location.href='/my-profile';"
+            class="admin-btn profile-btn"
+          >
+            <%=me.username%>
+          </button>
+            <button
                class="logOut-btn admin-btn"
                type="submit"
             >
                 Log Out
             </button>
           <!-- <a href="/my-profile"> -->
-            <button
-             type="button"
-             onclick="location.href='/my-profile';"
-             class="admin-btn profile-btn"
-           >
-             <%=me.username%>
-           </button>
+
          <!-- </a> -->
         </form>
       </div>

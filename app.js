@@ -414,6 +414,7 @@ app.get('/stat',function(req,res){
           "$group" : {
                 _id:"$usernam" ,
                 joined:{  $min:"$time" },
+                last:{  $max:"$time" },
                 totalDays:{$min:"9 Days"},
                 totalHours:{$min:"18.6 hrs"},
                 count:{$sum:{ $dateToString: { format: "%Y-%m-%d", date: "$date" } }},
@@ -467,6 +468,7 @@ app.post('/download',function(req,res){
                     _id:"$usernam" ,
                     username:{$min:'$usernam'},
                     startedFrom:{  $min:{ $dateToString: { format: "%Y-%m-%d", date: "$time" } } },
+                    lastActive:{  $max:{ $dateToString: { format: "%Y-%m-%d", date: "$time" } } },
                     totalDays:{$count:{}}, //count: { $count: { } }
                     totalHours:{$min:"_._ hrs"},
                     totalWords:{$sum:1}},
@@ -490,7 +492,7 @@ app.post('/download',function(req,res){
               let jsonData= JSON.stringify(results);
             //  console.log(results);
 
-              const fields = ['username','totalWords' ,'startedFrom'];
+              const fields = ['username','totalWords' ,'startedFrom', 'lastActive'];
               const jsons2csvParser=new Parser({fields});
               const info = jsons2csvParser.parse(results);
             //  res.send(jsonData);
@@ -528,6 +530,8 @@ app.get('/admin-stat',function(req,res){    //joining two tables data and user
 app.post('/stat',function(req,res){
   if(req.isAuthenticated()&&req.user.status=="active"){
       let user=req.body.user;
+     // var user = req.body.user.replace(/ .*/,'');
+     //  console.log(user);
       Data.aggregate(
       [
         { "$match": { usernam: {  $eq: user } } },
@@ -539,7 +543,7 @@ app.post('/stat',function(req,res){
           }
         },
         {
-          $sort : { _id: 1 }
+          $sort : { _id: -1 }
         }
       ]
       ).exec((err, results) => {
@@ -568,7 +572,7 @@ app.post('/downloadFile',function(req,res){
       }
     },
     {
-      $sort : { _id: 1 }
+      $sort : { _id: -1 }
     }
   ]
   ).exec((err, results) => {
@@ -611,6 +615,9 @@ app.post('/restoreAll',function(req,res){
 
 
 app.listen(process.env.PORT||3000,function(err){
+
+    // Data.updateMany({usernam: 'Ismahabul Hasan'}, {$set:{usernam: 'Ismahabul_Hasan'}}, {new: true}, (err, doc) => {});
+       
 
   // Data.find({},function(err,results){
   //   for(let i=0; i<500; i++){

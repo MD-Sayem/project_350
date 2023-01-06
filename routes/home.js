@@ -6,7 +6,7 @@ const User=require('../models/user');
 router.get('/home',function(req,res){
   // find one from the database where status==0 and lock==0
   // set lock=1;
- if(req.isAuthenticated()&&req.user.status=="active"){
+ if(req.isAuthenticated()&&req.user.status=="active" && req.user.role!="admin"){
     let number=req.user.workingWith;
 //    console.log(req.user.username+' working with word no: '+number);
     // console.log('previousWorkedWith : '+number);

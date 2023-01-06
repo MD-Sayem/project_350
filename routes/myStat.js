@@ -15,7 +15,7 @@ router.get('/my-stat',function(req,res){
       }
     },
     {
-      $sort : { _id: 1 }
+      $sort : { _id: -1 }
     }
   ]
   ).exec((err, results) => {
