@@ -131,12 +131,12 @@
             <tr>
               <%let start=0,end=100,flag=0%>
             <% sobdo.reverse().forEach(function(item){ %>
-            <% if(flag==0){ start=item.serialNumber; flag=1}%>
-            <% end=item.serialNumber%>
-
-
-            <% let tm=parseInt(item.time.getHours())+" : "+parseInt(item.time.getMinutes())%>
-            <% let date=item.time.getDate() + "-" + (parseInt( item.time.getMonth() )+parseInt('1'))+ "-" +item.time.getFullYear()%>
+              <% if(flag==0){ start=item.serialNumber; flag=1}%>
+              <% end=item.serialNumber%>
+              <% let timestamp=item.time%>
+              <% timestamp.setHours(item.time.getHours() - 6) %>
+              <% let tm=parseInt(timestamp.getHours())+" : "+parseInt(timestamp.getMinutes())%>
+              <% let date=timestamp.getDate() + "-" + (parseInt( timestamp.getMonth() )+parseInt('1'))+ "-" +timestamp.getFullYear()%>
 
 
               <tr>
