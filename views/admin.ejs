@@ -135,8 +135,10 @@
             <% end=item.serialNumber%>
 
 
-            <% let tm=parseInt(item.time.getHours())+" : "+parseInt(item.time.getMinutes())%>
-            <% let date=item.time.getDate() + "-" + (parseInt( item.time.getMonth() )+parseInt('1'))+ "-" +item.time.getFullYear()%>
+            <% let timestamp=item.time%>
+            <% timestamp.setHours(item.time.getHours() + 6) %>
+            <% let tm=parseInt(timestamp.getHours())+" : "+parseInt(timestamp.getMinutes())%>
+            <% let date=timestamp.getDate() + "-" + (parseInt( timestamp.getMonth() )+parseInt('1'))+ "-" +timestamp.getFullYear()%>
 
 
               <tr>
