@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>User Stats</title>
+    <title>Per Day Stats</title>
     <link rel="stylesheet" href="styles.css" />
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" />
     <link
@@ -19,7 +19,7 @@
     <div class="section">
       <div class="header headerTwo">
         <h1 class="index-head"><%-usr%></h1>
-        <form class="" action="/downloadFile" method="post">
+        <form class="" action="/download-per-day" method="post">
           <input type="hidden" name="user" value=<%-usr%> >
           <button
             name='information'
@@ -37,40 +37,45 @@
       </div>
       <div class="admin-main">
         <h5 style="margin: 10px auto 42px auto; text-align: center">
-          Here is the stats of your work so far :
+          Here is the stats of work so far :
         </h5>
 
         <table class="customers">
           <tr>
             <th style="text-align: center">Day no.</th>
             <th style="text-align: center">Date</th>
+            <th style="text-align: center">Weekday</th>
             <th style="text-align: center">No. of words</th>
             <!-- <th style="text-align: center">No. of hours</th> -->
+            <!-- <th style="text-align: center">Max Annotator</th> -->
             <th style="text-align: center">Per Hour</th>
             <!-- <th style="text-align: center">Words List</th> -->
           </tr>
           <%let i=0%>
+          <% var weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']; %>
           <% data.forEach(function(day){ %>
-
-          <tr>
-            <td><%=++i%></td>
-            <td><%-day._id%></td>
-            <td><%-day.count%></td>
-            <!-- <td>1 hr 41 Mins</td> -->
-            <td>
-              <input
-                class="toggleVisibilityButton"
-                type="button"
-                value="Per Hour Stats"
-                style="padding: 0"
-              />
-            </td>
-            <!-- <td>
-              <button onclick="location.href='/admin';" class="edit-btn">
-                My Words
-              </button>
-            </td> -->
-          </tr>
+            <% let d=new Date(day._id);%>
+            <tr>
+                <td><%=++i%></td>
+                <td><%-day._id%></td>
+                <td><%-weekdays[d.getDay()]%></td>
+                <td><%-day.count%></td>
+                <!-- <td><%-day.max%></td> -->
+                <!-- <td>1 hr 41 Mins</td> -->
+                <td>
+                <input
+                    class="toggleVisibilityButton"
+                    type="button"
+                    value="Per Hour Stats"
+                    style="padding: 0"
+                />
+                </td>
+                <!-- <td>
+                <button onclick="location.href='/admin';" class="edit-btn">
+                    My Words
+                </button>
+                </td> -->
+            </tr>
 
         <%});%>
         </table>
@@ -105,13 +110,13 @@
         <h2 class="menu">Menu</h2>
         <ul class="ulStyle">
       
-          <li  class="hoverItem">
+          <li>
             <a href="/stat">
               <span class="item">User Stats</span>
             </a>
           </li>
         
-          <li>
+          <li  class="hoverItem">
             <a href="/per-day-stat">
               <span class="item">Per Day Stat</span>
             </a>

@@ -10,7 +10,8 @@ const skippedRouter=require('./skipped');
 const myStatRouter=require('./myStat');
 const dataStatRouter=require('./dataStat');
 const leaderboardRouter = require('./leaderboard');
-
+const perDayRouter=require('./perDay');
+const downloadPerDayRouter=('./downloadPerDay');
 // router.get('/',function(req,res){
 //   res.redirect('/login');
 //res.send('welcome to login');
@@ -77,4 +78,6 @@ router.get('/skipped-words',skippedRouter);
 router.get('/my-stat',myStatRouter);
 router.get('/data-stat',dataStatRouter);
 router.get('/leaderboard',leaderboardRouter);
+router.get('/per-day-stat',perDayRouter);
+//router.get('/download-per-day',downloadPerDayRouter);
 module.exports=router;

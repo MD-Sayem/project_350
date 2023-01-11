@@ -22,6 +22,7 @@ const {spawn}=require('child_process');
 const path = require('path');
 const app =express();
 // app.use("/api/product",product);
+const timeAgo=require(__dirname +"/public/timeAgo.js");
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.set('view engine' , 'ejs');
@@ -436,7 +437,7 @@ app.get('/stat',function(req,res){
           if (err) throw err;
     //      console.log(results);
     //    res.send(results);
-      res.render('stats',{st:results});
+      res.render('stats',{st:results,timePasted:timeAgo});
       //  console.log(results[0][Object.keys(results[0])[1]]);
     //  console.log(results[0].count);
       //    console.log(results);
@@ -468,7 +469,7 @@ app.post('/download',function(req,res){
                     _id:"$usernam" ,
                     username:{$min:'$usernam'},
                     startedFrom:{  $min:{ $dateToString: { format: "%Y-%m-%d", date: "$time" } } },
-                    lastActive:{  $max:{ $dateToString: { format: "%Y-%m-%d", date: "$time" } } },
+                    lastAnnotation:{  $max:{ $dateToString: { format: "%Y-%m-%d", date: "$time" } } },
                     totalDays:{$count:{}}, //count: { $count: { } }
                     totalHours:{$min:"_._ hrs"},
                     totalWords:{$sum:1}},
@@ -492,7 +493,7 @@ app.post('/download',function(req,res){
               let jsonData= JSON.stringify(results);
             //  console.log(results);
 
-              const fields = ['username','totalWords' ,'startedFrom', 'lastActive'];
+              const fields = ['username','totalWords' ,'startedFrom', 'lastAnnotation'];
               const jsons2csvParser=new Parser({fields});
               const info = jsons2csvParser.parse(results);
             //  res.send(jsonData);
@@ -592,6 +593,45 @@ app.post('/downloadFile',function(req,res){
 
 
 });
+
+
+app.post('/download-per-day',function(req,res){
+  // let user=req.user.username;
+  Data.aggregate(
+  [
+    { "$match": { usernam: {  $ne: null } } },
+    {
+     "$group" : {
+        _id : { $dateToString: { format: "%Y-%m-%d", date: "$time"} },
+        date:{$min:{ $dateToString: { format: "%Y-%m-%d", date: "$time"} }},
+      //  max:{ $mod: "$usernam"},
+      //  weekday: {  $eq: getDay() }  ,
+        count: { $sum: 1 },
+      }
+    },
+    {
+      $sort : { _id: -1 }
+    }
+  ]
+  ).exec((err, results) => {
+      if (err) throw err;
+      let jsonData= JSON.stringify(results);
+      //  console.log(results);
+
+        const fields = ['date', 'count'];
+        const jsons2csvParser=new Parser({fields});
+        const info = jsons2csvParser.parse(results);
+      //  res.send(jsonData);
+      let time=new Date();
+      let date=time.getDate() + "-" + (parseInt( time.getMonth() )+parseInt('1'))+ "-" +time.getFullYear()
+        let filename='perDayStat_'+date+'.csv'
+        res.attachment(filename);
+        res.status(200).send(jsons2csvParser.parse(results));
+
+     // res.render('perDayStat',{data:results,usr:user});
+  });
+});;
+
 
 
 app.get('/faq',function(req,res){

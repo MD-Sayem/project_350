@@ -62,7 +62,7 @@
             <!-- <th style="text-align: center">Total Hours</th>
             <th style="text-align: center">Total Days</th> -->
             <th style="text-align: center">Date Started</th>
-            <th style="text-align: center">Last Active</th>
+            <th style="text-align: center">Last Annotation</th>
             <th style="text-align: center">User Stats</th>
           </tr>
           <% let i=0%>
@@ -80,7 +80,7 @@
               <!-- <td><%-user.totalHours%></td>
               <td><%-user.totalDays%></td> -->
               <td><%-date%></td>
-              <td><%-date2%></td>
+              <td><%= timePasted.timeSince(user.last) %></td>
               <td>
                 <button
                     type="submit"
@@ -101,7 +101,36 @@
         <p class="copy-right-p">COPYRIGHT © SUST CSE &nbsp2018-19</p>
         <h2 class="menu">Menu</h2>
         <ul class="ulStyle">
-          <li >
+      
+          <li  class="hoverItem">
+            <a href="/stat">
+              <span class="item">User Stats</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/per-day-stat">
+              <span class="item">Per Day Stat</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/data-stat">
+              <span class="item">Stat Summery</span>
+            </a>
+          </li>
+      
+        <li>
+            <a href="/register">
+              <span class="item">Assign New User</span>
+            </a>
+          </li>
+          <li>
+            <a href="/activeDeactive">
+              <span class="item">Activate/Deactivate User</span>
+            </a>
+          </li>
+            <li>
             <a href="/admin">
               <span class="item">Identified roots</span>
             </a>
@@ -116,28 +145,10 @@
               <span class="item">Garbage Words</span>
             </a>
           </li>
-          <li class="hoverItem">
-            <a href="/stat">
-              <span class="item">User Stats</span>
-            </a>
-          </li>
-          <li>
-            <a href="/register">
-              <span class="item">Assign New User</span>
-            </a>
-          </li>
-          <li>
-            <a href="/activeDeactive">
-              <span class="item">Activate/Deactivate User</span>
-            </a>
-          </li>
-          <li>
-            <a href="/data-stat">
-              <span class="item">Data Statistics</span>
-            </a>
-          </li>
+      
         </ul>
-        </div>
+      </div>
+      
 
     </div>
       <div class="copy-right">

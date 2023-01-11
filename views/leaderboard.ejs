@@ -62,7 +62,7 @@
             <!-- <th style="text-align: center">Total Hours</th>
             <th style="text-align: center">Total Days</th> -->
             <th style="text-align: center">Date Started</th>
-            <th style="text-align: center">Last Active</th>
+            <th style="text-align: center">Last Annotation</th>
             <!-- <th style="text-align: center">User Stats</th> -->
           </tr>
           <% let i=0%>
@@ -80,7 +80,7 @@
               <!-- <td><%-user.totalHours%></td>
               <td><%-user.totalDays%></td> -->
               <td><%-date%></td>
-              <td><%-date2%></td>
+              <td><%= timePasted.timeSince(user.last) %></td>
               <!-- <td>
                 <button
                     type="submit"

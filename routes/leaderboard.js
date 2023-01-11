@@ -2,7 +2,7 @@ const express = require('express');
 const router =  express.Router();
 const Data = require('../models/data');
 const User=require('../models/user');
-
+const timeAgo=require("../public/timeAgo.js");
 router.get('/leaderboard',function(req,res){
     if(req.isAuthenticated()){
             let u='sam74'
@@ -28,7 +28,7 @@ router.get('/leaderboard',function(req,res){
         ]
         ).exec((err, results) => {
             if (err) throw err;
-        res.render('leaderboard',{st:results});
+        res.render('leaderboard',{st:results,timePasted:timeAgo});
         });
     }
     else{
