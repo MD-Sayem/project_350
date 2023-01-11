@@ -44,17 +44,21 @@
           <tr>
             <th style="text-align: center">Day no.</th>
             <th style="text-align: center">Date</th>
+            <th style="text-align: center">Weekday</th>
             <th style="text-align: center">No. of words</th>
             <!-- <th style="text-align: center">No. of hours</th> -->
             <th style="text-align: center">Per Hour</th>
             <!-- <th style="text-align: center">Words List</th> -->
           </tr>
           <%let i=0%>
+          <% var weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']; %>
+         
           <% data.forEach(function(day){ %>
-
+            <% let d=new Date(day._id);%>
           <tr>
             <td><%=++i%></td>
             <td><%-day._id%></td>
+            <td><%-weekdays[d.getDay()]%></td>
             <td><%-day.count%></td>
             <!-- <td>1 hr 41 Mins</td> -->
             <td>
