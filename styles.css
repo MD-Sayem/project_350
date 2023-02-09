@@ -466,3 +466,9 @@ a:hover {
   background-color: white;
   color: #1a2930;
 }
+
+@media only screen and (max-width: 768px) {
+  .log-in {
+    width: 80%;
+  }
+}
