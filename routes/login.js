@@ -12,6 +12,7 @@ const dataStatRouter=require('./dataStat');
 const leaderboardRouter = require('./leaderboard');
 const perDayRouter=require('./perDay');
 const downloadPerDayRouter=('./downloadPerDay');
+const myDayRouter=('./myDay');
 // router.get('/',function(req,res){
 //   res.redirect('/login');
 //res.send('welcome to login');
@@ -79,5 +80,6 @@ router.get('/my-stat',myStatRouter);
 router.get('/data-stat',dataStatRouter);
 router.get('/leaderboard',leaderboardRouter);
 router.get('/per-day-stat',perDayRouter);
+// router.get('/myDay',myDayRouter);
 //router.get('/download-per-day',downloadPerDayRouter);
 module.exports=router;

@@ -310,7 +310,7 @@ app.post('/edit',function(req,res){
                     rootWord:rt,
                     inflection:inf,
                     // usernam:manush,
-                    time:tarikh,
+                    //time:tarikh,
                     status:1
                   };
       if (word.includes(rt)==true && rt.length!=0) {
@@ -594,6 +594,29 @@ app.post('/downloadFile',function(req,res){
 
 });
 
+
+
+
+app.post('/myDay',function(req,res){
+  let date=new Date(req.body.date);
+  let day=date.getDate();
+  let month=1+date.getMonth();
+  let year=date.getFullYear();
+  let user=req.body.user;
+
+  Data.find({
+    $and: [
+      { usernam:   {$eq: user } },
+      { $expr: {$eq: [{$dayOfMonth: "$time"}, day]} },
+      { $expr: {$eq: [{$month: "$time"}, month]} },
+      { $expr: {$eq: [{$year: "$time"}, year]} }
+    ]
+  }
+  ).exec((err,results)=>{
+   // res.send(results);
+   res.render('admin',{sobdo:results,who:user,page:"lastTen"});
+  });
+});
 
 app.post('/download-per-day',function(req,res){
   // let user=req.user.username;

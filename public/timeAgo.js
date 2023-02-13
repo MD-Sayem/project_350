@@ -64,5 +64,5 @@ function timeSince(date) {
     }
    // return Math.floor(interval) + " minutes ago";
   }
-  return "just now";
+  return "<sup>🟢</sup> just now";
 }

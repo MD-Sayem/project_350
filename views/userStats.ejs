@@ -46,6 +46,7 @@
             <th style="text-align: center">Date</th>
             <th style="text-align: center">Weekday</th>
             <th style="text-align: center">No. of words</th>
+            <th style="text-align: center">Annotated words</th>
             <!-- <th style="text-align: center">No. of hours</th> -->
             <th style="text-align: center">Per Hour</th>
             <!-- <th style="text-align: center">Words List</th> -->
@@ -55,26 +56,41 @@
          
           <% data.forEach(function(day){ %>
             <% let d=new Date(day._id);%>
-          <tr>
-            <td><%=++i%></td>
-            <td><%-day._id%></td>
-            <td><%-weekdays[d.getDay()]%></td>
-            <td><%-day.count%></td>
-            <!-- <td>1 hr 41 Mins</td> -->
-            <td>
-              <input
-                class="toggleVisibilityButton"
-                type="button"
-                value="Per Hour Stats"
-                style="padding: 0"
-              />
-            </td>
-            <!-- <td>
-              <button onclick="location.href='/admin';" class="edit-btn">
-                My Words
-              </button>
-            </td> -->
-          </tr>
+            <form action="/myDay" method="post">
+              <tr>
+                <td><%=++i%></td>
+                <td><%-day._id%></td>
+                <td><%-weekdays[d.getDay()]%></td>
+                <td><%-day.count%></td>
+                <td>
+                  <input type="hidden" name="date" value=<%-day._id%> >
+                  <!-- <input type="hidden" name="month" value="">
+                  <input type="hidden" name="day" value=""> -->
+                  <button
+                      type="submit"
+                      class="edit-btn"
+                      name="user"
+                      value=<%-usr%>
+                  >
+                    Identified Roots
+                  </button>
+                </td>
+                <!-- <td>1 hr 41 Mins</td> -->
+                <td>
+                  <input
+                    class="toggleVisibilityButton"
+                    type="button"
+                    value="Per Hour Stats"
+                    style="padding: 0"
+                  />
+                </td>
+                <!-- <td>
+                  <button onclick="location.href='/admin';" class="edit-btn">
+                    My Words
+                  </button>
+                </td> -->
+              </tr>
+            </form>
 
         <%});%>
         </table>
