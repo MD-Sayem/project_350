@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Find Roots</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" />
+    <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+    <py-env>
+      - bangla-stemmer
+    </py-env>
+  </head>
+  <body>
+    <div class="section">
+      <div class="header headerTwo">
+        <h1 class="index-head"">Welcome to Bangla Stemmer</h1>
+        <div class="dataEntryTopRight">
+          <button
+            onclick="location.href='index.html';"
+            class="admin-btn profile-btn"
+          >
+            Data annotation
+          </button>
+        </div>
+      </div>
+      <div class="main">
+        <div class="data-entry-brief">
+          <p>Please enter the word to identify the root</p>
+        </div>
+        <div class="root-div">
+            <input class="input-text" id="test-input" type="text" />
+            <input class="output-text" id="test-output" type="text" />
+        </div>
+        <div class="buttons">
+          <button id="submit-button" type="submit" pys-onClick="my_function" class="submit-btn-2" title="Enter">Find Root</button>
+        </div>
+        <p class="log-out-ins">
+          *Help us collect more data (Top Right button).
+        </p>
+        <div class="faqSection">
+          <a href="faq.html">FAQ</a>
+        </div>
+      </div>
+      <div class="copy-right">
+        <p class="copy-right-p">COPYRIGHT © SUST CSE &nbsp2018-19</p>
+      </div>
+    </div>
+<py-script>
+from js import console
+from bangla_stemmer.stemmer import stemmer
+def my_function(*args, **kwargs): 
+    text = Element('test-input').element.value 
+    stmr = stemmer.BanglaStemmer()
+    stm = stmr.stem(text)
+            <!-- print(stm) -->
+    Element('test-output').element.value = stm
+</py-script>
+  </body>
+</html>
