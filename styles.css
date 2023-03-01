@@ -473,7 +473,8 @@ a:hover {
   }
 }
 
-.input-text, .output-text {
+.input-text,
+.output-text {
   width: 100%;
   height: 60px;
   border: 2px solid #1a2930;
@@ -484,15 +485,20 @@ a:hover {
   font-size: large;
 }
 
-.root-div{
+.root-div {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
 }
 
-.root-input-div, .root-output-div{
+.root-input-div,
+.root-output-div {
   width: 100%;
+}
+
+.root-output-div {
+  margin-top: 24px;
 }
 
 .root-main {
@@ -504,4 +510,8 @@ a:hover {
   justify-content: center;
   align-items: center;
   align-self: center;
+}
+
+.identify-root {
+  margin-bottom: 24px;
 }
