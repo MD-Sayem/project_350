@@ -1,7 +1,7 @@
 #!pip install --upgrade pip
 
 # 👇️ in a virtual environment or using Python 2
-pip install tensorflow
+#pip install tensorflow
 import pickle
 
 import numpy as np
