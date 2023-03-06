@@ -28,6 +28,8 @@ num_decoder_tokens = len(target_token_index)
 latent_dim = 256
 
 
+
+
 # Define an input sequence and process it.
 encoder_inputs = keras.Input(shape=(None, num_encoder_tokens))
 ##encoder_inputs = keras.Input(shape=(None, 60))
@@ -139,10 +141,9 @@ def tokenize(text):
     for c in text:
         new_text += c if c in all_letters_nums else ' '
     return new_text.split()
-    
-    
-    
- def findRoot(words):
+
+
+def findRoot(words):
     # sentence = "আহসানের লেখাতে শারমিনের গুপ্তহত্যার ভিডিওগুলো প্রস্তুতকর্তা পুলিশদের অবর্তমানে হামলাকারীর শত্রুতার ভুক্তভোগী"
     # words = sentence.split(" ")
     #words = tokenize(sentence)
