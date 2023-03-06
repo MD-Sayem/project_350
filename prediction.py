@@ -28,40 +28,6 @@ num_decoder_tokens = len(target_token_index)
 latent_dim = 256
 
 
-def findRoot(words):
-    # sentence = "আহসানের লেখাতে শারমিনের গুপ্তহত্যার ভিডিওগুলো প্রস্তুতকর্তা পুলিশদের অবর্তমানে হামলাকারীর শত্রুতার ভুক্তভোগী"
-    # words = sentence.split(" ")
-    #words = tokenize(sentence)
-    max_input_word_length = max([len(txt) for txt in words])
-
-    # input_token_index, max_encoder_seq_length, num_encoder_tokens = getTokens()
-
-    # for testing a line
-    encoder_input_line = np.zeros(
-        (len(words), max_encoder_seq_length, num_encoder_tokens), dtype="float32"
-    )
-
-    # for line
-    output_words = ['kono', 'dorkar', 'nai']
-    for i, (test_word, output_word) in enumerate(zip(words, words)):
-        for t, char in enumerate(test_word):
-            encoder_input_line[i, t, input_token_index[char]] = 1.0  # this variable
-        encoder_input_line[i, t + 1:, input_token_index['়']] = 1.0
-    outputs = []
-    for seq_index in range(len(words)):
-        # Take one sequence (part of the training set)
-        # for trying out decoding.
-        # input_seq = encoder_input_data[seq_index : seq_index + 1]
-        input_seq = encoder_input_line[seq_index: seq_index + 1]
-        decoded_sentence = decode_sequence(input_seq)  # this function
-        # print("-")
-        # print("Input word:", words[seq_index])
-        # print("Decoded word:", decoded_sentence)
-        outputs.append(decoded_sentence.replace("\n", ""))
-
-    return outputs
-
-
 # Define an input sequence and process it.
 encoder_inputs = keras.Input(shape=(None, num_encoder_tokens))
 ##encoder_inputs = keras.Input(shape=(None, 60))
@@ -173,3 +139,38 @@ def tokenize(text):
     for c in text:
         new_text += c if c in all_letters_nums else ' '
     return new_text.split()
+    
+    
+    
+ def findRoot(words):
+    # sentence = "আহসানের লেখাতে শারমিনের গুপ্তহত্যার ভিডিওগুলো প্রস্তুতকর্তা পুলিশদের অবর্তমানে হামলাকারীর শত্রুতার ভুক্তভোগী"
+    # words = sentence.split(" ")
+    #words = tokenize(sentence)
+    max_input_word_length = max([len(txt) for txt in words])
+
+    # input_token_index, max_encoder_seq_length, num_encoder_tokens = getTokens()
+
+    # for testing a line
+    encoder_input_line = np.zeros(
+        (len(words), max_encoder_seq_length, num_encoder_tokens), dtype="float32"
+    )
+
+    # for line
+    output_words = ['kono', 'dorkar', 'nai']
+    for i, (test_word, output_word) in enumerate(zip(words, words)):
+        for t, char in enumerate(test_word):
+            encoder_input_line[i, t, input_token_index[char]] = 1.0  # this variable
+        encoder_input_line[i, t + 1:, input_token_index['়']] = 1.0
+    outputs = []
+    for seq_index in range(len(words)):
+        # Take one sequence (part of the training set)
+        # for trying out decoding.
+        # input_seq = encoder_input_data[seq_index : seq_index + 1]
+        input_seq = encoder_input_line[seq_index: seq_index + 1]
+        decoded_sentence = decode_sequence(input_seq)  # this function
+        # print("-")
+        # print("Input word:", words[seq_index])
+        # print("Decoded word:", decoded_sentence)
+        outputs.append(decoded_sentence.replace("\n", ""))
+
+    return outputs
