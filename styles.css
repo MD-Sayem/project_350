@@ -181,6 +181,7 @@ input {
   margin-top: 20px;
   display: flex;
   gap: 12px;
+  justify-content: center;
 }
 
 .data-entry-brief {
@@ -514,4 +515,9 @@ a:hover {
 
 .identify-root {
   margin-bottom: 24px;
+}
+
+.input-word {
+  margin-top: 50%;
+  width: 100%;
 }
