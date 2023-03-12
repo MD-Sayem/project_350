@@ -521,3 +521,32 @@ a:hover {
   margin-top: 50%;
   width: 100%;
 }
+
+.root-finder {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  width: 70%;
+}
+
+.root-finder-btn {
+  margin-top: 0px;
+  width: 24%;
+  margin: 0px auto;
+}
+
+.data-annotation {
+  margin: 0px auto;
+}
+
+.data-annotation-p {
+  font-size: 13px;
+  font-weight: 500;
+  font-style: italic;
+  margin: 24px auto 48px;
+}
+
+.root-table {
+  width: 80%;
+  margin: 0px auto;
+}

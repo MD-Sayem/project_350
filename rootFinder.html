@@ -22,106 +22,248 @@
           </button>
         </div>
       </div>
-      <div class="root-main">
-        <div class="root-div">
-          <div class="input-word">
-          <div class="root-input-div">
-            <p class="data-entry-brief">Enter a sentence/word to identify the root : </p>
-            <input class="input-text" id="test-input" type="text" />
-          </div>
-          <div class="buttons">
-            <button id="submit-button" type="submit" class="submit-btn-2" title="Enter">Find Root</button>
-          </div>
-          </div>
-          <div class="root-output-div">
-            <p class="data-entry-brief identify-root">Identified Root(s) :</p>
-            <table class="table">
-              <thead>
-                <tr>
-                <th scope="col">No.</th>
-                  <th scope="col">Given Word</th>
-                  <th scope="col">Root Word</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr  >
-                  <th scope="row">1</th>
-                  <td>মোটরসাইকেলের</td>
-                  <td>মোটরসাইকেল</td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>নীতিমালার</td>
-                  <td>নীতিমালা</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>মানববন্ধনে</td>
-                  <td>মানববন্ধন</td>
-                </tr>
-                <tr  >
-                  <th scope="row">4</th>
-                  <td>দুবাইয়ে</td>
-                  <td>দুবাই</td>
-                </tr>
-                <tr>
-                  <th scope="row">5</th>
-                  <td>নামের</td>
-                  <td>নাম</td>
-                </tr>
-                <tr>
-                  <th scope="row">6</th>
-                  <td>উপলক্ষে</td>
-                  <td>উপলক্ষ</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>মানববন্ধনে</td>
-                  <td>মানববন্ধন</td>
-                </tr>
-                <tr  >
-                  <th scope="row">4</th>
-                  <td>দুবাইয়ে</td>
-                  <td>দুবাই</td>
-                </tr>
-                <tr>
-                  <th scope="row">5</th>
-                  <td>নামের</td>
-                  <td>নাম</td>
-                </tr>
-                <tr>
-                  <th scope="row">6</th>
-                  <td>উপলক্ষে</td>
-                  <td>উপলক্ষ</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>মানববন্ধনে</td>
-                  <td>মানববন্ধন</td>
-                </tr>
-                <tr  >
-                  <th scope="row">4</th>
-                  <td>দুবাইয়ে</td>
-                  <td>দুবাই</td>
-                </tr>
-                <tr>
-                  <th scope="row">5</th>
-                  <td>নামের</td>
-                  <td>নাম</td>
-                </tr>
-                <tr>
-                  <th scope="row">6</th>
-                  <td>উপলক্ষে</td>
-                  <td>উপলক্ষ</td>
-                </tr>
-                
-              </tbody>
-            </table>
-          </div>
+      <div class="admin-main" style="width: 64%">
+        <div class="admin-query root-finder">
+          <form class action="/query" method="post">
+            <p style="font-size: medium; text-align: center;">Enter a word/sentence to identify the root : </p>
+            <div class="admin-query">
+              <input type="text">
+            </div>
+            <div class="root-finder-btn">
+              <button type="submit" class="submit-btn" style="margin: 0px;">Enter</button>
+            </div>
+          </form>
         </div>
-        <p class="log-out-ins" style="padding-bottom: 24px;">
-          *Help us collect more data (Top Right button).
-        </p>
+        <h5 style="margin: 10px auto 42px auto; text-align: center">
+          Here are the last stemmed words:
+        </h5>
+        <table class="table">
+          <tbody>
+            <tr>
+              <th>No.</th>
+              <th>Given Word</th>
+              <th>Identified Root</th>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশ</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশ</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশ</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশ</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশ</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশ</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশ</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশ</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশ</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশ</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশ</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশ</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশ</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশ</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশ</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশ</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশ</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশ</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশ</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশ</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশ</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশ</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশ</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশ</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশ</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশ</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশ</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশ</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশ</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশ</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশ</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশ</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশ</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশ</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশ</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশ</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশ</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশ</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশ</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশ</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশ</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশ</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>বাংলাদেশের</td>
+              <td>বাংলাদেশ</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="data-annotation">
+        <p class="data-annotation-p">*You can help us in data annotation(Top right button)</p>
       </div>
     </div>
   </body>
