@@ -2,8 +2,8 @@
 # import tensorflow as tf
 # import sys
 import unicodedata
-#from tensorflow import keras
-import keras
+from tensorflow import keras
+#import keras
 import numpy as np
 import pickle
 

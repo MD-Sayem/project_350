@@ -5,5 +5,5 @@ Flask==2.2.3
 gunicorn>=19,<20F
 
 #tensorflow = "keras"
-#tensorflow
+tensorflow
 #keras
