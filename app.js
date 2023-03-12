@@ -676,6 +676,29 @@ app.post('/restoreAll',function(req,res){
   res.redirect('/skipped-words')
 });
 
+app.get("/rootFinder",function(req,res){
+  res.render('rootFinder',words=[],sentence="",ln=0)
+})
+app.post("/rootFinder",function(req, res){
+  sentence=req.body.bakko;
+//   let words=spawn("python3",["./python_files/token.py",sentence]);
+//   var roots = spawn("python3",["./python_files/prediction.py",words]);
+//   roots.stdout.on("data",function(data){
+//       res.send(data.toString());
+// });
+   // let argument = "True";
+    const pythonProcess = spawn('python3', ['-c', 
+    `import token; token.tokenize(${sentence});`]);
+    pythonProcess.stdout.on('data', (data) => {
+        res.send(`stdout: ${data}`);
+    });
+    pythonProcess.stderr.on('data', (data) => {
+        console.log(`stderr: ${data}`);
+    });
+    pythonProcess.on('exit', (code) => {
+        console.log(`Python process ended with code: ${code}`);
+    });
+});
 
 app.listen(process.env.PORT||3000,function(err){
 
