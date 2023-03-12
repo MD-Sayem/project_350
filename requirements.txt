@@ -4,4 +4,6 @@ Flask==2.2.3
 # redis==3.4.1
 gunicorn>=19,<20F
 
-tensorflow
+#tensorflow = "keras"
+#tensorflow
+#keras

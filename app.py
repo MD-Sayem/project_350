@@ -32,14 +32,14 @@ def predict():
     if request.method == 'POST':
         
         bakko = request.form['word']
-
+        line=bakko
         words = tokenize(bakko)
         my_prediction = findRoot(words)
 
-        return render_template('rootFinder.html', ln=len(words), prediction=my_prediction, wds=words, sentence=bakko)
+        return render_template('rootFinder.html', ln=len(words), prediction=my_prediction, wds=words, sentence=line)
 
 
 
 if __name__ == '__main__':
-    #app.run(debug=True)
-    app.run(host ='0.0.0.0', port = 5001, debug = True) 
+    app.run(debug=True)
+    #app.run(host ='0.0.0.0', port = 5001, debug = True) 

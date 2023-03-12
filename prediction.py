@@ -2,7 +2,8 @@
 # import tensorflow as tf
 # import sys
 import unicodedata
-from tensorflow import keras
+#from tensorflow import keras
+import keras
 import numpy as np
 import pickle
 
@@ -157,11 +158,11 @@ def decode_sequence(input_seq):
 
 
 def tokenize(text):
-    bn_nums = set([chr(i) for i in range(2432, 2560) if unicodedata.category(chr(i)).startswith("N")])
+    # bn_nums = set([chr(i) for i in range(2432, 2560) if unicodedata.category(chr(i)).startswith("N")])
     bn_letters = set([chr(i) for i in range(2432, 2560) if
                       not unicodedata.category(chr(i)).startswith("C") and not unicodedata.category(chr(i)).startswith(
                           "N")])
-    bn_letters_nums = bn_nums | bn_letters
+    bn_letters_nums =  bn_letters #| bn_nums 
     # en_nums = set([chr(i) for i in range(32,127) if unicodedata.category(chr(i)).startswith("N")])
     # en_letters = set([chr(i) for i in range(32,127) if unicodedata.category(chr(i)).startswith("L")])
     # en_letters_nums = en_nums | en_letters
@@ -172,6 +173,9 @@ def tokenize(text):
     for c in text:
         new_text += c if c in all_letters_nums else ' '
     return new_text.split()
+
+#st="রীতিমতো শূন্য অগ্রগতি নিয়েই অর্থবছর পার করেছে সরকারের ২৩৬টি প্রকল্প"
+#print(tokenize(st))
 
 
 
