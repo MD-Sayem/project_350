@@ -77,6 +77,86 @@
           </div>
 
           <hr class="hr-line" />
+
+          <div class="faq-three">
+            <!-- faq question -->
+            <h1 class="faq-page">Rules for Bangla Stemming</h1>
+
+            <!-- faq answer -->
+            <div class="faq-body">
+              <ul>
+                <li>
+                  Stemming means stripping off the affixes(both suffix and
+                  prefix) to obtain the base form of the word, without changing
+                  the meaing of the given word. So, we need to strip the affixes
+                  to get the atomic stem, which is both meaningful and related
+                  to the given word. Example :
+                  <br /><br />
+                  সংবাদসমূহ -> সংবাদ; হরিণটার -> হরিণ; এঘটনা -> ঘটনা; তুলবেই ->
+                  তুলব (Here, if you strip the word to 'তুল' which means
+                  comparison, the meaing changes); ট্যাংকারডুবির -> ট্যাংকার;
+                  খ্রিস্টধর্মাবলম্বী -> খ্রিস্ট; ক্রমাঙ্কিত -> ক্রম; বংশধরদেরও
+                  -> বংশ; কার্যপরিচালনার -> পরিচালনা; সুবাসনা -> বাসনা
+                  <br /><br />
+                </li>
+                <li>
+                  Please be careful about overstemming. Overstemming changes the
+                  meaing from the original word. Example :
+                  <br /><br />
+                  যন্ত্রণা -> যন্ত্রণা (not যন্ত্র) ; খালামনি -> খালামনি (not
+                  খাল); মাটি -> মাটি (not মা); নিবন্ধন -> নিবন্ধন (not বন্ধন)
+                  <br /><br />
+                </li>
+                <li>
+                  Don't modify the name of the places, people or anything
+                  specific. Example :
+                  <br /><br />
+                  ইন্ডিয়াটাইম্‌স -> ইন্ডিয়াটাইম্‌স; সামীউল -> সামীউল (Don't make
+                  it সামী); আলকনাথ -> আলকনাথ
+                  <br /><br />
+                </li>
+                <li>
+                  For words consist of two stems, store the first one as the
+                  stem. In this case, please be careful that the contextual
+                  meaning of the word remains the same. For some cases, you may
+                  need to select the second stem. If you have confusion about
+                  which one to chose as the stem, it is advised to skip the word
+                  or chose the first one.Example :
+                  <br /><br />
+                  স্মৃতিকথা -> স্মৃতি; বইপুস্তক -> বই; উদ্দেশ্যসাধন -> উদ্দেশ্য;
+                  নগরভবন -> ভবন (Here the main context of the word is a
+                  'building', rather than a 'city'); মাতৃভাষা -> ভাষা; ছায়াছবি
+                  -> ছবি
+                  <br /><br />
+                </li>
+                <li>
+                  Stop stemming if the spelling of the word becomes wrong.
+                  Example :
+                  <br /><br />
+                  আনুষ্ঠানিকতাটুকু -> আনুষ্ঠানিক (not আনুষ্ঠান as the spelling
+                  is wrong); সামাজিকতা -> সামাজিক (not সামাজ); দালিলিকভাবে ->
+                  দালিলিক (not দালিল)
+                  <br /><br />
+                </li>
+                <li>
+                  Don't strip the affixes if the meaing changes fully. Example :
+                  <br /><br />
+                  একঠোঁটা -> একঠোঁটা (Don't make is এক or ঠোঁট, as the meaning
+                  changes completely)
+                  <br /><br />
+                </li>
+                <li>
+                  Please refrain yourself from submiting stems, you are not sure
+                  about. We highly recommend you to skip those words. If you
+                  have any confusion, feel free to ask the admins.
+                  <br />
+                  <br />
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <hr class="hr-line" />
           <div class="faq-four">
             <!-- faq question -->
             <h1 class="faq-page">Examples of some root identification</h1>
