@@ -20,6 +20,7 @@ const myDayRouter=('./myDay');
 // });
 router.get('/',function(req,res){
   res.render('index');
+  //res.render('faq');
 });
 
 router.post('/login', function(req, res){

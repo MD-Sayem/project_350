@@ -37,6 +37,269 @@
             </div>
           </div>
           <hr class="hr-line" />
+          <div class="faq-three">
+            <!-- faq question -->
+            <h1 class="faq-page active">Rules for Bangla Stemming</h1>
+
+            <!-- faq answer -->
+            <div class="faq-body" style="display: block;">
+              <ul>
+                <li>
+                  Stemming means stripping off the affixes(both suffix and
+                  prefix) to obtain the base form of the word, without changing
+                  the meaing of the given word. So, we need to strip the affixes
+                  to get the atomic stem, which is both meaningful and related
+                  to the given word.
+                  <br />
+                  Example : <br /><br />
+                  <table class="customers">
+                    <tr>
+                      <th style="text-align: center">Given Word</th>
+                      <th style="text-align: center">Stem Word</th>
+                    </tr>
+                    <tr>
+                      <td>সংবাদসমূহ</td>
+                      <td>সংবাদ</td>
+                    </tr>
+                    <tr>
+                      <td>হরিণটার</td>
+                      <td>হরিণ</td>
+                    </tr>
+                    <tr>
+                      <td>এঘটনা</td>
+                      <td>ঘটনা</td>
+                    </tr>
+                    <tr>
+                      <td>ট্যাংকারডুবির</td>
+                      <td>ট্যাংকার</td>
+                    </tr>
+                    <tr>
+                      <td>খ্রিস্টধর্মাবলম্বী</td>
+                      <td>খ্রিস্ট</td>
+                    </tr>
+                    <tr>
+                      <td>ক্রমাঙ্কিত</td>
+                      <td>ক্রম</td>
+                    </tr>
+                    <tr>
+                      <td>বংশধরদেরও</td>
+                      <td>বংশ</td>
+                    </tr>
+                    <tr>
+                      <td>কার্যপরিচালনার</td>
+                      <td>কার্য</td>
+                    </tr>
+                    <tr>
+                      <td>সুবাসনা</td>
+                      <td>বাসনা</td>
+                    </tr>
+                  </table>
+                  <!-- সংবাদসমূহ -> সংবাদ; হরিণটার -> হরিণ; এঘটনা -> ঘটনা; তুলবেই ->
+                  তুলব (Here, if you strip the word to 'তুল' which means
+                  comparison, the meaing changes); ট্যাংকারডুবির -> ট্যাংকার;
+                  খ্রিস্টধর্মাবলম্বী -> খ্রিস্ট; ক্রমাঙ্কিত -> ক্রম; বংশধরদেরও
+                  -> বংশ; কার্যপরিচালনার -> পরিচালনা; সুবাসনা -> বাসনা -->
+                </li>
+                <li>
+                  Please be careful about overstemming. Overstemming changes the
+                  meaing from the original word. Example :
+                  <br /><br />
+                  <table class="customers">
+                    <tr>
+                      <th style="text-align: center">Given Word</th>
+                      <th style="text-align: center">Stem Word</th>
+                    </tr>
+                    <tr>
+                      <td>যন্ত্রণা</td>
+                      <td>যন্ত্রণা (not যন্ত্র)</td>
+                    </tr>
+                    <tr>
+                      <td>খালামনি</td>
+                      <td>খালা (not খাল)</td>
+                    </tr>
+                    <tr>
+                      <td>মাটি</td>
+                      <td>মাটি (not মা)</td>
+                    </tr>
+                    <tr>
+                      <td>নিবন্ধন</td>
+                      <td>নিবন্ধন (not বন্ধন)</td>
+                    </tr>
+                    <tr>
+                      <td>ইউনিভার্সিটি</td>
+                      <td>ইউনিভার্সিটি (not ইউনিভার্স)</td> 
+                    </tr>
+                    <tr>
+                      <td>ঘনকাকার </td>
+                      <td>ঘনক  (not ঘন)</td>
+                    </tr>
+                  </table>
+                </li>
+                <li>
+                  Don't modify the name of the places, people or anything
+                  specific. Example :
+                  <br /><br />
+                  <table class="customers">
+                    <tr>
+                      <th style="text-align: center">Given Word</th>
+                      <th style="text-align: center">Stem Word</th>
+                    </tr>
+                    <tr>
+                      <td>ইন্ডিয়াটাইম্‌স</td>
+                      <td>ইন্ডিয়াটাইম্‌স (not ইন্ডিয়া)</td>
+                    </tr>
+                    <tr>
+                      <td>সামীউল</td>
+                      <td>সামীউল (not সামীউল)</td>
+                    </tr>
+                    <tr>
+                      <td>আলকনাথ</td>
+                      <td>আলকনাথ (not আলক)</td>
+                    </tr>
+                  </table>
+                </li>
+                <li>
+                  For words consist of two stems, store the first one as the
+                  stem. Example :
+                  <br /><br />
+                  <table class="customers">
+                    <tr>
+                      <th style="text-align: center">Given Word</th>
+                      <th style="text-align: center">Stem Word</th>
+                    </tr>
+                    <tr>
+                      <td>স্মৃতিকথা</td>
+                      <td>স্মৃতি</td>
+                    </tr>
+                    <tr>
+                      <td>বইপুস্তক</td>
+                      <td>বই</td>
+                    </tr>
+                    <tr>
+                      <td>উদ্দেশ্যসাধন</td>
+                      <td>উদ্দেশ্য</td>
+                    </tr>
+                    <tr>
+                      <td>নগর</td>
+                      <td>নগর</td>
+                    </tr>
+                    <tr>
+                      <td>মাতৃভাষা</td>
+                      <td>মাতৃ</td>
+                    </tr>
+                  </table>
+                  ** Here, by saying two stems, it means that both the stem
+                  words have a meaning and they can be used independently of any
+                  other words. But in some cases, the first stem may or may not
+                  have a meaning, but regardlessly, they(the first stem) can't
+                  be used independently of any other words. They are usually
+                  added before a word to create a new word. That means in this
+                  case the first stem is a prefix and you need to remove the
+                  prefix and store the second one. Examples :
+                  <br /><br />
+                  <table class="customers">
+                    <tr>
+                      <th style="text-align: center">Given Word</th>
+                      <th style="text-align: center">Stem Word</th>
+                    </tr>
+                    <tr>
+                      <td>অতিদরিদ্র</td>
+                      <td>দরিদ্র</td>
+                    </tr>
+                    <tr>
+                      <td>মহাসচিব</td>
+                      <td>সচিব</td>
+                    </tr>
+                  </table>
+                </li>
+                      
+                <!-- our change is here -->
+                <li>
+                  Stop stemming if the meaning of the word is changed.
+                  Example :
+                  <br /><br />
+                  <table class="customers">
+                    <tr>
+                      <th style="text-align: center">Given Word</th>
+                      <th style="text-align: center">Root Word</th>
+                    </tr>
+                    <tr>
+                      <td>কবিরাজ</td>
+                      <td>কবিরাজ (not কবি)</td>
+                    </tr>
+                    <tr>
+                      <td>মানচিত্র </td>
+                      <td>মানচিত্র (not চিত্র)</td>
+                    </tr>
+                    <tr>
+                      <td>সফটওয়্যার</td>
+                      <td>সফটওয়্যার (not সফট)</td>
+                    </tr>
+                    <tr>
+                      <td>মাল্টিমিডিয়া  </td>
+                      <td>মাল্টিমিডিয়া (not মাল্টি)</td>
+                    </tr>
+                  </table>
+                </li>
+
+
+                <li>
+                  Stop stemming if the spelling of the word becomes wrong.
+                  Example :
+                  <br /><br />
+                  <table class="customers">
+                    <tr>
+                      <th style="text-align: center">Given Word</th>
+                      <th style="text-align: center">Root Word</th>
+                    </tr>
+                    <tr>
+                      <td>আনুষ্ঠানিকতাটুকু</td>
+                      <td>আনুষ্ঠানিক (not আনুষ্ঠান)</td>
+                    </tr>
+                    <tr>
+                      <td>সামাজিকতা</td>
+                      <td>সামাজিক (not সামাজ)</td>
+                    </tr>
+                    <tr>
+                      <td>দালিলিকভাবে</td>
+                      <td>দালিলিক (not দালিল)</td>
+                    </tr>
+                  </table>
+                </li>
+                <li>
+                  Use the same rules for Banglish words. Example :
+                  <br /><br />
+                  <table class="customers">
+                    <tr>
+                      <th style="text-align: center">Given Word</th>
+                      <th style="text-align: center">Root Word</th>
+                    </tr>
+                    <tr>
+                      <td>মেট্রোরেল</td>
+                      <td>মেট্রো</td>
+                    </tr>
+                    <tr>
+                      <td>শপিংমল</td>
+                      <td>শপিং</td>
+                    </tr>
+                    <tr>
+                      <td>মোবাইলফোন</td>
+                      <td>মোবাইল</td>
+                    </tr>
+                  </table>
+                </li>
+                <li>
+                  Please refrain yourself from submiting stems, you are not sure
+                  about. We highly recommend you to skip those words. If you
+                  have any confusion, feel free to ask the admins.
+                  <br />
+                  <br />
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <hr class="hr-line" />
 
           <div class="faq-two">
             <!-- faq question -->
@@ -95,13 +358,20 @@
                       <!-- faq answer -->
 
                       <div class="faq-body">
-                        <p>
-                          if the server showing you  <b>unauthorized</b> then you have put
-                          a wrong username or password. <br>
-                          if you being redirected to the login page again then may be
-                          your accont have become deactivated. So, feel free to contact us.<br>
-                          <b>NB: Don't forget your password</b>
-                        </p>
+                        <ul>
+                          <li>
+                            if the server showing you  <b>unauthorized</b> then you have put
+                            a wrong username or password. 
+                          </li>
+                          <li>
+                             if you being redirected to the login page again then you may have
+                             done so many wrong annotation. As a result,your accont has been deactivated. <br>
+                             if your want to start annotation again, read the rules thoroughly and then contact us. 
+                          </li>
+                          <li>
+                            <b>NB: Don't forget your password
+                          </li>
+                        </ul>
                       </div>
                     </div>
                     <hr class="hr-line" />
@@ -167,114 +437,114 @@
               <p>Here are some of the root identification example :</p>
               <table class="customers">
   <tr>
-    <th style="text-align: center">Example No.</th>
+   
     <th style="text-align: center">Given Word</th>
     <th style="text-align: center">Identified Root</th>
   </tr>
 
   <!-- example -->
   <tr>
-    <td>01</td>
+    
     <td>বাংলাদেশের</td>
     <td>বাংলাদেশ</td>
   </tr>
   <tr>
-    <td>02</td>
+    
     <td>অবিশ্বাসী</td>
     <td>বিশ্বাস</td>
   </tr>
   <tr>
-    <td>02</td>
+    
     <td>দিয়েছিলাম</td>
     <td>দিয়ে</td>
   </tr>
   <tr>
-    <td>03</td>
+    
     <td>করেছিলাম</td>
     <td>কর</td>
   </tr>
   <tr>
-    <td>04</td>
+    
     <td>বিরোধিতায়</td>
     <td>বিরোধ</td>
   </tr>
   <tr>
-    <td>05</td>
+    
     <td>আরেকটি</td>
     <td>আরেক</td>
   </tr>
   <tr>
-    <td>06</td>
+    
     <td>বলে</td>
     <td>বল</td>
   </tr>
   <tr>
-    <td>07</td>
+    
     <td>কংগ্রেসকে</td>
     <td>কংগ্রেস</td>
   </tr>
   <tr>
-    <td>08</td>
+    
     <td>অনুমানিক</td>
     <td>অনুমান</td>
   </tr>
   <tr>
-    <td>09</td>
+    
     <td>অনুমানমূলক</td>
     <td>অনুমান</td>
   </tr>
   <tr>
-    <td>10</td>
+    
     <td>সমীকরণের</td>
     <td>সমীকরণ</td>
   </tr>
   <tr>
-    <td>11</td>
+    
     <td>রাষ্ট্রীয়</td>
     <td>রাষ্ট্র</td>
   </tr>
   <tr>
-    <td>12</td>
+    
     <td>ফলাফল</td>
     <td>ফলাফল</td>
   </tr>
   <tr>
-    <td>13</td>
+    
     <td>পর্যায়ের</td>
     <td>পর্যায়</td>
   </tr>
   <tr>
-    <td>14</td>
+    
     <td>চ্যাম্পিয়নরা</td>
     <td>চ্যাম্পিয়ন</td>
   </tr>
   <tr>
-    <td>15</td>
+    
     <td>উত্তরই</td>
     <td>উত্তর</td>
   </tr>
   <tr>
-    <td>16</td>
+    
     <td>ঝাঁপিয়ে</td>
     <td>ঝাঁপ</td>
   </tr>
   <tr>
-    <td>17</td>
+    
     <td>ওঠার</td>
-    <td>ওঠ্</td>
+    <td>ওঠ</td>
   </tr>
   <tr>
-    <td>18</td>
+    
     <td>শেষের</td>
     <td>শেষ</td>
   </tr>
   <tr>
-    <td>19</td>
+    
     <td>মেসিদের</td>
     <td>মেসি</td>
   </tr>
   <tr>
-    <td>20</td>
+    
     <td>রেকর্ডে</td>
     <td>রেকর্ড</td>
   </tr>

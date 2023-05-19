@@ -354,7 +354,7 @@ app.post('/edit',function(req,res){
 
   }
   else{
-    res.redirect('\admin-login');
+    res.redirect('/admin-login');
   }
 
 });
