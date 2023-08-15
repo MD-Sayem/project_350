@@ -31,9 +31,9 @@ app.use(express.static('public'));
 let MONGO_SERVER_1="BanglaStemmingDB";
 let MONGO_SERVER_2="testDB";
 // mongoose.connect(MONGO_SERVER_2);
-mongoose.connect(process.env.MONGO_SERVER_2)
+mongoose.connect(process.env.MONGO_SERVER_1)
 .then(()=>{
-    console.log("Connected to database "+ MONGO_SERVER_2.rainbow)
+    console.log("Connected to database "+ MONGO_SERVER_1.rainbow)
 })
 .catch(err=>{
     console.log("Sorry, cannot connect!".red)
