@@ -31,9 +31,9 @@ app.use(express.static('public'));
 let MONGO_SERVER_1="BanglaStemmingDB";
 let MONGO_SERVER_2="testDB";
 // mongoose.connect(MONGO_SERVER_2);
-mongoose.connect(process.env.MONGO_SERVER_1)
+mongoose.connect(process.env.MONGO_SERVER_2)
 .then(()=>{
-    console.log("Connected to database "+ MONGO_SERVER_1.rainbow)
+    console.log("Connected to database "+ MONGO_SERVER_2.rainbow)
 })
 .catch(err=>{
     console.log("Sorry, cannot connect!".red)
@@ -70,8 +70,8 @@ async function makeFree(usr) {
     // nowCompleted=countWords(usr);
     await User.findOneAndUpdate({username:usr},
                            {$set:{workingWith:0,completed:nowCompleted}},  //  {$set:{completed:nowCompleted,workingWith:0}},
-                           {new: true}, (err, doc) => {});
-      return doc.save();
+                           {new: true}, (err, doc) => { return doc.save(); });
+      
   }
   catch(error){
 
@@ -133,21 +133,20 @@ app.post('/done',function(req,res){
       }
 
       let d=new Date();
-      let update ={
-        lock:0,
-        status:2,
-        time:d
+      let update ={       //do something
+        status:12,
+        time1:d
       }; //skip
 
       if(req.body.whatToDo=='complete'){
         if(word.includes(root)==true && root.length!=0){ //valid
           update={
-            rootWord :root,
-            inflection : inflect,
+            rootWord1 :root,
+            inflection1 : inflect,
             lock : 0,
-            status: 1,
-            usernam: req.user.username,
-            time: d
+            status: 11,  //double complete
+            usernam1: req.user.username,
+            time1: d
           };
         }
         else{  // invalid root
@@ -159,8 +158,8 @@ app.post('/done',function(req,res){
 
           update={
           lock : 0,
-          status: 3,
-          time:d
+          status: 13,
+          time1:d
         };
       }
 
@@ -181,7 +180,7 @@ app.get('/admin',function(req,res){
 
     let usr=req.user.username;
       Data
-      .find({status: 1})
+      .find({status: 11})
       .sort({'time': -1})
       .limit(10)
       .exec(function(err, posts) {
@@ -202,8 +201,8 @@ app.get('/my-words',function(req,res){
     let usr=req.user.username;
   //  console.log(usr);
       Data
-      .find({status: 1,usernam:usr})
-      .sort({'time': -1})
+      .find({status: 11,usernam1:usr})
+      .sort({'time1': -1})
       .limit(10)
       .exec(function(err, posts) {
         res.render('myWords',{sobdo:posts,who:usr,page:"lastTen"});
@@ -221,9 +220,9 @@ app.post('/query',function(req,res){
   let lo=req.body.lowerLimit;
   let hi=req.body.upperLimit;
   let usr=req.user.username;
-  let filter={status:1,serialNumber: { $gte: lo, $lte: hi }};
+  let filter={status:11,serialNumber: { $gte: lo, $lte: hi }};
   if(usr!='admin_101' && req.user.role!='admin'){
-     filter={status:1,usernam:usr,serialNumber: { $gte: lo, $lte: hi }};
+     filter={status:11,usernam1:usr,serialNumber: { $gte: lo, $lte: hi }};
      Data.find(filter,function(err,results){
        res.render('myWords',{sobdo:results, who:usr,page:"query"});
      }).sort({ serialNumber: -1 });
@@ -276,7 +275,7 @@ app.post('/admin-logout',function(req,res){
 app.get('/my-profile',function(req,res){
   if(req.isAuthenticated()&&req.user.status=="active"){
 
-    Data.count({usernam:req.user.username}, function( err, count){
+    Data.count({usernam1:req.user.username}, function( err, count){
       res.render('profile',{myself:req.user  , cnt:count});
   });
   }
@@ -307,11 +306,11 @@ app.post('/edit',function(req,res){
       }
       let filter={serialNumber:sl};
       let update={
-                    rootWord:rt,
-                    inflection:inf,
+                    rootWord1:rt,
+                    inflection1:inf,
                     // usernam:manush,
                     //time:tarikh,
-                    status:1
+                    //status:11 //maybe of no use
                   };
       if (word.includes(rt)==true && rt.length!=0) {
 
@@ -329,7 +328,7 @@ app.post('/edit',function(req,res){
             let fl={status:1,serialNumber: { $gte: lo, $lte: hi }}
             let pg='query';
             if(req.user.username!='admin_101'&&req.user.role!='admin'){  //user query
-              fl={status:1,usernam:usr,serialNumber: { $gte: lo, $lte: hi }}
+              fl={status:11,usernam1:usr,serialNumber: { $gte: lo, $lte: hi }}
               Data.find(fl,function(err,results){
                 res.render('myWords',{sobdo:results,who:usr, page:pg});
               }).sort({ serialNumber: -1 });
@@ -362,15 +361,15 @@ app.post('/edit',function(req,res){
 app.get('/get-csv',function(req,res){
 			    let usr="sam74";
 			  Data
-			  .find({},'_id serialNumber status lock  word rootWord inflection usernam time')
-			  .sort({'time': -1})
+			  .find({},'_id serialNumber status lock  word rootWord1 inflection1 usernam1 time1')
+			  .sort({'time1': -1})
 			  .limit(10)
 			  .exec(function(err, results) {
 
          jsonData=JSON.stringify(results);
         //
         // console.log(typeof jsonData);
-        const fields = ['_id', 'serialNumber', 'status', 'lock',  'word', 'rootWord', 'inflection', 'usernam', 'time'];
+        const fields = ['_id', 'serialNumber', 'status', 'lock',  'word', 'rootWord1', 'inflection1', 'usernam1', 'time1'];
 				const jsons2csvParser=new Parser({fields});
 				const info = jsons2csvParser.parse(results);
       //  res.send(jsonData);
@@ -388,8 +387,8 @@ app.get('/get-csv',function(req,res){
 function getNumber(username){
 	  Data.aggregate(
 	  [
-		{ "$match": { usernam: {  $eq: username } } },
-		{"$group" : {_id:"$usernam", count:{$sum:1}}},
+		{ "$match": { usernam1: {  $eq: username } } },
+		{"$group" : {_id:"$usernam1", count:{$sum:1}}},
 	  ]
 	  ).exec((err, results) => {
 		  if (err) throw err;
@@ -403,7 +402,7 @@ app.get('/stat',function(req,res){
 
       Data.aggregate(
       [
-        { "$match": { usernam: {  $ne: null } } },
+        { "$match": { usernam1: {  $ne: null } } },
         // {
         //  "$group" : {
         //     _id : { $dateToString: { format: "%Y-%m-%d", date: "$time"} },
@@ -413,12 +412,12 @@ app.get('/stat',function(req,res){
         {
           //{ $dateToString: { format: "%Y-%m-%d", date: "$date" } }
           "$group" : {
-                _id:"$usernam" ,
-                joined:{  $min:"$time" },
-                last:{  $max:"$time" },
+                _id:"$usernam1" ,
+                joined:{  $min:"$time1" },
+                last:{  $max:"$time1" },
                 totalDays:{$min:"9 Days"},
                 totalHours:{$min:"18.6 hrs"},
-                count:{$sum:{ $dateToString: { format: "%Y-%m-%d", date: "$date" } }},
+                count:{$sum:{ $dateToString: { format: "%Y-%m-%d", date: "$date1" } }},
                 totalWords:{$count:{}}
               },
         },
@@ -462,14 +461,14 @@ app.post('/download',function(req,res){
 
           Data.aggregate(
           [
-            { "$match": { usernam: {  $ne: null } } },
+            { "$match": { usernam1: {  $ne: null } } },
             {
               //{ $dateToString: { format: "%Y-%m-%d", date: "$date" } }
               "$group" : {
-                    _id:"$usernam" ,
-                    username:{$min:'$usernam'},
-                    startedFrom:{  $min:{ $dateToString: { format: "%Y-%m-%d", date: "$time" } } },
-                    lastAnnotation:{  $max:{ $dateToString: { format: "%Y-%m-%d", date: "$time" } } },
+                    _id:"$usernam1" ,
+                    username:{$min:'$usernam1'},
+                    startedFrom:{  $min:{ $dateToString: { format: "%Y-%m-%d", date: "$time1" } } },
+                    lastAnnotation:{  $max:{ $dateToString: { format: "%Y-%m-%d", date: "$time1" } } },
                     totalDays:{$count:{}}, //count: { $count: { } }
                     totalHours:{$min:"_._ hrs"},
                     totalWords:{$sum:1}},
@@ -535,10 +534,10 @@ app.post('/stat',function(req,res){
      //  console.log(user);
       Data.aggregate(
       [
-        { "$match": { usernam: {  $eq: user } } },
+        { "$match": { usernam1: {  $eq: user } } },
         {
          "$group" : {
-            _id : { $dateToString: { format: "%Y-%m-%d", date: "$time"} },
+            _id : { $dateToString: { format: "%Y-%m-%d", date: "$time1"} },
             count: { $sum: 1 },
             cnt:{ $count:{}}
           }
@@ -564,11 +563,11 @@ app.post('/downloadFile',function(req,res){
   let user=req.body.user;
   Data.aggregate(
   [
-    { "$match": { usernam: {  $eq: user } } },
+    { "$match": { usernam1: {  $eq: user } } },
     {
      "$group" : {
-        _id : { $dateToString: { format: "%Y-%m-%d", date: "$time"} },
-        date:{$min:{ $dateToString: { format: "%Y-%m-%d", date: "$time"} }},
+        _id : { $dateToString: { format: "%Y-%m-%d", date: "$time1"} },
+        date:{$min:{ $dateToString: { format: "%Y-%m-%d", date: "$time1"} }},
         wordCount: { $sum: 1 }
       }
     },
@@ -579,7 +578,7 @@ app.post('/downloadFile',function(req,res){
   ).exec((err, results) => {
       if (err) throw err;
       // res.render('userStats',{data:results,usr:user});
-       const fields = ['date','wordCount'];
+       const fields = ['date1','wordCount'];
        const jsons2csvParser_=new Parser({fields});
        const info_ = jsons2csvParser_.parse(results);
     // //  res.send(jsonData);
@@ -606,10 +605,10 @@ app.post('/myDay',function(req,res){
 
   Data.find({
     $and: [
-      { usernam:   {$eq: user } },
-      { $expr: {$eq: [{$dayOfMonth: "$time"}, day]} },
-      { $expr: {$eq: [{$month: "$time"}, month]} },
-      { $expr: {$eq: [{$year: "$time"}, year]} }
+      { usernam1:   {$eq: user } },
+      { $expr: {$eq: [{$dayOfMonth: "$time1"}, day]} },
+      { $expr: {$eq: [{$month: "$time1"}, month]} },
+      { $expr: {$eq: [{$year: "$time1"}, year]} }
     ]
   }
   ).exec((err,results)=>{
@@ -622,11 +621,11 @@ app.post('/download-per-day',function(req,res){
   // let user=req.user.username;
   Data.aggregate(
   [
-    { "$match": { usernam: {  $ne: null } } },
+    { "$match": { usernam1: {  $ne: null } } },
     {
      "$group" : {
-        _id : { $dateToString: { format: "%Y-%m-%d", date: "$time"} },
-        date:{$min:{ $dateToString: { format: "%Y-%m-%d", date: "$time"} }},
+        _id : { $dateToString: { format: "%Y-%m-%d", date: "$time1"} },
+        date:{$min:{ $dateToString: { format: "%Y-%m-%d", date: "$time1"} }},
       //  max:{ $mod: "$usernam"},
       //  weekday: {  $eq: getDay() }  ,
         count: { $sum: 1 },

@@ -145,8 +145,8 @@
               <% end=item.serialNumber%>
 
 
-              <% let timestamp=item.time%>
-              <% timestamp.setHours(item.time.getHours() + 6) %>
+              <% let timestamp=item.time1%>
+              <% timestamp.setHours(item.time1.getHours() + 6) %>
               <% let tm=parseInt(timestamp.getHours())+" : "+parseInt(timestamp.getMinutes())%>
               <% let date=timestamp.getDate() + "-" + (parseInt( timestamp.getMonth() )+parseInt('1'))+ "-" +timestamp.getFullYear()%>
 
@@ -166,9 +166,9 @@
                       id=<%="id-"+item.serialNumber%>
                       data-serialno=<%=item.serialNumber%>
                       data-word=<%=item.word%>
-                      data-root=<%=item.rootWord%>
-                      data-inflection=<%=item.inflection%>
-                      data-previousroot=<%=item.rootWord%>
+                      data-root=<%=item.rootWord1%>
+                      data-inflection=<%=item.inflection1%>
+                      data-previousroot=<%=item.rootWord1%>
                       data-newroot=<%=item.word%>
                       type='button'
                       class="edit-btn"

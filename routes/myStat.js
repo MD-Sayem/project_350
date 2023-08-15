@@ -7,10 +7,10 @@ router.get('/my-stat',function(req,res){
   let user=req.user.username;
   Data.aggregate(
   [
-    { "$match": { usernam: {  $eq: user } } },
+    { "$match": { usernam1: {  $eq: user } } },
     {
      "$group" : {
-        _id : { $dateToString: { format: "%Y-%m-%d", date: "$time"} },
+        _id : { $dateToString: { format: "%Y-%m-%d", date: "$time1"} },
         count: { $sum: 1 }
       }
     },

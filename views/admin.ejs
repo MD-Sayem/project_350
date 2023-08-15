@@ -134,9 +134,9 @@
             <% if(flag==0){ start=item.serialNumber; flag=1}%>
             <% end=item.serialNumber%>
 
-
-            <% let timestamp=item.time%>
-            <% timestamp.setHours(item.time.getHours() + 6) %>
+            <% let timestapp=new Date()%>
+            <% if(item.time1) {timestamp=item.time1 }%>
+            <% timestamp.setHours(timestamp.getHours() + 6) %>
             <% let tm=parseInt(timestamp.getHours())+" : "+parseInt(timestamp.getMinutes())%>
             <% let date=timestamp.getDate() + "-" + (parseInt( timestamp.getMonth() )+parseInt('1'))+ "-" +timestamp.getFullYear()%>
 
@@ -144,9 +144,9 @@
               <tr>
                   <td><%=item.serialNumber%></td>
                   <td><%=item.word%></td>
-                  <td><%=item.rootWord%></td>
-                  <td><%=item.inflection%></td>
-                  <td><%=item.usernam%></td>
+                  <td><%=item.rootWord1%></td>
+                  <td><%=item.inflection1%></td>
+                  <td><%=item.usernam1%></td>
                   <td><%=tm%></td>
                   <td><%=date%></td>
 
@@ -156,9 +156,9 @@
                       id=<%="id-"+item.serialNumber%>
                       data-serialno=<%=item.serialNumber%>
                       data-word=<%=item.word%>
-                      data-root=<%=item.rootWord%>
-                      data-inflection=<%=item.inflection%>
-                      data-previousroot=<%=item.rootWord%>
+                      data-root=<%=item.rootWord1%>
+                      data-inflection=<%=item.inflection1%>
+                      data-previousroot=<%=item.rootWord1%>
                       data-newroot=<%=item.word%>
                       type='button'
                       class="edit-btn"

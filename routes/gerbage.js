@@ -10,7 +10,7 @@ router.get('/garbage-words',function(req,res){
 
     let usr=req.user.username;
       Data
-      .find({status: 3})
+      .find({status: 13})
       .sort({'time': -1})
       .limit(10)
       .exec(function(err, posts) {

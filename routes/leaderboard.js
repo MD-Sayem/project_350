@@ -9,15 +9,15 @@ router.get('/leaderboard',function(req,res){
 
         Data.aggregate(
         [
-        { "$match": { usernam: {  $ne: null } } },
+        { "$match": { usernam1: {  $ne: null } } },
         {
             "$group" : {
-                _id:"$usernam" ,
-                joined:{  $min:"$time" },
-                last:{  $max:"$time" },
+                _id:"$usernam1" ,
+                joined:{  $min:"$time1" },
+                last:{  $max:"$time1" },
                 totalDays:{$min:"9 Days"},
                 totalHours:{$min:"18.6 hrs"},
-                count:{$sum:{ $dateToString: { format: "%Y-%m-%d", date: "$date" } }},
+                count:{$sum:{ $dateToString: { format: "%Y-%m-%d", date: "$date1" } }},
                 totalWords:{$count:{}}
                 },
         },

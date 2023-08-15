@@ -7,10 +7,10 @@ router.get('/download-per-day',function(req,res){
   let user=req.user.username;
   Data.aggregate(
   [
-    { "$match": { usernam: {  $ne: null } } },
+    { "$match": { usernam1: {  $ne: null } } },
     {
      "$group" : {
-        _id : { $dateToString: { format: "%Y-%m-%d", date: "$time"} },
+        _id : { $dateToString: { format: "%Y-%m-%d", date: "$time1"} },
         // max:{ $max: "$usernam"}, 
         count: { $sum: 1 },
       }

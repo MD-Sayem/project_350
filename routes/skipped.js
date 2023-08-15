@@ -11,7 +11,7 @@ router.get('/skipped-words',function(req,res){
 
     let usr=req.user.username;
       Data
-      .find({status: 2})
+      .find({status: 12})
       .sort({'time': -1})
       .limit(10)
       .exec(function(err, posts) {

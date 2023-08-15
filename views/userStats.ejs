@@ -51,14 +51,14 @@
             <th style="text-align: center">Per Hour</th>
             <!-- <th style="text-align: center">Words List</th> -->
           </tr>
-          <%let i=0%>
+          <%let i=data.length%>
           <% var weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']; %>
          
           <% data.forEach(function(day){ %>
             <% let d=new Date(day._id);%>
             <form action="/myDay" method="post">
               <tr>
-                <td><%=++i%></td>
+                <td><%=(i--)%></td>
                 <td><%-day._id%></td>
                 <td><%-weekdays[d.getDay()]%></td>
                 <td><%-day.count%></td>
