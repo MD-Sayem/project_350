@@ -1,0 +1,18 @@
+## যেসব শব্দাংশ বাদ দেয়া যাবে না
+ - দিন baad hbe na (একদিনের)
+ - দিক baad hbe na
+ - কাল baad hbe na (চলাকালে)
+ - যোগ্য baad hbe na
+ - ত্ব baad hbe na  --->???
+ - ভাগ baad hbe na
+ - দান baad hbe na
+ - পূর্ণ baad hbe na
+ - সূচক baad hbe na
+ - মুক্ত baad hbe na
+ - কর্ম baad hbe na
+ - সম্পন্ন baad hbe na
+ - যান baad hbe na
+ - তলা baad hbe na
+ - খানা baad hbe na
+ - তত্ত্ব baad hbe na (ভাষাতত্ত্ব)
+ - খানা baad hbe na
