@@ -29,8 +29,10 @@ A user can annotate a given word by using back-space and submit the stem of the 
 
 ### User Stats : 
 
+In this page, a user can view the number of words he/she annotated and can also view the list of words that he/she annotated. 
+
 ![Screenshot (5107)](https://github.com/MD-Sayem/project_350/assets/53008288/69373f96-7815-4106-8f4a-64722aa57e6a)
 
-In this page, a user can view the number of words he/she annotated and can also view the list of words that he/she annotated and edit them, if necessary. 
+A user can even edit his/her annotated words, if necessary. 
 
 ![Screenshot (5108)](https://github.com/MD-Sayem/project_350/assets/53008288/14bced6a-6be7-4384-a13a-e6c7a43b61cb)
