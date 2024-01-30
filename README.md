@@ -27,7 +27,7 @@ A user can annotate a given word by using back-space and submit the stem of the 
 
 ![Screenshot (5106)](https://github.com/MD-Sayem/project_350/assets/53008288/e6d4d2e7-09b4-4fd9-a7eb-c63150c22828)
 
-### User Stats : 
+### User Stats Page: 
 
 In this page, a user can view the number of words he/she annotated and can also view the list of words that he/she annotated. 
 
@@ -36,3 +36,9 @@ In this page, a user can view the number of words he/she annotated and can also 
 A user can even edit his/her annotated words, if necessary. 
 
 ![Screenshot (5108)](https://github.com/MD-Sayem/project_350/assets/53008288/14bced6a-6be7-4384-a13a-e6c7a43b61cb)
+
+### Stemming Website : 
+
+In this website, a user can enter a bangla sentence or even a single bangla word to automatically find the stem of the words present in that given sentence. 
+
+![Screenshot (5109)](https://github.com/MD-Sayem/project_350/assets/53008288/276cf2d7-265d-4c7e-bd51-f1fe8620b73d)
