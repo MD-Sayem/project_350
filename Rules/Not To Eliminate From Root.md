@@ -13,6 +13,6 @@
  - সম্পন্ন baad hbe na
  - যান baad hbe na
  - তলা baad hbe na
- - খানা baad hbe na
+ - খানা baad hbe na (আড্ডাখানা)
  - তত্ত্ব baad hbe na (ভাষাতত্ত্ব)
  - খানা baad hbe na
