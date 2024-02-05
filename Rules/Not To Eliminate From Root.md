@@ -8,7 +8,7 @@
  - দান baad hbe na
  - পূর্ণ baad hbe na
  - সূচক baad hbe na
- - মুক্ত baad hbe na
+ - মুক্ত baad hbe na (দুশ্চিন্তামুক্ত)
  - কর্ম baad hbe na
  - সম্পন্ন baad hbe na
  - যান baad hbe na
